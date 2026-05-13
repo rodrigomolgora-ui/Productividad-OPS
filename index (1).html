@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Productividad — OPS</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #181c27;
+    --bg3: #1e2333;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --text2: #8b909e;
+    --text3: #555b6b;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1.5rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  /* Header */
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+  .title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+  .subtitle { font-size: 12px; color: var(--text2); margin-top: 3px; }
+  .date-badge { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2); background: var(--bg3); }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; overflow: hidden; }
+  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #3b82f6, transparent); opacity: 0.5; }
+  .stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 6px; }
+  .stat-val { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+
+  /* Controls */
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fb { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all .15s; letter-spacing: .3px; }
+  .fb:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .fb.active { background: rgba(255,255,255,0.08); color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .search-wrap { flex: 1; min-width: 200px; }
+  .search-wrap input { font-family: 'DM Sans', sans-serif; width: 100%; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text); outline: none; transition: border-color .15s; }
+  .search-wrap input:focus { border-color: #3b82f6; }
+  .search-wrap input::placeholder { color: var(--text3); }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { border-bottom: 1px solid var(--border2); }
+  th { padding: 10px 14px; font-size: 11px; font-weight: 500; color: var(--text3); text-align: left; white-space: nowrap; cursor: pointer; user-select: none; text-transform: uppercase; letter-spacing: .5px; background: var(--bg2); transition: color .15s; }
+  th:hover { color: var(--text2); }
+  th.sorted { color: #3b82f6; }
+  th.right { text-align: right; }
+  .sa { font-size: 10px; margin-left: 3px; opacity: .5; }
+  th.sorted .sa { opacity: 1; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.025); }
+  tbody tr.hidden { display: none; }
+  td { padding: 11px 14px; vertical-align: middle; background: var(--bg2); }
+  td.right { text-align: right; }
+  .rep-name { font-weight: 500; font-size: 13px; }
+  .proc-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: .4px; text-transform: uppercase; }
+  .util-row { display: flex; align-items: center; gap: 8px; }
+  .util-bar { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; min-width: 50px; }
+  .util-fill { height: 100%; border-radius: 2px; }
+  .util-v { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; min-width: 40px; text-align: right; }
+  .mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); }
+  tfoot td { background: var(--bg3); font-size: 11px; font-weight: 500; color: var(--text2); border-top: 1px solid var(--border2); padding: 9px 14px; }
+  .empty { text-align: center; padding: 3rem; color: var(--text3); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header-top">
+    <div>
+      <div class="title">Reporte de productividad</div>
+      <div class="subtitle" id="rec-count">— registros</div>
+    </div>
+    <div class="date-badge" id="fecha-badge">—</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Representantes</div><div class="stat-val" id="s-reps">—</div></div>
+    <div class="stat"><div class="stat-label">Prod. neta prom.</div><div class="stat-val" id="s-prod">—</div></div>
+    <div class="stat"><div class="stat-label">Utilización prom.</div><div class="stat-val" id="s-util">—</div></div>
+    <div class="stat"><div class="stat-label">Total unidades</div><div class="stat-val" id="s-units">—</div></div>
+  </div>
+
+  <div class="controls">
+    <div class="filters" id="filters"></div>
+    <div class="search-wrap">
+      <input type="search" id="search" placeholder="Buscar representante..." oninput="applyAll()">
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:210px" onclick="sortBy('nombre')">Representante <span class="sa" id="arr-nombre">↕</span></th>
+          <th style="width:90px" onclick="sortBy('proceso')">Proceso <span class="sa" id="arr-proceso">↕</span></th>
+          <th class="right" style="width:85px" onclick="sortBy('prod')">Prod. neta <span class="sa" id="arr-prod">↕</span></th>
+          <th style="width:130px" onclick="sortBy('util')">Utilización <span class="sa" id="arr-util">↕</span></th>
+          <th style="width:95px" onclick="sortBy('tiempo')">T. proceso <span class="sa" id="arr-tiempo">↕</span></th>
+          <th class="right" style="width:85px" onclick="sortBy('unidades')">Unidades <span class="sa" id="arr-unidades">↕</span></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">Promedio / Total visible</td>
+          <td style="text-align:right" id="f-prod">—</td>
+          <td id="f-util">—</td>
+          <td></td>
+          <td style="text-align:right" id="f-units">—</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<script>
+// ── DATOS DEL DÍA ─────────────────────────────────────────────
+const FECHA = "12 mayo 2026";
+const DATA = [
+  {"nombre":"Nataly Fernanda Tilan","proceso":"Pick","prod":117,"util":91.75,"tiempo":"03:01:45","unidades":355},
+  {"nombre":"Reina Sptefania Estrella","proceso":"Pick","prod":89,"util":87.86,"tiempo":"05:25:47","unidades":485},
+  {"nombre":"Francis Jhoana Pacho","proceso":"Pick","prod":101,"util":74.62,"tiempo":"03:24:08","unidades":344},
+  {"nombre":"Moises Enrique Lara","proceso":"Pick","prod":50,"util":88.25,"tiempo":"02:52:39","unidades":145},
+  {"nombre":"Hannia Carime Caballero","proceso":"Pick","prod":72,"util":85.55,"tiempo":"08:47:33","unidades":638},
+  {"nombre":"Dora Corina Gonzalez","proceso":"Pick","prod":0,"util":0.0,"tiempo":"00:03:21","unidades":0},
+  {"nombre":"Hugo Guillermo Alvarez","proceso":"Pick","prod":38,"util":57.18,"tiempo":"05:30:46","unidades":212},
+  {"nombre":"Marissa Isabel Cisneros","proceso":"Pick","prod":88,"util":84.75,"tiempo":"06:02:50","unidades":534},
+  {"nombre":"Fatima Rebeca Balan","proceso":"Pick","prod":111,"util":90.09,"tiempo":"04:56:54","unidades":550},
+  {"nombre":"Joandry Guadalupe Dorantes","proceso":"Pick","prod":72,"util":84.14,"tiempo":"05:22:27","unidades":389},
+  {"nombre":"Jesus Alberto Lavalle","proceso":"Pick","prod":119,"util":91.13,"tiempo":"00:46:48","unidades":93},
+  {"nombre":"Braulio Esteban Fernandez","proceso":"Pick","prod":79,"util":81.94,"tiempo":"02:20:49","unidades":187},
+  {"nombre":"Karelly Vanessa Puc","proceso":"Pick","prod":41,"util":85.71,"tiempo":"08:16:35","unidades":343},
+  {"nombre":"Ana Abigail Puc","proceso":"Pick","prod":103,"util":82.59,"tiempo":"06:15:32","unidades":650},
+  {"nombre":"Maria Belem Camargo","proceso":"Pick","prod":99,"util":83.34,"tiempo":"02:11:39","unidades":219},
+  {"nombre":"Roger Alexander Perez","proceso":"Pick","prod":9,"util":49.32,"tiempo":"00:06:07","unidades":1},
+  {"nombre":"Darley Jose Puc","proceso":"Pick","prod":128,"util":91.02,"tiempo":"01:46:44","unidades":229},
+  {"nombre":"Jesus Abel Trejo","proceso":"Pick","prod":0,"util":0.0,"tiempo":"00:04:26","unidades":0},
+  {"nombre":"Adriana Jacqueline Pool","proceso":"Pick","prod":90,"util":85.5,"tiempo":"08:21:16","unidades":759},
+  {"nombre":"Numas Pompilio Rabelo","proceso":"Pick","prod":0,"util":0.0,"tiempo":"00:05:18","unidades":0},
+  {"nombre":"Karim Alejandro Clemente","proceso":"Pick","prod":80,"util":74.13,"tiempo":"07:42:34","unidades":622},
+  {"nombre":"Maria Del Carmen Vega","proceso":"Pick","prod":36,"util":74.15,"tiempo":"08:42:35","unidades":315},
+  {"nombre":"Dalilu Acosta","proceso":"Pick","prod":56,"util":81.99,"tiempo":"08:46:45","unidades":492},
+  {"nombre":"Pablo Antonio Madera","proceso":"Pick","prod":52,"util":73.17,"tiempo":"09:10:29","unidades":482},
+  {"nombre":"Carlos Armando Baas","proceso":"Pick","prod":35,"util":83.42,"tiempo":"01:26:08","unidades":51},
+  {"nombre":"Omar Alonso Diaz","proceso":"P2S","prod":36,"util":74.12,"tiempo":"08:26:07","unidades":304},
+  {"nombre":"Dariana Ballestero","proceso":"P2S","prod":37,"util":78.2,"tiempo":"08:23:52","unidades":314},
+  {"nombre":"Hugo Guillermo Alvarez","proceso":"P2S","prod":29,"util":57.73,"tiempo":"02:23:24","unidades":71},
+  {"nombre":"Roger Alexander Perez","proceso":"P2S","prod":38,"util":69.28,"tiempo":"02:44:47","unidades":106},
+  {"nombre":"Karim Alejandro Clemente","proceso":"P2S","prod":40,"util":75.98,"tiempo":"00:31:01","unidades":21},
+  {"nombre":"Carlos Armando Baas","proceso":"P2S","prod":40,"util":80.91,"tiempo":"01:35:21","unidades":65},
+  {"nombre":"Nataly Fernanda Tilan","proceso":"Pack","prod":374,"util":90.19,"tiempo":"02:11:41","unidades":823},
+  {"nombre":"Maria Belinda Del Rosario Pech","proceso":"Pack","prod":257,"util":89.8,"tiempo":"08:40:27","unidades":2236},
+  {"nombre":"Francis Jhoana Pacho","proceso":"Pack","prod":256,"util":90.81,"tiempo":"05:04:31","unidades":1304},
+  {"nombre":"Fatima Rebeca Balan","proceso":"Pack","prod":147,"util":76.69,"tiempo":"03:20:20","unidades":493},
+  {"nombre":"Roger Alexander Perez","proceso":"Pack","prod":389,"util":87.59,"tiempo":"05:13:49","unidades":2038},
+  {"nombre":"Darley Jose Puc","proceso":"Pack","prod":221,"util":91.24,"tiempo":"00:49:16","unidades":182}
+];
+// ─────────────────────────────────────────────────────────────
+
+const COLOR_POOL = [
+  ['#3b82f6','rgba(59,130,246,0.13)','rgba(59,130,246,0.35)'],
+  ['#a78bfa','rgba(167,139,250,0.13)','rgba(167,139,250,0.35)'],
+  ['#34d399','rgba(52,211,153,0.13)','rgba(52,211,153,0.35)'],
+  ['#fbbf24','rgba(251,191,36,0.13)','rgba(251,191,36,0.35)'],
+  ['#f87171','rgba(248,113,113,0.13)','rgba(248,113,113,0.35)'],
+  ['#38bdf8','rgba(56,189,248,0.13)','rgba(56,189,248,0.35)'],
+  ['#fb7185','rgba(251,113,133,0.13)','rgba(251,113,133,0.35)'],
+  ['#a3e635','rgba(163,230,53,0.13)','rgba(163,230,53,0.35)'],
+];
+const PROC_COLORS = {};
+let colorIdx = 0;
+function getColor(p) {
+  if (!PROC_COLORS[p]) { PROC_COLORS[p] = COLOR_POOL[colorIdx++ % COLOR_POOL.length]; }
+  return PROC_COLORS[p];
+}
+function utilColor(u) { return u >= 80 ? '#34d399' : u >= 60 ? '#fbbf24' : '#f87171'; }
+
+let data = [...DATA], sortKey = '', sortAsc = true, activeFilter = 'all', searchVal = '';
+
+function init() {
+  document.getElementById('fecha-badge').textContent = FECHA;
+  document.getElementById('rec-count').textContent = DATA.length + ' registros · ' + FECHA;
+  const procs = [...new Set(DATA.map(r => r.proceso))].sort();
+  const fil = document.getElementById('filters');
+  fil.innerHTML = '';
+  const btnAll = document.createElement('button');
+  btnAll.className = 'fb active'; btnAll.dataset.f = 'all'; btnAll.textContent = 'Todos';
+  btnAll.onclick = function(){ setFilter(this); };
+  fil.appendChild(btnAll);
+  procs.forEach(p => {
+    const [color, bg, border] = getColor(p);
+    const btn = document.createElement('button');
+    btn.className = 'fb'; btn.dataset.f = p; btn.textContent = p;
+    btn.onclick = function(){ setFilter(this); };
+    fil.appendChild(btn);
+  });
+  render();
+}
+
+function render() {
+  const visible = data.filter(r => {
+    return (activeFilter === 'all' || r.proceso === activeFilter) &&
+           (!searchVal || r.nombre.toLowerCase().includes(searchVal));
+  });
+  const tbody = document.getElementById('tbody');
+  if (!visible.length) { tbody.innerHTML = `<tr><td colspan="6" class="empty">Sin resultados</td></tr>`; updateStats([]); return; }
+  tbody.innerHTML = visible.map(r => {
+    const [color, bg] = getColor(r.proceso);
+    const uc = utilColor(r.util);
+    return `<tr>
+      <td><div class="rep-name">${r.nombre}</div></td>
+      <td><span class="proc-badge" style="background:${bg};color:${color}">${r.proceso}</span></td>
+      <td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.prod}</td>
+      <td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${Math.min(r.util,100)}%;background:${uc}"></div></div><span class="util-v" style="color:${uc}">${r.util}%</span></div></td>
+      <td><span class="mono">${r.tiempo}</span></td>
+      <td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.unidades.toLocaleString()}</td>
+    </tr>`;
+  }).join('');
+  updateStats(visible);
+}
+
+function updateStats(v) {
+  const n = v.length;
+  const set = id => el => document.getElementById(id) && (document.getElementById(id).textContent = el);
+  if (!n) { ['s-reps','s-prod','s-util','s-units','f-prod','f-util','f-units'].forEach(id => set(id)('—')); return; }
+  const ap = (v.reduce((a,r)=>a+r.prod,0)/n).toFixed(1);
+  const au = (v.reduce((a,r)=>a+r.util,0)/n).toFixed(1);
+  const su = v.reduce((a,r)=>a+r.unidades,0).toLocaleString();
+  const names = new Set(v.map(r=>r.nombre)).size;
+  document.getElementById('s-reps').textContent = names;
+  document.getElementById('s-prod').textContent = ap;
+  document.getElementById('s-util').textContent = au + '%';
+  document.getElementById('s-units').textContent = su;
+  document.getElementById('f-prod').textContent = ap;
+  document.getElementById('f-util').textContent = au + '% prom.';
+  document.getElementById('f-units').textContent = su;
+}
+
+function setFilter(btn) {
+  document.querySelectorAll('.fb').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; b.style.borderColor=''; });
+  const f = btn.dataset.f;
+  activeFilter = f;
+  if (f === 'all') { btn.classList.add('active'); }
+  else { const [color,bg,border]=getColor(f); btn.style.background=bg; btn.style.color=color; btn.style.borderColor=border; }
+  applyAll();
+}
+
+function applyAll() { searchVal = document.getElementById('search').value.toLowerCase().trim(); render(); }
+
+function sortBy(key) {
+  sortAsc = sortKey === key ? !sortAsc : true; sortKey = key;
+  document.querySelectorAll('.sa').forEach(a => { a.textContent='↕'; a.closest('th').classList.remove('sorted'); });
+  const arr = document.getElementById('arr-'+key);
+  if (arr) { arr.textContent = sortAsc?'↑':'↓'; arr.closest('th').classList.add('sorted'); }
+  data.sort((a,b) => { let va=a[key],vb=b[key]; if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();} return sortAsc?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0); });
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
