@@ -6,196 +6,194 @@
 <title>Reporte de Productividad — OPS</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0f1117;
-    --bg2: #181c27;
-    --bg3: #1e2333;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.12);
-    --text: #e8eaf0;
-    --text2: #8b909e;
-    --text3: #555b6b;
-    --green: #34d399;
-    --amber: #fbbf24;
-    --red: #f87171;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1.5rem; }
-  .container { max-width: 1000px; margin: 0 auto; }
-
-  /* Header */
-  .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
-  .title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
-  .subtitle { font-size: 12px; color: var(--text2); margin-top: 3px; }
-  .date-badge { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2); background: var(--bg3); }
-
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
-  .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; overflow: hidden; }
-  .stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #3b82f6, transparent); opacity: 0.5; }
-  .stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 6px; }
-  .stat-val { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
-
-  /* Controls */
-  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
-  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
-  .fb { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all .15s; letter-spacing: .3px; }
-  .fb:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
-  .fb.active { background: rgba(255,255,255,0.08); color: var(--text); border-color: rgba(255,255,255,0.2); }
-  .search-wrap { flex: 1; min-width: 200px; }
-  .search-wrap input { font-family: 'DM Sans', sans-serif; width: 100%; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text); outline: none; transition: border-color .15s; }
-  .search-wrap input:focus { border-color: #3b82f6; }
-  .search-wrap input::placeholder { color: var(--text3); }
-
-  /* Table */
-  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  thead tr { border-bottom: 1px solid var(--border2); }
-  th { padding: 10px 14px; font-size: 11px; font-weight: 500; color: var(--text3); text-align: left; white-space: nowrap; cursor: pointer; user-select: none; text-transform: uppercase; letter-spacing: .5px; background: var(--bg2); transition: color .15s; }
-  th:hover { color: var(--text2); }
-  th.sorted { color: #3b82f6; }
-  th.right { text-align: right; }
-  .sa { font-size: 10px; margin-left: 3px; opacity: .5; }
-  th.sorted .sa { opacity: 1; }
-  tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: rgba(255,255,255,0.025); }
-  tbody tr.hidden { display: none; }
-  td { padding: 11px 14px; vertical-align: middle; background: var(--bg2); }
-  td.right { text-align: right; }
-  .rep-name { font-weight: 500; font-size: 13px; }
-  .proc-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: .4px; text-transform: uppercase; }
-  .util-row { display: flex; align-items: center; gap: 8px; }
-  .util-bar { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; min-width: 50px; }
-  .util-fill { height: 100%; border-radius: 2px; }
-  .util-v { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; min-width: 40px; text-align: right; }
-  .mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); }
-  tfoot td { background: var(--bg3); font-size: 11px; font-weight: 500; color: var(--text2); border-top: 1px solid var(--border2); padding: 9px 14px; }
-  .empty { text-align: center; padding: 3rem; color: var(--text3); font-size: 13px; }
+:root {
+--bg: #0f1117; --bg2: #181c27; --bg3: #1e2333;
+--border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+--text: #e8eaf0; --text2: #8b909e; --text3: #555b6b;
+--green: #34d399; --amber: #fbbf24; --red: #f87171;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1.5rem; }
+.container { max-width: 1000px; margin: 0 auto; }
+.header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+.title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+.subtitle { font-size: 12px; color: var(--text2); margin-top: 3px; }
+.date-badge { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2); background: var(--bg3); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+.stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; overflow: hidden; }
+.stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #3b82f6, transparent); opacity: 0.5; }
+.stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 6px; }
+.stat-val { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+.controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.fb { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all .15s; letter-spacing: .3px; }
+.fb:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.fb.active { background: rgba(255,255,255,0.08); color: var(--text); border-color: rgba(255,255,255,0.2); }
+.search-wrap { flex: 1; min-width: 200px; }
+.search-wrap input { font-family: 'DM Sans', sans-serif; width: 100%; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text); outline: none; transition: border-color .15s; }
+.search-wrap input:focus { border-color: #3b82f6; }
+.search-wrap input::placeholder { color: var(--text3); }
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead tr { border-bottom: 1px solid var(--border2); }
+th { padding: 10px 14px; font-size: 11px; font-weight: 500; color: var(--text3); text-align: left; white-space: nowrap; cursor: pointer; user-select: none; text-transform: uppercase; letter-spacing: .5px; background: var(--bg2); transition: color .15s; }
+th:hover { color: var(--text2); } th.sorted { color: #3b82f6; } th.right { text-align: right; }
+.sa { font-size: 10px; margin-left: 3px; opacity: .5; } th.sorted .sa { opacity: 1; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+tbody tr:last-child { border-bottom: none; } tbody tr:hover { background: rgba(255,255,255,0.025); }
+td { padding: 11px 14px; vertical-align: middle; background: var(--bg2); } td.right { text-align: right; }
+.rep-name { font-weight: 500; font-size: 13px; }
+.proc-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: .4px; text-transform: uppercase; }
+.util-row { display: flex; align-items: center; gap: 8px; }
+.util-bar { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; min-width: 50px; }
+.util-fill { height: 100%; border-radius: 2px; }
+.util-v { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; min-width: 40px; text-align: right; }
+.mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); }
+tfoot td { background: var(--bg3); font-size: 11px; font-weight: 500; color: var(--text2); border-top: 1px solid var(--border2); padding: 9px 14px; }
+.empty { text-align: center; padding: 3rem; color: var(--text3); font-size: 13px; }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header-top">
-    <div>
-      <div class="title">Reporte de productividad</div>
-      <div class="subtitle" id="rec-count">— registros</div>
-    </div>
-    <div class="date-badge" id="fecha-badge">—</div>
+<div class="header-top">
+  <div>
+    <div class="title">Reporte de productividad</div>
+    <div class="subtitle" id="rec-count">— registros</div>
   </div>
-
-  <div class="stats">
-    <div class="stat"><div class="stat-label">Representantes</div><div class="stat-val" id="s-reps">—</div></div>
-    <div class="stat"><div class="stat-label">Prod. neta prom.</div><div class="stat-val" id="s-prod">—</div></div>
-    <div class="stat"><div class="stat-label">Utilización prom.</div><div class="stat-val" id="s-util">—</div></div>
-    <div class="stat"><div class="stat-label">Total unidades</div><div class="stat-val" id="s-units">—</div></div>
-  </div>
-
-  <div class="controls">
-    <div class="filters" id="filters"></div>
-    <div class="search-wrap">
-      <input type="search" id="search" placeholder="Buscar representante..." oninput="applyAll()">
-    </div>
-  </div>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:210px" onclick="sortBy('nombre')">Representante <span class="sa" id="arr-nombre">↕</span></th>
-          <th style="width:90px" onclick="sortBy('proceso')">Proceso <span class="sa" id="arr-proceso">↕</span></th>
-          <th class="right" style="width:85px" onclick="sortBy('prod')">Prod. neta <span class="sa" id="arr-prod">↕</span></th>
-          <th style="width:130px" onclick="sortBy('util')">Utilización <span class="sa" id="arr-util">↕</span></th>
-          <th style="width:95px" onclick="sortBy('tiempo')">T. proceso <span class="sa" id="arr-tiempo">↕</span></th>
-          <th class="right" style="width:85px" onclick="sortBy('unidades')">Unidades <span class="sa" id="arr-unidades">↕</span></th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-      <tfoot>
-        <tr>
-          <td colspan="2">Promedio / Total visible</td>
-          <td style="text-align:right" id="f-prod">—</td>
-          <td id="f-util">—</td>
-          <td></td>
-          <td style="text-align:right" id="f-units">—</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+  <div class="date-badge" id="fecha-badge">—</div>
 </div>
-
+<div class="stats">
+  <div class="stat"><div class="stat-label">Representantes</div><div class="stat-val" id="s-reps">—</div></div>
+  <div class="stat"><div class="stat-label">Prod. neta prom.</div><div class="stat-val" id="s-prod">—</div></div>
+  <div class="stat"><div class="stat-label">Utilización prom.</div><div class="stat-val" id="s-util">—</div></div>
+  <div class="stat"><div class="stat-label">Total unidades</div><div class="stat-val" id="s-units">—</div></div>
+</div>
+<div class="controls">
+  <div class="filters" id="filters"></div>
+  <div class="search-wrap"><input type="search" id="search" placeholder="Buscar representante..." oninput="applyAll()"></div>
+</div>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:210px" onclick="sortBy('nombre')">Representante <span class="sa" id="arr-nombre">↕</span></th>
+        <th style="width:90px" onclick="sortBy('proceso')">Proceso <span class="sa" id="arr-proceso">↕</span></th>
+        <th class="right" style="width:85px" onclick="sortBy('prod')">Prod. neta <span class="sa" id="arr-prod">↕</span></th>
+        <th style="width:130px" onclick="sortBy('util')">Utilización <span class="sa" id="arr-util">↕</span></th>
+        <th style="width:95px" onclick="sortBy('tiempo')">T. proceso <span class="sa" id="arr-tiempo">↕</span></th>
+        <th class="right" style="width:85px" onclick="sortBy('unidades')">Unidades <span class="sa" id="arr-unidades">↕</span></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">Promedio / Total visible</td>
+        <td style="text-align:right" id="f-prod">—</td>
+        <td id="f-util">—</td>
+        <td></td>
+        <td style="text-align:right" id="f-units">—</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+</div>
 <script>
 // ── DATOS DEL DÍA ─────────────────────────────────────────────
-const FECHA = "15 mayo 2026 — Turno 1B 05:40 a 15:00";
-const DATA = [{"nombre": "Cristhian Gomez", "proceso": "Pack", "prod": 118, "util": 62.69, "tiempo": "02:00:52", "unidades": 239}, {"nombre": "Karen Cecilia Ek", "proceso": "Pack", "prod": 374, "util": 86.11, "tiempo": "08:17:22", "unidades": 3107}, {"nombre": "Luis Enmanuel Solis", "proceso": "Pack", "prod": 308, "util": 83.64, "tiempo": "02:08:04", "unidades": 659}, {"nombre": "Brian Alberto Canche", "proceso": "Pack", "prod": 385, "util": 87.31, "tiempo": "03:00:43", "unidades": 1161}, {"nombre": "Laura Azucena Castillo", "proceso": "Pack", "prod": 282, "util": 90.75, "tiempo": "08:23:24", "unidades": 2372}, {"nombre": "Carel Janet Estrella", "proceso": "Pack", "prod": 389, "util": 87.15, "tiempo": "04:27:58", "unidades": 1738}, {"nombre": "Claudia Michelle Perez", "proceso": "Pack", "prod": 165, "util": 84.45, "tiempo": "05:41:38", "unidades": 944}, {"nombre": "Rosa Zulemy Osorio", "proceso": "Pack", "prod": 274, "util": 93.67, "tiempo": "08:22:57", "unidades": 2302}, {"nombre": "Eduardo Alejandro Pech", "proceso": "Pack", "prod": 78, "util": 82.61, "tiempo": "00:00:46", "unidades": 1}, {"nombre": "Cristhian Gomez", "proceso": "P2S", "prod": 43, "util": 74.65, "tiempo": "02:54:31", "unidades": 126}, {"nombre": "Brian Alberto Canche", "proceso": "P2S", "prod": 6, "util": 25.29, "tiempo": "00:08:46", "unidades": 1}, {"nombre": "Erick Axel Perez", "proceso": "P2S", "prod": 53, "util": 78.12, "tiempo": "01:21:07", "unidades": 73}, {"nombre": "Dariana Ballestero", "proceso": "P2S", "prod": 39, "util": 73.24, "tiempo": "08:18:18", "unidades": 327}, {"nombre": "Yessica Sarai Mendez", "proceso": "P2S", "prod": 52, "util": 76.51, "tiempo": "01:31:37", "unidades": 80}, {"nombre": "Andres Antonio Chable", "proceso": "P2S", "prod": 45, "util": 87.44, "tiempo": "07:45:04", "unidades": 351}, {"nombre": "Cristhian Gomez", "proceso": "Picking", "prod": 69, "util": 74.07, "tiempo": "00:48:12", "unidades": 56}, {"nombre": "Lily Angelica Linares", "proceso": "Picking", "prod": 82, "util": 86.26, "tiempo": "06:59:42", "unidades": 576}, {"nombre": "Maria Marlene Matos", "proceso": "Picking", "prod": 92, "util": 90.64, "tiempo": "07:35:11", "unidades": 704}, {"nombre": "Brian Alberto Canche", "proceso": "Picking", "prod": 120, "util": 85.3, "tiempo": "04:57:38", "unidades": 599}, {"nombre": "Erick Axel Perez", "proceso": "Picking", "prod": 32, "util": 81.08, "tiempo": "00:48:11", "unidades": 26}, {"nombre": "Carel Janet Estrella", "proceso": "Picking", "prod": 91, "util": 69.73, "tiempo": "00:43:17", "unidades": 66}, {"nombre": "Norma Geronimo", "proceso": "Picking", "prod": 102, "util": 86.01, "tiempo": "06:53:30", "unidades": 703}, {"nombre": "Alejandra Del Carmen Leal", "proceso": "Picking", "prod": 98, "util": 88.85, "tiempo": "05:20:09", "unidades": 526}, {"nombre": "Jovannha Lizette Rivera", "proceso": "Picking", "prod": 65, "util": 74.24, "tiempo": "01:59:54", "unidades": 131}, {"nombre": "Melissa Ortiz", "proceso": "Picking", "prod": 97, "util": 83.25, "tiempo": "05:16:06", "unidades": 514}, {"nombre": "Erandy Cristel Arroniz", "proceso": "Picking", "prod": 115, "util": 86.66, "tiempo": "00:57:06", "unidades": 110}, {"nombre": "Ada Angelina Fernandez", "proceso": "Picking", "prod": 96, "util": 86.32, "tiempo": "05:16:41", "unidades": 507}, {"nombre": "Yessica Sarai Mendez", "proceso": "Picking", "prod": 30, "util": 71.13, "tiempo": "06:27:55", "unidades": 198}, {"nombre": "Christianne Itzel Pichardo", "proceso": "Picking", "prod": 132, "util": 91.24, "tiempo": "02:23:35", "unidades": 316}, {"nombre": "Valeria Torres", "proceso": "Picking", "prod": 121, "util": 88.23, "tiempo": "07:16:45", "unidades": 882}, {"nombre": "Marcos Jesus Munoz", "proceso": "Picking", "prod": 113, "util": 90.28, "tiempo": "08:27:19", "unidades": 958}, {"nombre": "Jordy Fernando Contreras", "proceso": "Picking", "prod": 88, "util": 91.63, "tiempo": "07:34:20", "unidades": 673}, {"nombre": "Manuel Alejandro Ley", "proceso": "Picking", "prod": 93, "util": 86.38, "tiempo": "07:40:12", "unidades": 718}, {"nombre": "Luis Ibrahim Martin", "proceso": "Picking", "prod": 81, "util": 88.48, "tiempo": "08:20:55", "unidades": 680}, {"nombre": "Gryseldy Del Rocio Uc", "proceso": "Picking", "prod": 72, "util": 85.93, "tiempo": "08:34:18", "unidades": 625}, {"nombre": "Reyna Esther Herrera", "proceso": "Picking", "prod": 39, "util": 85.93, "tiempo": "00:33:32", "unidades": 22}, {"nombre": "Maria Alejandra Chan", "proceso": "Picking", "prod": 90, "util": 85.98, "tiempo": "00:38:16", "unidades": 58}, {"nombre": "Yeymi Beatriz Chable", "proceso": "Picking", "prod": 82, "util": 73.06, "tiempo": "07:20:12", "unidades": 602}, {"nombre": "Lizandra Sulub", "proceso": "Picking", "prod": 115, "util": 93.75, "tiempo": "07:16:45", "unidades": 844}, {"nombre": "Carel Janet Estrella", "proceso": "Batch", "prod": 114, "util": 81.22, "tiempo": "01:55:42", "unidades": 220}, {"nombre": "Erandy Cristel Arroniz", "proceso": "Batch", "prod": 95, "util": 63.62, "tiempo": "01:41:51", "unidades": 162}, {"nombre": "Luis Gamaliel Chuc", "proceso": "Batch", "prod": 92, "util": 66.62, "tiempo": "03:22:05", "unidades": 311}, {"nombre": "Maria Josefina Pool", "proceso": "Batch", "prod": 58, "util": 53.7, "tiempo": "01:52:06", "unidades": 110}, {"nombre": "Carel Janet Estrella", "proceso": "Wallin", "prod": 500, "util": 91.28, "tiempo": "00:55:48", "unidades": 465}, {"nombre": "Erandy Cristel Arroniz", "proceso": "Wallin", "prod": 382, "util": 90.96, "tiempo": "02:22:42", "unidades": 910}, {"nombre": "Luis Gamaliel Chuc", "proceso": "Wallin", "prod": 486, "util": 97.03, "tiempo": "02:30:35", "unidades": 1220}, {"nombre": "Maria Josefina Pool", "proceso": "Wallin", "prod": 388, "util": 88.24, "tiempo": "06:26:36", "unidades": 2505}, {"nombre": "Cristhian Gomez", "proceso": "HU", "prod": 51, "util": 55.42, "tiempo": "00:38:35", "unidades": 33}, {"nombre": "Jose Angel Couoh", "proceso": "HU", "prod": 102, "util": 79.45, "tiempo": "06:13:43", "unidades": 638}, {"nombre": "Mariana Sherlyn Balam", "proceso": "HU", "prod": 208, "util": 96.34, "tiempo": "00:19:34", "unidades": 68}, {"nombre": "Erick Axel Perez", "proceso": "HU", "prod": 50, "util": 61.6, "tiempo": "01:00:46", "unidades": 51}, {"nombre": "Dariana Ballestero", "proceso": "HU", "prod": 19, "util": 44.09, "tiempo": "00:03:06", "unidades": 1}, {"nombre": "Jovannha Lizette Rivera", "proceso": "HU", "prod": 278, "util": 66.19, "tiempo": "02:32:58", "unidades": 709}, {"nombre": "Melissa Ortiz", "proceso": "HU", "prod": 347, "util": 83.71, "tiempo": "00:45:13", "unidades": 262}, {"nombre": "Christianne Itzel Pichardo", "proceso": "HU", "prod": 393, "util": 82.74, "tiempo": "01:57:36", "unidades": 771}, {"nombre": "Jose Israel Pena", "proceso": "HU", "prod": 99, "util": 79.72, "tiempo": "03:25:06", "unidades": 339}, {"nombre": "Darien Alexander Loeza", "proceso": "HU", "prod": 45, "util": 66.46, "tiempo": "00:02:38", "unidades": 2}, {"nombre": "Mauricio Alejandro Rodriguez", "proceso": "HU", "prod": 78, "util": 86.9, "tiempo": "02:11:18", "unidades": 171}, {"nombre": "Eduardo Alejandro Pech", "proceso": "HU", "prod": 56, "util": 87.02, "tiempo": "00:11:41", "unidades": 11}, {"nombre": "Gladys Esther Sanchez", "proceso": "HU", "prod": 515, "util": 93.09, "tiempo": "06:03:00", "unidades": 3117}, {"nombre": "Perla Julissa Galicia", "proceso": "HU", "prod": 378, "util": 78.98, "tiempo": "05:42:07", "unidades": 2158}];
-// ─────────────────────────────────────────────────────────────
-
-const COLOR_POOL = [
-  ['#3b82f6','rgba(59,130,246,0.13)','rgba(59,130,246,0.35)'],
-  ['#a78bfa','rgba(167,139,250,0.13)','rgba(167,139,250,0.35)'],
-  ['#34d399','rgba(52,211,153,0.13)','rgba(52,211,153,0.35)'],
-  ['#fbbf24','rgba(251,191,36,0.13)','rgba(251,191,36,0.35)'],
-  ['#f87171','rgba(248,113,113,0.13)','rgba(248,113,113,0.35)'],
-  ['#38bdf8','rgba(56,189,248,0.13)','rgba(56,189,248,0.35)'],
-  ['#fb7185','rgba(251,113,133,0.13)','rgba(251,113,133,0.35)'],
-  ['#a3e635','rgba(163,230,53,0.13)','rgba(163,230,53,0.35)'],
+const FECHA = "16 mayo 2026 — Turno 1B  05:40 a 15:00";
+const DATA = [
+{"nombre":"Cristhian Gomez","proceso":"Pack","prod":63,"util":34.43,"tiempo":"00:14:14","unidades":15},
+{"nombre":"Mariana Sherlyn Balam","proceso":"Pack","prod":0,"util":0.00,"tiempo":"00:02:21","unidades":0},
+{"nombre":"Karen Cecilia Ek","proceso":"Pack","prod":366,"util":83.87,"tiempo":"07:56:41","unidades":2913},
+{"nombre":"Brian Alberto Canche","proceso":"Pack","prod":365,"util":93.88,"tiempo":"05:01:24","unidades":1834},
+{"nombre":"Laura Azucena Castillo","proceso":"Pack","prod":311,"util":94.35,"tiempo":"07:05:39","unidades":2207},
+{"nombre":"Carel Janet Estrella","proceso":"Pack","prod":392,"util":90.56,"tiempo":"07:10:25","unidades":2818},
+{"nombre":"Jovannha Lizette Rivera","proceso":"Pack","prod":167,"util":80.22,"tiempo":"00:20:49","unidades":58},
+{"nombre":"Jonathan Manuel Osalde","proceso":"Pack","prod":157,"util":82.11,"tiempo":"02:07:50","unidades":336},
+{"nombre":"Rosa Zulemy Osorio","proceso":"Pack","prod":260,"util":89.84,"tiempo":"08:17:34","unidades":2162},
+{"nombre":"Eduardo Alejandro Pech","proceso":"Pack","prod":119,"util":88.43,"tiempo":"00:02:01","unidades":4},
+{"nombre":"Jonathan Manuel Osalde","proceso":"P2S","prod":33,"util":60.39,"tiempo":"01:05:16","unidades":36},
+{"nombre":"Marilyn Andrea Herrera","proceso":"P2S","prod":42,"util":78.65,"tiempo":"07:40:14","unidades":328},
+{"nombre":"Yessica Sarai Mendez","proceso":"P2S","prod":57,"util":86.78,"tiempo":"01:15:32","unidades":73},
+{"nombre":"Andres Antonio Chable","proceso":"P2S","prod":42,"util":76.62,"tiempo":"07:25:55","unidades":314},
+{"nombre":"Lily Angelica Linares","proceso":"Picking","prod":84,"util":89.33,"tiempo":"07:31:24","unidades":635},
+{"nombre":"Mariana Sherlyn Balam","proceso":"Picking","prod":110,"util":90.91,"tiempo":"01:48:13","unidades":199},
+{"nombre":"Maria Marlene Matos","proceso":"Picking","prod":92,"util":90.98,"tiempo":"07:55:04","unidades":731},
+{"nombre":"Luis Enmanuel Solis","proceso":"Picking","prod":118,"util":92.85,"tiempo":"01:59:23","unidades":235},
+{"nombre":"Brian Alberto Canche","proceso":"Picking","prod":123,"util":85.34,"tiempo":"03:01:34","unidades":373},
+{"nombre":"Erick Axel Perez","proceso":"Picking","prod":37,"util":75.03,"tiempo":"01:27:27","unidades":54},
+{"nombre":"Carel Janet Estrella","proceso":"Picking","prod":95,"util":76.74,"tiempo":"00:42:17","unidades":67},
+{"nombre":"Norma Geronimo","proceso":"Picking","prod":99,"util":85.98,"tiempo":"07:20:28","unidades":734},
+{"nombre":"Alejandra Del Carmen Leal","proceso":"Picking","prod":93,"util":84.70,"tiempo":"05:13:32","unidades":491},
+{"nombre":"Melissa Ortiz","proceso":"Picking","prod":86,"util":81.37,"tiempo":"05:07:00","unidades":441},
+{"nombre":"Jonathan Manuel Osalde","proceso":"Picking","prod":29,"util":49.65,"tiempo":"01:24:07","unidades":41},
+{"nombre":"Erandy Cristel Arroniz","proceso":"Picking","prod":139,"util":98.54,"tiempo":"00:29:39","unidades":69},
+{"nombre":"Ada Angelina Fernandez","proceso":"Picking","prod":85,"util":87.76,"tiempo":"02:04:29","unidades":178},
+{"nombre":"Yessica Sarai Mendez","proceso":"Picking","prod":46,"util":90.75,"tiempo":"06:50:42","unidades":320},
+{"nombre":"Christianne Itzel Pichardo","proceso":"Picking","prod":113,"util":91.83,"tiempo":"05:01:30","unidades":572},
+{"nombre":"Valeria Torres","proceso":"Picking","prod":140,"util":86.95,"tiempo":"07:04:26","unidades":993},
+{"nombre":"Jordy Fernando Contreras","proceso":"Picking","prod":76,"util":83.90,"tiempo":"07:33:53","unidades":575},
+{"nombre":"Manuel Alejandro Ley","proceso":"Picking","prod":96,"util":84.41,"tiempo":"07:42:22","unidades":744},
+{"nombre":"Luis Ibrahim Martin","proceso":"Picking","prod":77,"util":90.03,"tiempo":"07:20:27","unidades":569},
+{"nombre":"Gryseldy Del Rocio Uc","proceso":"Picking","prod":74,"util":82.19,"tiempo":"07:40:59","unidades":575},
+{"nombre":"Reyna Esther Herrera","proceso":"Picking","prod":49,"util":80.16,"tiempo":"08:20:42","unidades":411},
+{"nombre":"Lizandra Sulub","proceso":"Picking","prod":110,"util":90.26,"tiempo":"07:27:37","unidades":828},
+{"nombre":"Carel Janet Estrella","proceso":"Batch","prod":52,"util":57.53,"tiempo":"00:16:03","unidades":14},
+{"nombre":"Erandy Cristel Arroniz","proceso":"Batch","prod":71,"util":59.54,"tiempo":"03:56:08","unidades":280},
+{"nombre":"Luis Gamaliel Chuc","proceso":"Batch","prod":50,"util":56.87,"tiempo":"01:03:50","unidades":54},
+{"nombre":"Maria Josefina Pool","proceso":"Batch","prod":66,"util":56.69,"tiempo":"02:25:16","unidades":162},
+{"nombre":"Laura Azucena Castillo","proceso":"Wallin","prod":162,"util":39.55,"tiempo":"00:02:57","unidades":8},
+{"nombre":"Erandy Cristel Arroniz","proceso":"Wallin","prod":412,"util":95.92,"tiempo":"03:38:45","unidades":1505},
+{"nombre":"Luis Gamaliel Chuc","proceso":"Wallin","prod":443,"util":95.77,"tiempo":"04:00:33","unidades":1778},
+{"nombre":"Maria Josefina Pool","proceso":"Wallin","prod":376,"util":88.49,"tiempo":"05:43:41","unidades":2154},
+{"nombre":"Cristhian Gomez","proceso":"HU","prod":85,"util":69.70,"tiempo":"02:23:44","unidades":205},
+{"nombre":"Erick Axel Perez","proceso":"HU","prod":86,"util":69.23,"tiempo":"00:57:48","unidades":83},
+{"nombre":"Alejandra Del Carmen Leal","proceso":"HU","prod":111,"util":55.62,"tiempo":"00:05:56","unidades":11},
+{"nombre":"Jovannha Lizette Rivera","proceso":"HU","prod":245,"util":73.20,"tiempo":"00:56:32","unidades":231},
+{"nombre":"Melissa Ortiz","proceso":"HU","prod":195,"util":65.76,"tiempo":"00:06:46","unidades":22},
+{"nombre":"Ada Angelina Fernandez","proceso":"HU","prod":371,"util":88.15,"tiempo":"00:26:01","unidades":161},
+{"nombre":"Marcos Jesus Munoz","proceso":"HU","prod":82,"util":80.46,"tiempo":"03:47:28","unidades":312},
+{"nombre":"Jose Israel Pena","proceso":"HU","prod":87,"util":72.55,"tiempo":"06:34:43","unidades":574},
+{"nombre":"Maria Alejandra Chan","proceso":"HU","prod":240,"util":74.23,"tiempo":"01:06:09","unidades":265},
+{"nombre":"Gladys Esther Sanchez","proceso":"HU","prod":462,"util":94.15,"tiempo":"07:49:03","unidades":3618},
+{"nombre":"Andres Antonio Chable","proceso":"HU","prod":34,"util":79.23,"tiempo":"00:03:27","unidades":2},
+{"nombre":"Perla Julissa Galicia","proceso":"HU","prod":387,"util":81.64,"tiempo":"06:13:58","unidades":2416}
 ];
-const PROC_COLORS = {};
-let colorIdx = 0;
-function getColor(p) {
-  if (!PROC_COLORS[p]) { PROC_COLORS[p] = COLOR_POOL[colorIdx++ % COLOR_POOL.length]; }
-  return PROC_COLORS[p];
-}
+// ─────────────────────────────────────────────────────────────
+const COLOR_POOL = [
+['#3b82f6','rgba(59,130,246,0.13)','rgba(59,130,246,0.35)'],
+['#a78bfa','rgba(167,139,250,0.13)','rgba(167,139,250,0.35)'],
+['#34d399','rgba(52,211,153,0.13)','rgba(52,211,153,0.35)'],
+['#fbbf24','rgba(251,191,36,0.13)','rgba(251,191,36,0.35)'],
+['#f87171','rgba(248,113,113,0.13)','rgba(248,113,113,0.35)'],
+['#38bdf8','rgba(56,189,248,0.13)','rgba(56,189,248,0.35)'],
+];
+const PROC_COLORS = {}; let colorIdx = 0;
+function getColor(p) { if (!PROC_COLORS[p]) { PROC_COLORS[p] = COLOR_POOL[colorIdx++ % COLOR_POOL.length]; } return PROC_COLORS[p]; }
 function utilColor(u) { return u >= 80 ? '#34d399' : u >= 60 ? '#fbbf24' : '#f87171'; }
-
 let data = [...DATA], sortKey = '', sortAsc = true, activeFilter = 'all', searchVal = '';
-
 function init() {
   document.getElementById('fecha-badge').textContent = FECHA;
   document.getElementById('rec-count').textContent = DATA.length + ' registros · ' + FECHA;
   const procs = [...new Set(DATA.map(r => r.proceso))].sort();
-  const fil = document.getElementById('filters');
-  fil.innerHTML = '';
+  const fil = document.getElementById('filters'); fil.innerHTML = '';
   const btnAll = document.createElement('button');
   btnAll.className = 'fb active'; btnAll.dataset.f = 'all'; btnAll.textContent = 'Todos';
-  btnAll.onclick = function(){ setFilter(this); };
-  fil.appendChild(btnAll);
-  procs.forEach(p => {
-    const [color, bg, border] = getColor(p);
-    const btn = document.createElement('button');
-    btn.className = 'fb'; btn.dataset.f = p; btn.textContent = p;
-    btn.onclick = function(){ setFilter(this); };
-    fil.appendChild(btn);
-  });
+  btnAll.onclick = function(){ setFilter(this); }; fil.appendChild(btnAll);
+  procs.forEach(p => { const btn = document.createElement('button'); btn.className = 'fb'; btn.dataset.f = p; btn.textContent = p; btn.onclick = function(){ setFilter(this); }; fil.appendChild(btn); });
   render();
 }
-
 function render() {
-  const visible = data.filter(r => {
-    return (activeFilter === 'all' || r.proceso === activeFilter) &&
-           (!searchVal || r.nombre.toLowerCase().includes(searchVal));
-  });
+  const visible = data.filter(r => (activeFilter === 'all' || r.proceso === activeFilter) && (!searchVal || r.nombre.toLowerCase().includes(searchVal)));
   const tbody = document.getElementById('tbody');
   if (!visible.length) { tbody.innerHTML = `<tr><td colspan="6" class="empty">Sin resultados</td></tr>`; updateStats([]); return; }
   tbody.innerHTML = visible.map(r => {
-    const [color, bg] = getColor(r.proceso);
-    const uc = utilColor(r.util);
-    return `<tr>
-      <td><div class="rep-name">${r.nombre}</div></td>
-      <td><span class="proc-badge" style="background:${bg};color:${color}">${r.proceso}</span></td>
-      <td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.prod}</td>
-      <td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${Math.min(r.util,100)}%;background:${uc}"></div></div><span class="util-v" style="color:${uc}">${r.util}%</span></div></td>
-      <td><span class="mono">${r.tiempo}</span></td>
-      <td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.unidades.toLocaleString()}</td>
-    </tr>`;
-  }).join('');
-  updateStats(visible);
+    const [color, bg] = getColor(r.proceso); const uc = utilColor(r.util);
+    return `<tr><td><div class="rep-name">${r.nombre}</div></td><td><span class="proc-badge" style="background:${bg};color:${color}">${r.proceso}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.prod}</td><td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${Math.min(r.util,100)}%;background:${uc}"></div></div><span class="util-v" style="color:${uc}">${r.util}%</span></div></td><td><span class="mono">${r.tiempo}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.unidades.toLocaleString()}</td></tr>`;
+  }).join(''); updateStats(visible);
 }
-
 function updateStats(v) {
   const n = v.length;
-  const set = id => el => document.getElementById(id) && (document.getElementById(id).textContent = el);
-  if (!n) { ['s-reps','s-prod','s-util','s-units','f-prod','f-util','f-units'].forEach(id => set(id)('—')); return; }
+  if (!n) { ['s-reps','s-prod','s-util','s-units','f-prod','f-util','f-units'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='—'; }); return; }
   const ap = (v.reduce((a,r)=>a+r.prod,0)/n).toFixed(1);
   const au = (v.reduce((a,r)=>a+r.util,0)/n).toFixed(1);
   const su = v.reduce((a,r)=>a+r.unidades,0).toLocaleString();
@@ -208,18 +206,14 @@ function updateStats(v) {
   document.getElementById('f-util').textContent = au + '% prom.';
   document.getElementById('f-units').textContent = su;
 }
-
 function setFilter(btn) {
   document.querySelectorAll('.fb').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; b.style.borderColor=''; });
-  const f = btn.dataset.f;
-  activeFilter = f;
+  const f = btn.dataset.f; activeFilter = f;
   if (f === 'all') { btn.classList.add('active'); }
   else { const [color,bg,border]=getColor(f); btn.style.background=bg; btn.style.color=color; btn.style.borderColor=border; }
   applyAll();
 }
-
 function applyAll() { searchVal = document.getElementById('search').value.toLowerCase().trim(); render(); }
-
 function sortBy(key) {
   sortAsc = sortKey === key ? !sortAsc : true; sortKey = key;
   document.querySelectorAll('.sa').forEach(a => { a.textContent='↕'; a.closest('th').classList.remove('sorted'); });
@@ -228,7 +222,6 @@ function sortBy(key) {
   data.sort((a,b) => { let va=a[key],vb=b[key]; if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();} return sortAsc?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0); });
   render();
 }
-
 init();
 </script>
 </body>
