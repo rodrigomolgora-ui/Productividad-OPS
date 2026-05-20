@@ -6,59 +6,52 @@
 <title>Reporte de Productividad — OPS</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
---bg: #0f1117; --bg2: #181c27; --bg3: #1e2333;
---border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
---text: #e8eaf0; --text2: #8b909e; --text3: #555b6b;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1.5rem; }
-.container { max-width: 1000px; margin: 0 auto; }
-.header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
-.title { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
-.subtitle { font-size: 12px; color: var(--text2); margin-top: 3px; }
-.date-badge { font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2); background: var(--bg3); }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
-.stat { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; overflow: hidden; }
-.stat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #3b82f6, transparent); opacity: 0.5; }
-.stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 6px; }
-.stat-val { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
-.controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
-.filters { display: flex; gap: 6px; flex-wrap: wrap; }
-.fb { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all .15s; letter-spacing: .3px; }
-.fb:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
-.fb.active { background: rgba(255,255,255,0.08); color: var(--text); border-color: rgba(255,255,255,0.2); }
-.search-wrap { flex: 1; min-width: 200px; }
-.search-wrap input { font-family: 'DM Sans', sans-serif; width: 100%; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--border2); background: var(--bg2); color: var(--text); outline: none; transition: border-color .15s; }
-.search-wrap input:focus { border-color: #3b82f6; }
-.search-wrap input::placeholder { color: var(--text3); }
-.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-thead tr { border-bottom: 1px solid var(--border2); }
-th { padding: 10px 14px; font-size: 11px; font-weight: 500; color: var(--text3); text-align: left; white-space: nowrap; cursor: pointer; user-select: none; text-transform: uppercase; letter-spacing: .5px; background: var(--bg2); transition: color .15s; }
-th:hover { color: var(--text2); } th.sorted { color: #3b82f6; } th.right { text-align: right; }
-.sa { font-size: 10px; margin-left: 3px; opacity: .5; } th.sorted .sa { opacity: 1; }
-tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
-tbody tr:last-child { border-bottom: none; } tbody tr:hover { background: rgba(255,255,255,0.025); }
-td { padding: 11px 14px; vertical-align: middle; background: var(--bg2); } td.right { text-align: right; }
-.rep-name { font-weight: 500; font-size: 13px; }
-.proc-badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: .4px; text-transform: uppercase; }
-.util-row { display: flex; align-items: center; gap: 8px; }
-.util-bar { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.07); overflow: hidden; min-width: 50px; }
-.util-fill { height: 100%; border-radius: 2px; }
-.util-v { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; min-width: 40px; text-align: right; }
-.mono { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); }
-tfoot td { background: var(--bg3); font-size: 11px; font-weight: 500; color: var(--text2); border-top: 1px solid var(--border2); padding: 9px 14px; }
-.empty { text-align: center; padding: 3rem; color: var(--text3); font-size: 13px; }
+:root { --bg:#0f1117;--bg2:#181c27;--bg3:#1e2333;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8eaf0;--text2:#8b909e;--text3:#555b6b; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1.5rem;}
+.container{max-width:1000px;margin:0 auto;}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+.title{font-size:22px;font-weight:600;letter-spacing:-0.5px;}
+.subtitle{font-size:12px;color:var(--text2);margin-top:3px;}
+.date-badge{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);color:var(--text2);background:var(--bg3);}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.5rem;}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3b82f6,transparent);opacity:0.5;}
+.stat-label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+.stat-val{font-size:24px;font-weight:600;letter-spacing:-0.5px;}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
+.filters{display:flex;gap:6px;flex-wrap:wrap;}
+.fb{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;letter-spacing:.3px;}
+.fb:hover{color:var(--text);border-color:rgba(255,255,255,0.2);}
+.fb.active{background:rgba(255,255,255,0.08);color:var(--text);border-color:rgba(255,255,255,0.2);}
+.search-wrap{flex:1;min-width:200px;}
+.search-wrap input{font-family:'DM Sans',sans-serif;width:100%;font-size:13px;padding:7px 12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);outline:none;transition:border-color .15s;}
+.search-wrap input:focus{border-color:#3b82f6;}
+.search-wrap input::placeholder{color:var(--text3);}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{border-bottom:1px solid var(--border2);}
+th{padding:10px 14px;font-size:11px;font-weight:500;color:var(--text3);text-align:left;white-space:nowrap;cursor:pointer;user-select:none;text-transform:uppercase;letter-spacing:.5px;background:var(--bg2);transition:color .15s;}
+th:hover{color:var(--text2);}th.sorted{color:#3b82f6;}th.right{text-align:right;}
+.sa{font-size:10px;margin-left:3px;opacity:.5;}th.sorted .sa{opacity:1;}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s;}
+tbody tr:last-child{border-bottom:none;}tbody tr:hover{background:rgba(255,255,255,0.025);}
+td{padding:11px 14px;vertical-align:middle;background:var(--bg2);}td.right{text-align:right;}
+.rep-name{font-weight:500;font-size:13px;}
+.proc-badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.4px;text-transform:uppercase;}
+.util-row{display:flex;align-items:center;gap:8px;}
+.util-bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.07);overflow:hidden;min-width:50px;}
+.util-fill{height:100%;border-radius:2px;}
+.util-v{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;min-width:40px;text-align:right;}
+.mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);}
+tfoot td{background:var(--bg3);font-size:11px;font-weight:500;color:var(--text2);border-top:1px solid var(--border2);padding:9px 14px;}
+.empty{text-align:center;padding:3rem;color:var(--text3);font-size:13px;}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="header-top">
-  <div>
-    <div class="title">Reporte de productividad</div>
-    <div class="subtitle" id="rec-count">— registros</div>
-  </div>
+  <div><div class="title">Reporte de productividad</div><div class="subtitle" id="rec-count">— registros</div></div>
   <div class="date-badge" id="fecha-badge">—</div>
 </div>
 <div class="stats">
@@ -73,170 +66,155 @@ tfoot td { background: var(--bg3); font-size: 11px; font-weight: 500; color: var
 </div>
 <div class="table-wrap">
   <table>
-    <thead>
-      <tr>
-        <th style="width:210px" onclick="sortBy('nombre')">Representante <span class="sa" id="arr-nombre">↕</span></th>
-        <th style="width:90px" onclick="sortBy('proceso')">Proceso <span class="sa" id="arr-proceso">↕</span></th>
-        <th class="right" style="width:85px" onclick="sortBy('prod')">Prod. neta <span class="sa" id="arr-prod">↕</span></th>
-        <th style="width:130px" onclick="sortBy('util')">Utilización <span class="sa" id="arr-util">↕</span></th>
-        <th style="width:95px" onclick="sortBy('tiempo')">T. proceso <span class="sa" id="arr-tiempo">↕</span></th>
-        <th class="right" style="width:85px" onclick="sortBy('unidades')">Unidades <span class="sa" id="arr-unidades">↕</span></th>
-      </tr>
-    </thead>
+    <thead><tr>
+      <th style="width:210px" onclick="sortBy('nombre')">Representante <span class="sa" id="arr-nombre">↕</span></th>
+      <th style="width:90px" onclick="sortBy('proceso')">Proceso <span class="sa" id="arr-proceso">↕</span></th>
+      <th class="right" style="width:85px" onclick="sortBy('prod')">Prod. neta <span class="sa" id="arr-prod">↕</span></th>
+      <th style="width:130px" onclick="sortBy('util')">Utilización <span class="sa" id="arr-util">↕</span></th>
+      <th style="width:95px" onclick="sortBy('tiempo')">T. proceso <span class="sa" id="arr-tiempo">↕</span></th>
+      <th class="right" style="width:85px" onclick="sortBy('unidades')">Unidades <span class="sa" id="arr-unidades">↕</span></th>
+    </tr></thead>
     <tbody id="tbody"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="2">Promedio / Total visible</td>
-        <td style="text-align:right" id="f-prod">—</td>
-        <td id="f-util">—</td>
-        <td></td>
-        <td style="text-align:right" id="f-units">—</td>
-      </tr>
-    </tfoot>
+    <tfoot><tr>
+      <td colspan="2">Promedio / Total visible</td>
+      <td style="text-align:right" id="f-prod">—</td>
+      <td id="f-util">—</td>
+      <td></td>
+      <td style="text-align:right" id="f-units">—</td>
+    </tr></tfoot>
   </table>
 </div>
 </div>
 <script>
-const FECHA = "19 mayo 2026 — Turno 1B  05:40 a 15:00";
-const DATA = [
-{"nombre":"Mariana Sherlyn Balam","proceso":"Pack","prod":447,"util":94.73,"tiempo":"00:46:29","unidades":347},
-{"nombre":"Karen Cecilia Ek","proceso":"Pack","prod":383,"util":89.26,"tiempo":"07:55:17","unidades":3034},
-{"nombre":"Brian Alberto Canche","proceso":"Pack","prod":412,"util":86.25,"tiempo":"08:04:55","unidades":3331},
-{"nombre":"Laura Azucena Castillo","proceso":"Pack","prod":253,"util":87.02,"tiempo":"01:13:57","unidades":313},
-{"nombre":"Carel Janet Estrella","proceso":"Pack","prod":403,"util":87.48,"tiempo":"08:00:01","unidades":3226},
-{"nombre":"Maria Belinda Del Rosario Pech","proceso":"Pack","prod":296,"util":93.29,"tiempo":"06:37:43","unidades":1965},
-{"nombre":"Jovannha Lizette Rivera","proceso":"Pack","prod":117,"util":69.08,"tiempo":"08:15:47","unidades":968},
-{"nombre":"Marissa Isabel Cisneros","proceso":"Pack","prod":163,"util":91.35,"tiempo":"01:57:44","unidades":320},
-{"nombre":"Sarahy Elizabet Puc","proceso":"Pack","prod":133,"util":84.63,"tiempo":"08:09:59","unidades":1092},
-{"nombre":"Claudia Michelle Perez","proceso":"Pack","prod":167,"util":83.85,"tiempo":"01:31:56","unidades":257},
-{"nombre":"Rosa Zulemy Osorio","proceso":"Pack","prod":249,"util":89.99,"tiempo":"08:16:36","unidades":2063},
-{"nombre":"Yaneli Saudizaret Quen","proceso":"Pack","prod":248,"util":86.15,"tiempo":"06:24:26","unidades":1589},
-{"nombre":"Omar Alonso Diaz","proceso":"P2S","prod":30,"util":59.87,"tiempo":"02:54:28","unidades":88},
-{"nombre":"Dariana Ballestero","proceso":"P2S","prod":40,"util":77.15,"tiempo":"01:07:58","unidades":46},
-{"nombre":"Francis Jhoana Pacho","proceso":"P2S","prod":60,"util":79.44,"tiempo":"08:00:04","unidades":481},
-{"nombre":"Sebastian Alberto Lopez","proceso":"P2S","prod":54,"util":80.60,"tiempo":"08:02:30","unidades":437},
-{"nombre":"Yessica Sarai Mendez","proceso":"P2S","prod":42,"util":80.17,"tiempo":"05:31:08","unidades":232},
-{"nombre":"Didier Mateo Ek","proceso":"P2S","prod":54,"util":77.95,"tiempo":"06:59:48","unidades":379},
-{"nombre":"Roger Alexander Perez","proceso":"P2S","prod":45,"util":69.41,"tiempo":"08:14:39","unidades":375},
-{"nombre":"Andres Antonio Chable","proceso":"P2S","prod":45,"util":80.74,"tiempo":"08:15:57","unidades":372},
-{"nombre":"Lily Angelica Linares","proceso":"Picking","prod":87,"util":86.10,"tiempo":"08:19:54","unidades":732},
-{"nombre":"Maria Marlene Matos","proceso":"Picking","prod":94,"util":93.58,"tiempo":"08:29:51","unidades":804},
-{"nombre":"Erick Axel Perez","proceso":"Picking","prod":37,"util":80.52,"tiempo":"06:55:18","unidades":263},
-{"nombre":"Omar Alonso Diaz","proceso":"Picking","prod":54,"util":60.53,"tiempo":"02:12:11","unidades":121},
-{"nombre":"Norma Geronimo","proceso":"Picking","prod":121,"util":87.51,"tiempo":"03:30:03","unidades":425},
-{"nombre":"Alejandra Del Carmen Leal","proceso":"Picking","prod":102,"util":88.98,"tiempo":"05:36:50","unidades":573},
-{"nombre":"Hannia Carime Caballero","proceso":"Picking","prod":115,"util":87.48,"tiempo":"01:24:57","unidades":163},
-{"nombre":"Yessica Sarai Mendez","proceso":"Picking","prod":37,"util":73.24,"tiempo":"02:06:46","unidades":80},
-{"nombre":"Karelly Vanessa Puc","proceso":"Picking","prod":115,"util":85.60,"tiempo":"07:59:44","unidades":920},
-{"nombre":"Keila Carina Ojeda","proceso":"Picking","prod":101,"util":83.86,"tiempo":"08:15:19","unidades":839},
-{"nombre":"Valeria Torres","proceso":"Picking","prod":132,"util":86.97,"tiempo":"08:12:15","unidades":1090},
-{"nombre":"Marcos Jesus Munoz","proceso":"Picking","prod":97,"util":88.61,"tiempo":"08:26:01","unidades":826},
-{"nombre":"Adriana Jacqueline Pool","proceso":"Picking","prod":94,"util":89.18,"tiempo":"08:30:57","unidades":803},
-{"nombre":"Jordy Fernando Contreras","proceso":"Picking","prod":76,"util":86.34,"tiempo":"08:31:44","unidades":650},
-{"nombre":"Manuel Alejandro Ley","proceso":"Picking","prod":101,"util":85.02,"tiempo":"07:59:23","unidades":814},
-{"nombre":"Luis Ibrahim Martin","proceso":"Picking","prod":82,"util":88.77,"tiempo":"08:20:10","unidades":687},
-{"nombre":"Pablo Antonio Madera","proceso":"Picking","prod":86,"util":91.18,"tiempo":"08:07:45","unidades":704},
-{"nombre":"Maria Alejandra Chan","proceso":"Picking","prod":105,"util":89.65,"tiempo":"08:27:31","unidades":889},
-{"nombre":"Yeymi Beatriz Chable","proceso":"Picking","prod":92,"util":74.40,"tiempo":"08:06:39","unidades":751},
-{"nombre":"Lizandra Sulub","proceso":"Picking","prod":116,"util":92.99,"tiempo":"08:29:12","unidades":989},
-{"nombre":"Nataly Fernanda Tilan","proceso":"Batch","prod":104,"util":82.74,"tiempo":"01:28:17","unidades":154},
-{"nombre":"Laura Azucena Castillo","proceso":"Batch","prod":79,"util":62.40,"tiempo":"02:20:20","unidades":186},
-{"nombre":"Melissa Ortiz","proceso":"Batch","prod":71,"util":56.76,"tiempo":"00:27:38","unidades":33},
-{"nombre":"Erandy Cristel Arroniz","proceso":"Batch","prod":75,"util":63.57,"tiempo":"03:49:17","unidades":289},
-{"nombre":"Christianne Itzel Pichardo","proceso":"Batch","prod":65,"util":73.45,"tiempo":"00:04:35","unidades":5},
-{"nombre":"Roger Alexander Perez","proceso":"Batch","prod":40,"util":100.00,"tiempo":"00:01:30","unidades":1},
-{"nombre":"Luis Gamaliel Chuc","proceso":"Batch","prod":29,"util":35.85,"tiempo":"01:35:30","unidades":47},
-{"nombre":"Maria Josefina Pool","proceso":"Batch","prod":76,"util":64.97,"tiempo":"02:21:32","unidades":181},
-{"nombre":"Nataly Fernanda Tilan","proceso":"Wallin","prod":404,"util":87.85,"tiempo":"02:44:27","unidades":1109},
-{"nombre":"Laura Azucena Castillo","proceso":"Wallin","prod":485,"util":94.94,"tiempo":"03:59:37","unidades":1938},
-{"nombre":"Melissa Ortiz","proceso":"Wallin","prod":379,"util":84.67,"tiempo":"00:42:30","unidades":269},
-{"nombre":"Erandy Cristel Arroniz","proceso":"Wallin","prod":392,"util":92.60,"tiempo":"04:18:12","unidades":1689},
-{"nombre":"Ana Abigail Puc","proceso":"Wallin","prod":425,"util":79.42,"tiempo":"01:13:52","unidades":524},
-{"nombre":"Luis Gamaliel Chuc","proceso":"Wallin","prod":431,"util":91.86,"tiempo":"03:52:42","unidades":1675},
-{"nombre":"Maria Josefina Pool","proceso":"Wallin","prod":386,"util":88.98,"tiempo":"05:50:37","unidades":2260},
-{"nombre":"Cristhian Gomez","proceso":"HU","prod":79,"util":69.68,"tiempo":"06:27:14","unidades":513},
-{"nombre":"Jose Angel Couoh","proceso":"HU","prod":88,"util":79.21,"tiempo":"04:35:24","unidades":406},
-{"nombre":"Mariana Sherlyn Balam","proceso":"HU","prod":225,"util":90.93,"tiempo":"00:15:26","unidades":58},
-{"nombre":"Erick Axel Perez","proceso":"HU","prod":21,"util":48.81,"tiempo":"00:02:48","unidades":1},
-{"nombre":"Dariana Ballestero","proceso":"HU","prod":17,"util":39.05,"tiempo":"00:03:30","unidades":1},
-{"nombre":"Norma Geronimo","proceso":"HU","prod":262,"util":74.37,"tiempo":"00:26:32","unidades":116},
-{"nombre":"Melissa Ortiz","proceso":"HU","prod":276,"util":76.92,"tiempo":"00:03:54","unidades":18},
-{"nombre":"Hannia Carime Caballero","proceso":"HU","prod":325,"util":84.76,"tiempo":"02:04:41","unidades":677},
-{"nombre":"Jesus Alberto Lavalle","proceso":"HU","prod":382,"util":90.74,"tiempo":"01:42:49","unidades":656},
-{"nombre":"Braulio Esteban Fernandez","proceso":"HU","prod":60,"util":64.33,"tiempo":"08:10:05","unidades":492},
-{"nombre":"Christianne Itzel Pichardo","proceso":"HU","prod":276,"util":71.79,"tiempo":"00:40:46","unidades":188},
-{"nombre":"Didier Mateo Ek","proceso":"HU","prod":16,"util":37.79,"tiempo":"00:03:37","unidades":1},
-{"nombre":"Maria Belem Camargo","proceso":"HU","prod":317,"util":79.91,"tiempo":"06:31:14","unidades":2072},
-{"nombre":"Darley Jose Puc","proceso":"HU","prod":413,"util":78.20,"tiempo":"06:21:36","unidades":2633},
-{"nombre":"Diego Lopez","proceso":"HU","prod":191,"util":63.04,"tiempo":"01:24:19","unidades":269},
-{"nombre":"Jesus Abel Trejo","proceso":"HU","prod":96,"util":60.42,"tiempo":"05:35:57","unidades":538},
-{"nombre":"Karim Alejandro Clemente","proceso":"HU","prod":103,"util":64.80,"tiempo":"05:18:38","unidades":551},
-{"nombre":"Jose Israel Pena","proceso":"HU","prod":85,"util":79.82,"tiempo":"05:27:06","unidades":467},
-{"nombre":"Daniel Graciano Cetina","proceso":"HU","prod":57,"util":75.75,"tiempo":"00:17:52","unidades":17},
-{"nombre":"Eduardo Alejandro Pech","proceso":"HU","prod":283,"util":93.26,"tiempo":"00:04:27","unidades":21},
-{"nombre":"Perla Julissa Galicia","proceso":"HU","prod":424,"util":88.21,"tiempo":"05:29:11","unidades":2329}
+const FECHA="20 mayo 2026 — Turno 1B  05:40 a 15:00";
+const DATA=[
+{"nombre":"Karen Cecilia Ek","proceso":"Pack","prod":418,"util":90.46,"tiempo":"06:44:02","unidades":2821},
+{"nombre":"Brian Alberto Canche","proceso":"Pack","prod":430,"util":87.22,"tiempo":"06:23:15","unidades":2747},
+{"nombre":"Laura Azucena Castillo","proceso":"Pack","prod":404,"util":82.09,"tiempo":"01:09:15","unidades":467},
+{"nombre":"Carel Janet Estrella","proceso":"Pack","prod":445,"util":89.76,"tiempo":"08:10:06","unidades":3638},
+{"nombre":"Maria Belinda Del Rosario Pech","proceso":"Pack","prod":279,"util":91.65,"tiempo":"08:18:01","unidades":2321},
+{"nombre":"Jovannha Lizette Rivera","proceso":"Pack","prod":132,"util":71.81,"tiempo":"08:09:28","unidades":1080},
+{"nombre":"Jonathan Manuel Osalde","proceso":"Pack","prod":135,"util":66.96,"tiempo":"00:24:46","unidades":56},
+{"nombre":"Sarahy Elizabet Puc","proceso":"Pack","prod":126,"util":83.21,"tiempo":"07:42:02","unidades":972},
+{"nombre":"Claudia Michelle Perez","proceso":"Pack","prod":168,"util":84.24,"tiempo":"00:40:50","unidades":115},
+{"nombre":"Rosa Zulemy Osorio","proceso":"Pack","prod":271,"util":93.11,"tiempo":"07:57:13","unidades":2158},
+{"nombre":"Darien Alexander Loeza","proceso":"Pack","prod":174,"util":75.45,"tiempo":"00:32:23","unidades":94},
+{"nombre":"Yaneli Saudizaret Quen","proceso":"Pack","prod":262,"util":87.87,"tiempo":"05:50:22","unidades":1530},
+{"nombre":"Erick Axel Perez","proceso":"P2S","prod":26,"util":62.69,"tiempo":"01:45:41","unidades":47},
+{"nombre":"Dariana Ballestero","proceso":"P2S","prod":28,"util":77.40,"tiempo":"00:22:56","unidades":11},
+{"nombre":"Francis Jhoana Pacho","proceso":"P2S","prod":33,"util":42.02,"tiempo":"00:12:32","unidades":7},
+{"nombre":"Sebastian Alberto Lopez","proceso":"P2S","prod":45,"util":79.59,"tiempo":"07:45:13","unidades":349},
+{"nombre":"Hugo Guillermo Alvarez","proceso":"P2S","prod":20,"util":59.47,"tiempo":"00:08:53","unidades":3},
+{"nombre":"Yessica Sarai Mendez","proceso":"P2S","prod":34,"util":74.53,"tiempo":"04:28:38","unidades":155},
+{"nombre":"Didier Mateo Ek","proceso":"P2S","prod":35,"util":69.23,"tiempo":"07:50:19","unidades":278},
+{"nombre":"Roger Alexander Perez","proceso":"P2S","prod":53,"util":82.10,"tiempo":"01:08:43","unidades":61},
+{"nombre":"Numas Pompilio Rabelo","proceso":"P2S","prod":16,"util":62.15,"tiempo":"00:03:34","unidades":1},
+{"nombre":"Andres Antonio Chable","proceso":"P2S","prod":49,"util":85.30,"tiempo":"01:23:00","unidades":69},
+{"nombre":"Cristhian Gomez","proceso":"Picking","prod":101,"util":78.92,"tiempo":"07:48:32","unidades":791},
+{"nombre":"Lily Angelica Linares","proceso":"Picking","prod":92,"util":89.27,"tiempo":"07:54:00","unidades":730},
+{"nombre":"Karen Cecilia Ek","proceso":"Picking","prod":116,"util":87.02,"tiempo":"01:18:11","unidades":152},
+{"nombre":"Maria Marlene Matos","proceso":"Picking","prod":88,"util":91.93,"tiempo":"08:19:27","unidades":739},
+{"nombre":"Erick Axel Perez","proceso":"Picking","prod":56,"util":69.06,"tiempo":"05:14:28","unidades":294},
+{"nombre":"Omar Alonso Diaz","proceso":"Picking","prod":95,"util":78.92,"tiempo":"02:01:49","unidades":194},
+{"nombre":"Dariana Ballestero","proceso":"Picking","prod":87,"util":84.23,"tiempo":"05:14:23","unidades":457},
+{"nombre":"Norma Geronimo","proceso":"Picking","prod":99,"util":86.69,"tiempo":"07:57:16","unidades":788},
+{"nombre":"Francis Jhoana Pacho","proceso":"Picking","prod":95,"util":70.53,"tiempo":"07:20:12","unidades":700},
+{"nombre":"Hugo Guillermo Alvarez","proceso":"Picking","prod":77,"util":71.51,"tiempo":"03:01:17","unidades":233},
+{"nombre":"Yessica Sarai Mendez","proceso":"Picking","prod":35,"util":82.78,"tiempo":"02:57:37","unidades":105},
+{"nombre":"Christianne Itzel Pichardo","proceso":"Picking","prod":65,"util":63.78,"tiempo":"00:11:55","unidades":13},
+{"nombre":"Karelly Vanessa Puc","proceso":"Picking","prod":104,"util":82.85,"tiempo":"07:49:33","unidades":821},
+{"nombre":"Keila Carina Ojeda","proceso":"Picking","prod":85,"util":82.38,"tiempo":"08:18:58","unidades":711},
+{"nombre":"Maria Belem Camargo","proceso":"Picking","prod":92,"util":78.79,"tiempo":"08:03:59","unidades":750},
+{"nombre":"Valeria Torres","proceso":"Picking","prod":136,"util":89.94,"tiempo":"07:56:06","unidades":1082},
+{"nombre":"Adriana Jacqueline Pool","proceso":"Picking","prod":102,"util":88.59,"tiempo":"08:20:08","unidades":852},
+{"nombre":"Jordy Fernando Contreras","proceso":"Picking","prod":93,"util":90.38,"tiempo":"08:17:57","unidades":772},
+{"nombre":"Manuel Alejandro Ley","proceso":"Picking","prod":93,"util":83.08,"tiempo":"08:14:16","unidades":768},
+{"nombre":"Luis Ibrahim Martin","proceso":"Picking","prod":75,"util":84.61,"tiempo":"08:03:00","unidades":606},
+{"nombre":"Pablo Antonio Madera","proceso":"Picking","prod":79,"util":87.94,"tiempo":"08:09:23","unidades":651},
+{"nombre":"Jose Israel Pena","proceso":"Picking","prod":104,"util":76.63,"tiempo":"05:03:48","unidades":529},
+{"nombre":"Maria Alejandra Chan","proceso":"Picking","prod":104,"util":86.68,"tiempo":"06:55:22","unidades":721},
+{"nombre":"Guillermo Eduardo Cruz","proceso":"Picking","prod":22,"util":53.48,"tiempo":"01:32:30","unidades":34},
+{"nombre":"Yeymi Beatriz Chable","proceso":"Picking","prod":102,"util":77.87,"tiempo":"05:59:36","unidades":613},
+{"nombre":"Andres Antonio Chable","proceso":"Picking","prod":38,"util":82.71,"tiempo":"06:19:48","unidades":241},
+{"nombre":"Lizandra Sulub","proceso":"Picking","prod":107,"util":89.21,"tiempo":"08:04:21","unidades":865},
+{"nombre":"Nataly Fernanda Tilan","proceso":"Batch","prod":94,"util":66.12,"tiempo":"00:58:56","unidades":93},
+{"nombre":"Erandy Cristel Arroniz","proceso":"Batch","prod":14,"util":29.66,"tiempo":"00:12:15","unidades":3},
+{"nombre":"Meri Carolina Gallegos","proceso":"Batch","prod":79,"util":79.67,"tiempo":"00:03:02","unidades":4},
+{"nombre":"Ana Abigail Puc","proceso":"Batch","prod":371,"util":75.61,"tiempo":"06:52:17","unidades":2556},
+{"nombre":"Marcos Jesus Munoz","proceso":"Batch","prod":398,"util":91.34,"tiempo":"02:56:08","unidades":1171},
+{"nombre":"Maria Josefina Pool","proceso":"Batch","prod":404,"util":93.08,"tiempo":"06:00:40","unidades":2433},
+{"nombre":"Nataly Fernanda Tilan","proceso":"Wallin","prod":442,"util":90.78,"tiempo":"04:31:50","unidades":2007},
+{"nombre":"Erandy Cristel Arroniz","proceso":"Wallin","prod":393,"util":92.80,"tiempo":"00:58:07","unidades":381},
+{"nombre":"Marcos Jesus Munoz","proceso":"Wallin","prod":109,"util":79.72,"tiempo":"03:08:32","unidades":345},
+{"nombre":"Luis Gamaliel Chuc","proceso":"Wallin","prod":471,"util":94.26,"tiempo":"02:32:12","unidades":1195},
+{"nombre":"Jose Angel Couoh","proceso":"HU","prod":81,"util":76.55,"tiempo":"05:11:52","unidades":422},
+{"nombre":"Melissa Ortiz","proceso":"HU","prod":330,"util":80.00,"tiempo":"00:31:15","unidades":172},
+{"nombre":"Hannia Carime Caballero","proceso":"HU","prod":291,"util":86.53,"tiempo":"04:44:18","unidades":1383},
+{"nombre":"Ada Angelina Fernandez","proceso":"HU","prod":218,"util":84.66,"tiempo":"01:29:45","unidades":327},
+{"nombre":"Braulio Esteban Fernandez","proceso":"HU","prod":88,"util":65.52,"tiempo":"03:44:22","unidades":332},
+{"nombre":"Christianne Itzel Pichardo","proceso":"HU","prod":257,"util":86.74,"tiempo":"00:06:17","unidades":27},
+{"nombre":"Darley Jose Puc","proceso":"HU","prod":495,"util":79.15,"tiempo":"04:09:24","unidades":2059},
+{"nombre":"Diego Lopez","proceso":"HU","prod":161,"util":74.51,"tiempo":"02:14:44","unidades":363},
+{"nombre":"Jesus Abel Trejo","proceso":"HU","prod":78,"util":55.22,"tiempo":"05:13:00","unidades":410},
+{"nombre":"Numas Pompilio Rabelo","proceso":"HU","prod":48,"util":66.35,"tiempo":"03:10:26","unidades":153},
+{"nombre":"Karim Alejandro Clemente","proceso":"HU","prod":95,"util":61.10,"tiempo":"06:05:51","unidades":580},
+{"nombre":"Reyna Esther Herrera","proceso":"HU","prod":144,"util":69.48,"tiempo":"01:37:28","unidades":235},
+{"nombre":"Jose Israel Pena","proceso":"HU","prod":118,"util":87.83,"tiempo":"02:22:44","unidades":281},
+{"nombre":"Daniel Graciano Cetina","proceso":"HU","prod":93,"util":80.17,"tiempo":"00:01:56","unidades":3},
+{"nombre":"Eduardo Alejandro Pech","proceso":"HU","prod":40,"util":92.13,"tiempo":"00:02:58","unidades":2},
+{"nombre":"Gladys Esther Sanchez","proceso":"HU","prod":496,"util":94.44,"tiempo":"07:50:08","unidades":3887},
+{"nombre":"Perla Julissa Galicia","proceso":"HU","prod":440,"util":87.92,"tiempo":"04:57:39","unidades":2187}
 ];
-const COLOR_POOL = [
-['#3b82f6','rgba(59,130,246,0.13)','rgba(59,130,246,0.35)'],
-['#a78bfa','rgba(167,139,250,0.13)','rgba(167,139,250,0.35)'],
-['#34d399','rgba(52,211,153,0.13)','rgba(52,211,153,0.35)'],
-['#fbbf24','rgba(251,191,36,0.13)','rgba(251,191,36,0.35)'],
-['#f87171','rgba(248,113,113,0.13)','rgba(248,113,113,0.35)'],
-['#38bdf8','rgba(56,189,248,0.13)','rgba(56,189,248,0.35)'],
-];
-const PROC_COLORS = {}; let colorIdx = 0;
-function getColor(p) { if (!PROC_COLORS[p]) { PROC_COLORS[p] = COLOR_POOL[colorIdx++ % COLOR_POOL.length]; } return PROC_COLORS[p]; }
-function utilColor(u) { return u >= 80 ? '#34d399' : u >= 60 ? '#fbbf24' : '#f87171'; }
-let data = [...DATA], sortKey = '', sortAsc = true, activeFilter = 'all', searchVal = '';
-function init() {
-  document.getElementById('fecha-badge').textContent = FECHA;
-  document.getElementById('rec-count').textContent = DATA.length + ' registros · ' + FECHA;
-  const procs = [...new Set(DATA.map(r => r.proceso))].sort();
-  const fil = document.getElementById('filters'); fil.innerHTML = '';
-  const btnAll = document.createElement('button');
-  btnAll.className = 'fb active'; btnAll.dataset.f = 'all'; btnAll.textContent = 'Todos';
-  btnAll.onclick = function(){ setFilter(this); }; fil.appendChild(btnAll);
-  procs.forEach(p => { const btn = document.createElement('button'); btn.className = 'fb'; btn.dataset.f = p; btn.textContent = p; btn.onclick = function(){ setFilter(this); }; fil.appendChild(btn); });
+const COLOR_POOL=[['#3b82f6','rgba(59,130,246,0.13)','rgba(59,130,246,0.35)'],['#a78bfa','rgba(167,139,250,0.13)','rgba(167,139,250,0.35)'],['#34d399','rgba(52,211,153,0.13)','rgba(52,211,153,0.35)'],['#fbbf24','rgba(251,191,36,0.13)','rgba(251,191,36,0.35)'],['#f87171','rgba(248,113,113,0.13)','rgba(248,113,113,0.35)'],['#38bdf8','rgba(56,189,248,0.13)','rgba(56,189,248,0.35)']];
+const PROC_COLORS={};let colorIdx=0;
+function getColor(p){if(!PROC_COLORS[p]){PROC_COLORS[p]=COLOR_POOL[colorIdx++%COLOR_POOL.length];}return PROC_COLORS[p];}
+function utilColor(u){return u>=80?'#34d399':u>=60?'#fbbf24':'#f87171';}
+let data=[...DATA],sortKey='',sortAsc=true,activeFilter='all',searchVal='';
+function init(){
+  document.getElementById('fecha-badge').textContent=FECHA;
+  document.getElementById('rec-count').textContent=DATA.length+' registros · '+FECHA;
+  const procs=[...new Set(DATA.map(r=>r.proceso))].sort();
+  const fil=document.getElementById('filters');fil.innerHTML='';
+  const btnAll=document.createElement('button');btnAll.className='fb active';btnAll.dataset.f='all';btnAll.textContent='Todos';btnAll.onclick=function(){setFilter(this);};fil.appendChild(btnAll);
+  procs.forEach(p=>{const btn=document.createElement('button');btn.className='fb';btn.dataset.f=p;btn.textContent=p;btn.onclick=function(){setFilter(this);};fil.appendChild(btn);});
   render();
 }
-function render() {
-  const visible = data.filter(r => (activeFilter === 'all' || r.proceso === activeFilter) && (!searchVal || r.nombre.toLowerCase().includes(searchVal)));
-  const tbody = document.getElementById('tbody');
-  if (!visible.length) { tbody.innerHTML = `<tr><td colspan="6" class="empty">Sin resultados</td></tr>`; updateStats([]); return; }
-  tbody.innerHTML = visible.map(r => {
-    const [color, bg] = getColor(r.proceso); const uc = utilColor(r.util);
-    return `<tr><td><div class="rep-name">${r.nombre}</div></td><td><span class="proc-badge" style="background:${bg};color:${color}">${r.proceso}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.prod}</td><td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${Math.min(r.util,100)}%;background:${uc}"></div></div><span class="util-v" style="color:${uc}">${r.util}%</span></div></td><td><span class="mono">${r.tiempo}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.unidades.toLocaleString()}</td></tr>`;
-  }).join(''); updateStats(visible);
+function render(){
+  const visible=data.filter(r=>(activeFilter==='all'||r.proceso===activeFilter)&&(!searchVal||r.nombre.toLowerCase().includes(searchVal)));
+  const tbody=document.getElementById('tbody');
+  if(!visible.length){tbody.innerHTML=`<tr><td colspan="6" class="empty">Sin resultados</td></tr>`;updateStats([]);return;}
+  tbody.innerHTML=visible.map(r=>{const[color,bg]=getColor(r.proceso);const uc=utilColor(r.util);return`<tr><td><div class="rep-name">${r.nombre}</div></td><td><span class="proc-badge" style="background:${bg};color:${color}">${r.proceso}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.prod}</td><td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${Math.min(r.util,100)}%;background:${uc}"></div></div><span class="util-v" style="color:${uc}">${r.util}%</span></div></td><td><span class="mono">${r.tiempo}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.unidades.toLocaleString()}</td></tr>`;}).join('');
+  updateStats(visible);
 }
-function updateStats(v) {
-  const n = v.length;
-  if (!n) { ['s-reps','s-prod','s-util','s-units','f-prod','f-util','f-units'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='—'; }); return; }
-  const ap = (v.reduce((a,r)=>a+r.prod,0)/n).toFixed(1);
-  const au = (v.reduce((a,r)=>a+r.util,0)/n).toFixed(1);
-  const su = v.reduce((a,r)=>a+r.unidades,0).toLocaleString();
-  const names = new Set(v.map(r=>r.nombre)).size;
-  document.getElementById('s-reps').textContent = names;
-  document.getElementById('s-prod').textContent = ap;
-  document.getElementById('s-util').textContent = au + '%';
-  document.getElementById('s-units').textContent = su;
-  document.getElementById('f-prod').textContent = ap;
-  document.getElementById('f-util').textContent = au + '% prom.';
-  document.getElementById('f-units').textContent = su;
+function updateStats(v){
+  const n=v.length;
+  if(!n){['s-reps','s-prod','s-util','s-units','f-prod','f-util','f-units'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='—';});return;}
+  const ap=(v.reduce((a,r)=>a+r.prod,0)/n).toFixed(1);
+  const au=(v.reduce((a,r)=>a+r.util,0)/n).toFixed(1);
+  const su=v.reduce((a,r)=>a+r.unidades,0).toLocaleString();
+  const names=new Set(v.map(r=>r.nombre)).size;
+  document.getElementById('s-reps').textContent=names;
+  document.getElementById('s-prod').textContent=ap;
+  document.getElementById('s-util').textContent=au+'%';
+  document.getElementById('s-units').textContent=su;
+  document.getElementById('f-prod').textContent=ap;
+  document.getElementById('f-util').textContent=au+'% prom.';
+  document.getElementById('f-units').textContent=su;
 }
-function setFilter(btn) {
-  document.querySelectorAll('.fb').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.color=''; b.style.borderColor=''; });
-  const f = btn.dataset.f; activeFilter = f;
-  if (f === 'all') { btn.classList.add('active'); }
-  else { const [color,bg,border]=getColor(f); btn.style.background=bg; btn.style.color=color; btn.style.borderColor=border; }
+function setFilter(btn){
+  document.querySelectorAll('.fb').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});
+  const f=btn.dataset.f;activeFilter=f;
+  if(f==='all'){btn.classList.add('active');}
+  else{const[color,bg,border]=getColor(f);btn.style.background=bg;btn.style.color=color;btn.style.borderColor=border;}
   applyAll();
 }
-function applyAll() { searchVal = document.getElementById('search').value.toLowerCase().trim(); render(); }
-function sortBy(key) {
-  sortAsc = sortKey === key ? !sortAsc : true; sortKey = key;
-  document.querySelectorAll('.sa').forEach(a => { a.textContent='↕'; a.closest('th').classList.remove('sorted'); });
-  const arr = document.getElementById('arr-'+key);
-  if (arr) { arr.textContent = sortAsc?'↑':'↓'; arr.closest('th').classList.add('sorted'); }
-  data.sort((a,b) => { let va=a[key],vb=b[key]; if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();} return sortAsc?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0); });
+function applyAll(){searchVal=document.getElementById('search').value.toLowerCase().trim();render();}
+function sortBy(key){
+  sortAsc=sortKey===key?!sortAsc:true;sortKey=key;
+  document.querySelectorAll('.sa').forEach(a=>{a.textContent='↕';a.closest('th').classList.remove('sorted');});
+  const arr=document.getElementById('arr-'+key);
+  if(arr){arr.textContent=sortAsc?'↑':'↓';arr.closest('th').classList.add('sorted');}
+  data.sort((a,b)=>{let va=a[key],vb=b[key];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sortAsc?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});
   render();
 }
 init();
