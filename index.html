@@ -3,218 +3,746 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reporte Productividad OPS</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Reporte de Productividad OPS — 28 Jun 2026</title>
 <style>
-:root{--bg:#0f1117;--bg2:#181c27;--bg3:#1e2333;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#e8eaf0;--text2:#8b909e;--text3:#555b6b;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1.5rem;}
-.container{max-width:1000px;margin:0 auto;}
-.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
-.title{font-size:22px;font-weight:600;letter-spacing:-0.5px;}
-.subtitle{font-size:12px;color:var(--text2);margin-top:3px;}
-.date-badge{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1px solid var(--border2);color:var(--text2);background:var(--bg3);}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.5rem;}
-.stat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;}
-.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3b82f6,transparent);opacity:0.5;}
-.stat-label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
-.stat-val{font-size:24px;font-weight:600;letter-spacing:-0.5px;}
-.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:1rem;}
-.filters{display:flex;gap:6px;flex-wrap:wrap;}
-.fb{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;}
-.fb:hover{color:var(--text);border-color:rgba(255,255,255,0.2);}
-.fb.active{background:rgba(255,255,255,0.08);color:var(--text);border-color:rgba(255,255,255,0.2);}
-.search-wrap{flex:1;min-width:200px;}
-.search-wrap input{font-family:'DM Sans',sans-serif;width:100%;font-size:13px;padding:7px 12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);outline:none;}
-.search-wrap input:focus{border-color:#3b82f6;}
-.search-wrap input::placeholder{color:var(--text3);}
-.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
-table{width:100%;border-collapse:collapse;font-size:13px;}
-thead tr{border-bottom:1px solid var(--border2);}
-th{padding:10px 14px;font-size:11px;font-weight:500;color:var(--text3);text-align:left;white-space:nowrap;cursor:pointer;user-select:none;text-transform:uppercase;letter-spacing:.5px;background:var(--bg2);}
-th.sorted{color:#3b82f6;}th.right{text-align:right;}
-.sa{font-size:10px;margin-left:3px;opacity:.5;}th.sorted .sa{opacity:1;}
-tbody tr{border-bottom:1px solid var(--border);}
-tbody tr:last-child{border-bottom:none;}tbody tr:hover{background:rgba(255,255,255,0.025);}
-td{padding:11px 14px;vertical-align:middle;background:var(--bg2);}td.right{text-align:right;}
-.rep-name{font-weight:500;}
-.proc-badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
-.util-row{display:flex;align-items:center;gap:8px;}
-.util-bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.07);overflow:hidden;min-width:50px;}
-.util-fill{height:100%;border-radius:2px;}
-.util-v{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;min-width:40px;text-align:right;}
-.mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);}
-tfoot td{background:var(--bg3);font-size:11px;font-weight:500;color:var(--text2);border-top:1px solid var(--border2);padding:9px 14px;}
-.empty{text-align:center;padding:3rem;color:var(--text3);font-size:13px;}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --yellow: #FFE600;
+    --dark: #1A1A1A;
+    --mid: #2C2C2C;
+    --surface: #242424;
+    --border: #333;
+    --text: #E8E8E8;
+    --muted: #888;
+    --green: #00C853;
+    --orange: #FF9800;
+    --red: #FF4444;
+    --blue: #4FC3F7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--yellow);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  header .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header .brand .logo {
+    width: 40px; height: 40px;
+    background: var(--dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.1;
+  }
+  header .meta {
+    text-align: right;
+    color: var(--dark);
+  }
+  header .meta .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  header .meta .shift {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  /* RESUMEN GLOBAL */
+  .summary-bar {
+    background: var(--mid);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .summary-item { display: flex; flex-direction: column; gap: 2px; }
+  .summary-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .summary-item .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--yellow);
+  }
+
+  /* MAIN */
+  main { padding: 28px 32px; display: flex; flex-direction: column; gap: 32px; }
+
+  /* PROCESO SECTION */
+  .proceso {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .proceso-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: var(--mid);
+  }
+  .proceso-header .name {
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .proceso-header .name .badge {
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .proceso-kpis {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .kpi { display: flex; flex-direction: column; gap: 1px; }
+  .kpi .k-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .kpi .k-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue);
+  }
+
+  /* TABLA */
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr { background: #1e1e1e; }
+  thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  thead th:not(:first-child) { text-align: right; }
+  tbody tr { border-top: 1px solid var(--border); transition: background .12s; }
+  tbody tr:hover { background: rgba(255,255,255,.03); }
+  tbody td { padding: 10px 16px; }
+  tbody td:not(:first-child) { text-align: right; font-family: 'JetBrains Mono', monospace; }
+  .rep-name { font-weight: 500; color: var(--text); }
+  .rep-id { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* PROD BAR */
+  .prod-cell { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  .prod-bar-wrap { width: 60px; background: var(--border); border-radius: 2px; height: 4px; flex-shrink: 0; }
+  .prod-bar { height: 4px; border-radius: 2px; background: var(--yellow); }
+
+  /* UTIL CHIP */
+  .util-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+  .util-high { background: rgba(0,200,83,.15); color: var(--green); }
+  .util-mid  { background: rgba(255,152,0,.15); color: var(--orange); }
+  .util-low  { background: rgba(255,68,68,.15);  color: var(--red); }
+
+  footer {
+    padding: 20px 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 </style>
 </head>
 <body>
-<div class="container">
-<div class="header-top">
-  <div><div class="title">Reporte de productividad</div><div class="subtitle" id="rc"></div></div>
-  <div class="date-badge" id="db"></div>
+
+<header>
+  <div class="brand">
+    <div class="logo">🤝</div>
+    <h1>Reporte de Productividad OPS<br><span style="font-weight:400;font-size:13px;">MX1T1APLGS — Turno 1A</span></h1>
+  </div>
+  <div class="meta">
+    <div class="date">28 / 06 / 2026</div>
+    <div class="shift">05:40 — 15:00 hrs</div>
+  </div>
+</header>
+
+<div class="summary-bar">
+  <div class="summary-item">
+    <span class="label">Procesos activos</span>
+    <span class="value">6</span>
+  </div>
+  <div class="summary-item">
+    <span class="label">Total representantes</span>
+    <span class="value">43</span>
+  </div>
+  <div class="summary-item">
+    <span class="label">Unidades totales</span>
+    <span class="value">20,924</span>
+  </div>
 </div>
-<div class="stats">
-  <div class="stat"><div class="stat-label">Representantes</div><div class="stat-val" id="s1"></div></div>
-  <div class="stat"><div class="stat-label">Prod. neta prom.</div><div class="stat-val" id="s2"></div></div>
-  <div class="stat"><div class="stat-label">Utilización prom.</div><div class="stat-val" id="s3"></div></div>
-  <div class="stat"><div class="stat-label">Total unidades</div><div class="stat-val" id="s4"></div></div>
-</div>
-<div class="controls">
-  <div class="filters" id="flt"></div>
-  <div class="search-wrap"><input type="search" id="srch" placeholder="Buscar representante..." oninput="apl()"></div>
-</div>
-<div class="table-wrap"><table>
-  <thead><tr>
-    <th style="width:210px" onclick="srt('nombre')">Representante <span class="sa" id="a0">↕</span></th>
-    <th style="width:90px" onclick="srt('proceso')">Proceso <span class="sa" id="a1">↕</span></th>
-    <th class="right" style="width:85px" onclick="srt('prod')">Prod. neta <span class="sa" id="a2">↕</span></th>
-    <th style="width:130px" onclick="srt('util')">Utilización <span class="sa" id="a3">↕</span></th>
-    <th style="width:95px" onclick="srt('tiempo')">T. proceso <span class="sa" id="a4">↕</span></th>
-    <th class="right" style="width:85px" onclick="srt('unidades')">Unidades <span class="sa" id="a5">↕</span></th>
-  </tr></thead>
-  <tbody id="tb"></tbody>
-  <tfoot><tr><td colspan="2">Promedio / Total visible</td><td style="text-align:right" id="fp"></td><td id="fu"></td><td></td><td style="text-align:right" id="fuu"></td></tr></tfoot>
-</table></div>
-</div>
-<script>
-const FECHA="25 junio 2026 — Turno 1B  05:40 a 14:00";
-const D=[
-["Mariana Sherlyn Balam","Pack",119,70.85,"00:41:34",83],
-["Karen Cecilia Ek","Pack",388,86.99,"07:31:57",2929],
-["Luis Enmanuel Solis","Pack",278,89.30,"01:04:09",298],
-["Laura Azucena Castillo","Pack",238,87.27,"01:29:25",355],
-["Cristian Ivan Cen","Pack",129,65.75,"00:49:56",108],
-["Carel Janet Estrella","Pack",394,83.81,"07:31:06",2969],
-["Tania Guadalupe Pereira","Pack",252,90.25,"06:31:22",1647],
-["Jovannha Lizette Rivera","Pack",88,55.91,"00:35:50",53],
-["Fernando Hipolito Colomo","Pack",202,84.88,"02:40:55",543],
-["Rosa Zulemy Osorio","Pack",283,93.67,"06:43:41",1907],
-["Yeymi Beatriz Chable","Pack",246,93.92,"00:21:23",88],
-["Omar Alonso Diaz","P2S",40,75.29,"07:21:08",301],
-["Dariana Ballestero","P2S",31,64.11,"06:50:58",213],
-["Jovannha Lizette Rivera","P2S",37,70.92,"01:58:38",74],
-["Yessica Sarai Mendez","P2S",47,84.26,"03:39:48",173],
-["Didier Mateo Ek","P2S",38,65.00,"06:33:14",255],
-["Numas Pompilio Rabelo","P2S",20,76.00,"00:02:55",1],
-["Jordy Fernando Contreras","P2S",37,78.34,"04:53:53",183],
-["Andres Antonio Chable","P2S",40,85.11,"06:32:43",264],
-["Lily Angelica Linares","Picking",79,86.26,"07:20:27",586],
-["Mariana Sherlyn Balam","Picking",79,68.78,"04:43:30",377],
-["Maria Marlene Matos","Picking",90,84.62,"02:07:54",193],
-["Nataly Fernanda Tilan","Picking",112,90.74,"03:34:18",403],
-["Brian Alberto Canche","Picking",47,61.19,"00:11:28",9],
-["Cristian Ivan Cen","Picking",96,87.82,"03:16:09",314],
-["Norma Geronimo","Picking",98,85.14,"07:12:24",708],
-["Francis Jhoana Pacho","Picking",35,80.01,"07:04:42",248],
-["Alejandra Del Carmen Leal","Picking",133,83.98,"00:30:10",67],
-["Jovannha Lizette Rivera","Picking",63,71.38,"03:42:33",235],
-["Hannia Carime Caballero","Picking",57,69.45,"01:18:08",75],
-["Marissa Isabel Cisneros","Picking",89,74.56,"03:24:29",306],
-["Fatima Rebeca Balan","Picking",91,84.07,"00:46:40",71],
-["Jesus Alberto Lavalle","Picking",106,94.95,"02:27:56",263],
-["Ada Angelina Fernandez","Picking",132,90.57,"00:34:18",76],
-["Yessica Sarai Mendez","Picking",22,67.56,"02:34:24",59],
-["Karelly Vanessa Puc","Picking",71,83.17,"02:31:48",182],
-["Ana Abigail Puc","Picking",92,80.14,"01:16:13",117],
-["Keila Carina Ojeda","Picking",80,75.60,"00:24:27",33],
-["Maria Belem Camargo","Picking",99,79.19,"04:20:01",432],
-["Roger Alexander Perez","Picking",67,66.15,"01:51:38",126],
-["Valeria Torres","Picking",148,89.21,"07:05:41",1056],
-["Karim Alejandro Clemente","Picking",63,63.89,"05:45:59",366],
-["Jordy Fernando Contreras","Picking",96,90.20,"02:42:09",262],
-["Manuel Alejandro Ley","Picking",97,84.57,"06:31:05",636],
-["Pablo Antonio Madera","Picking",98,81.62,"01:36:39",159],
-["David Moises Garcia","Picking",44,61.43,"00:27:03",20],
-["Vanessa Anaeli Narvaez","Picking",50,59.88,"04:22:51",220],
-["Anallely Jael Medina","Picking",75,87.27,"03:57:52",300],
-["Maria Alejandra Chan","Picking",102,91.13,"06:59:01",716],
-["Daniel Graciano Cetina","Picking",44,71.44,"00:19:05",14],
-["Yeymi Beatriz Chable","Picking",101,86.04,"04:06:30",415],
-["Nataly Fernanda Tilan","Batch",77,63.89,"01:43:09",133],
-["Dariana Ballestero","Batch",4,5.88,"00:12:45",1],
-["Karelly Vanessa Puc","Batch",64,52.97,"01:17:58",84],
-["Roger Alexander Perez","Batch",83,57.56,"02:51:03",238],
-["Maria Josefina Pool","Batch",46,46.76,"01:53:33",88],
-["Yeymi Beatriz Chable","Batch",71,68.46,"02:23:27",171],
-["Mariana Sherlyn Balam","Wallin",355,68.76,"01:15:42",449],
-["Nataly Fernanda Tilan","Wallin",458,96.11,"01:41:08",773],
-["Karelly Vanessa Puc","Wallin",406,84.14,"03:08:49",1278],
-["Roger Alexander Perez","Wallin",437,90.32,"02:25:37",1062],
-["Maria Josefina Pool","Wallin",414,92.05,"05:16:45",2189],
-["Yeymi Beatriz Chable","Wallin",350,91.31,"00:26:51",157],
-["Hugo Guillermo Alvarez","HU",69,64.55,"01:36:51",112],
-["Erandy Cristel Arroniz","HU",332,84.71,"02:18:47",769],
-["Fatima Rebeca Balan","HU",275,83.32,"01:21:08",373],
-["Jesus Alberto Lavalle","HU",102,83.44,"01:44:21",178],
-["Ada Angelina Fernandez","HU",269,82.91,"01:32:38",416],
-["Braulio Esteban Fernandez","HU",46,67.12,"07:20:57",344],
-["Maria Belem Camargo","HU",281,70.34,"02:36:16",734],
-["Darley Jose Puc","HU",79,72.88,"04:04:35",326],
-["Diego Lopez","HU",174,75.41,"01:14:46",218],
-["Jesus Abel Trejo","HU",59,66.56,"06:56:58",415],
-["Karim Alejandro Clemente","HU",54,52.25,"00:32:57",30],
-["Jose Israel Pena","HU",92,79.68,"05:44:46",529],
-["Mauricio Alejandro Rodriguez","HU",68,84.93,"02:55:42",202],
-["Daniel Graciano Cetina","HU",79,73.88,"00:44:17",59],
-["Gladys Esther Sanchez","HU",495,91.63,"06:36:37",3277],
-["Perla Julissa Galicia","HU",300,62.16,"05:02:26",1514]
-];
-const DATA=D.map(r=>({nombre:r[0],proceso:r[1],prod:r[2],util:r[3],tiempo:r[4],unidades:r[5]}));
-const CP=[['#3b82f6','rgba(59,130,246,0.13)','rgba(59,130,246,0.35)'],['#a78bfa','rgba(167,139,250,0.13)','rgba(167,139,250,0.35)'],['#34d399','rgba(52,211,153,0.13)','rgba(52,211,153,0.35)'],['#fbbf24','rgba(251,191,36,0.13)','rgba(251,191,36,0.35)'],['#f87171','rgba(248,113,113,0.13)','rgba(248,113,113,0.35)'],['#38bdf8','rgba(56,189,248,0.13)','rgba(56,189,248,0.35)']];
-const PC={};let ci=0;
-const gc=p=>{if(!PC[p])PC[p]=CP[ci++%CP.length];return PC[p];};
-const uc=u=>u>=80?'#34d399':u>=60?'#fbbf24':'#f87171';
-let data=[...DATA],sk='',sa=true,af='all',sv='';
-const KS=['nombre','proceso','prod','util','tiempo','unidades'];
-const AS=['a0','a1','a2','a3','a4','a5'];
-function init(){
-  document.getElementById('db').textContent=FECHA;
-  document.getElementById('rc').textContent=DATA.length+' registros · '+FECHA;
-  const procs=[...new Set(DATA.map(r=>r.proceso))].sort();
-  const f=document.getElementById('flt');f.innerHTML='';
-  const b=document.createElement('button');b.className='fb active';b.dataset.f='all';b.textContent='Todos';b.onclick=function(){sf(this);};f.appendChild(b);
-  procs.forEach(p=>{const btn=document.createElement('button');btn.className='fb';btn.dataset.f=p;btn.textContent=p;btn.onclick=function(){sf(this);};f.appendChild(btn);});
-  ren();
-}
-function ren(){
-  const vis=data.filter(r=>(af==='all'||r.proceso===af)&&(!sv||r.nombre.toLowerCase().includes(sv)));
-  const tb=document.getElementById('tb');
-  if(!vis.length){tb.innerHTML='<tr><td colspan="6" class="empty">Sin resultados</td></tr>';st([]);return;}
-  tb.innerHTML=vis.map(r=>{const[c,bg]=gc(r.proceso);const col=uc(r.util);return`<tr><td><div class="rep-name">${r.nombre}</div></td><td><span class="proc-badge" style="background:${bg};color:${c}">${r.proceso}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.prod}</td><td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${Math.min(r.util,100)}%;background:${col}"></div></div><span class="util-v" style="color:${col}">${r.util}%</span></div></td><td><span class="mono">${r.tiempo}</span></td><td class="right" style="font-family:'DM Mono',monospace;font-weight:500">${r.unidades.toLocaleString()}</td></tr>`;}).join('');
-  st(vis);
-}
-function st(v){
-  const n=v.length;
-  if(!n){['s1','s2','s3','s4','fp','fu','fuu'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='—';});return;}
-  const ap=(v.reduce((a,r)=>a+r.prod,0)/n).toFixed(1);
-  const au=(v.reduce((a,r)=>a+r.util,0)/n).toFixed(1);
-  const su=v.reduce((a,r)=>a+r.unidades,0).toLocaleString();
-  document.getElementById('s1').textContent=new Set(v.map(r=>r.nombre)).size;
-  document.getElementById('s2').textContent=ap;
-  document.getElementById('s3').textContent=au+'%';
-  document.getElementById('s4').textContent=su;
-  document.getElementById('fp').textContent=ap;
-  document.getElementById('fu').textContent=au+'% prom.';
-  document.getElementById('fuu').textContent=su;
-}
-function sf(btn){
-  document.querySelectorAll('.fb').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});
-  af=btn.dataset.f;
-  if(af==='all')btn.classList.add('active');
-  else{const[c,bg,br]=gc(af);btn.style.background=bg;btn.style.color=c;btn.style.borderColor=br;}
-  apl();
-}
-function apl(){sv=document.getElementById('srch').value.toLowerCase().trim();ren();}
-function srt(key){
-  sa=sk===key?!sa:true;sk=key;
-  AS.forEach(id=>{const e=document.getElementById(id);if(e){e.textContent='↕';e.closest('th').classList.remove('sorted');}});
-  const idx=KS.indexOf(key);
-  if(idx>=0){const e=document.getElementById(AS[idx]);if(e){e.textContent=sa?'↑':'↓';e.closest('th').classList.add('sorted');}}
-  data.sort((a,b)=>{let va=a[key],vb=b[key];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});
-  ren();
-}
-init();
-</script>
+
+<main>
+
+  <!-- ===== PACK ===== -->
+  <div class="proceso">
+    <div class="proceso-header">
+      <div class="name"><span class="badge">Pack</span> Packing</div>
+      <div class="proceso-kpis">
+        <div class="kpi"><span class="k-label">Representantes</span><span class="k-val">6</span></div>
+        <div class="kpi"><span class="k-label">Unidades</span><span class="k-val">7,975</span></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Representante</th>
+            <th>Prod. neta</th>
+            <th>Utilización</th>
+            <th>T. en proceso</th>
+            <th>Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rep-name">Roger Alexander Perez</div><div class="rep-id">2256146</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>422</div></td>
+            <td><span class="util-chip util-high">91.05%</span></td>
+            <td>05:21:01</td>
+            <td>2,260</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Nataly Fernanda Tilan</div><div class="rep-id">1785091</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:78%"></div></div>329</div></td>
+            <td><span class="util-chip util-high">86.96%</span></td>
+            <td>05:16:41</td>
+            <td>1,741</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Maria Belinda Del Rosario Pech</div><div class="rep-id">1858122</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:61%"></div></div>256</div></td>
+            <td><span class="util-chip util-high">86.86%</span></td>
+            <td>06:21:07</td>
+            <td>1,632</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Tania Guadalupe Pereira</div><div class="rep-id">1898767</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:57%"></div></div>243</div></td>
+            <td><span class="util-chip util-high">94.32%</span></td>
+            <td>05:20:53</td>
+            <td>1,303</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Sarahy Elizabet Puc</div><div class="rep-id">2081065</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:44%"></div></div>187</div></td>
+            <td><span class="util-chip util-high">87.84%</span></td>
+            <td>05:09:24</td>
+            <td>965</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Amairani Jeneli Miranda</div><div class="rep-id">396583</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:37%"></div></div>157</div></td>
+            <td><span class="util-chip util-high">87.72%</span></td>
+            <td>00:28:14</td>
+            <td>74</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== P2S ===== -->
+  <div class="proceso">
+    <div class="proceso-header">
+      <div class="name"><span class="badge">P2S</span> Pick To Ship</div>
+      <div class="proceso-kpis">
+        <div class="kpi"><span class="k-label">Representantes</span><span class="k-val">4</span></div>
+        <div class="kpi"><span class="k-label">Unidades</span><span class="k-val">883</span></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Representante</th>
+            <th>Prod. neta</th>
+            <th>Utilización</th>
+            <th>T. en proceso</th>
+            <th>Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rep-name">Daniel Graciano Cetina</div><div class="rep-id">433849</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>49</div></td>
+            <td><span class="util-chip util-high">84.56%</span></td>
+            <td>07:54:29</td>
+            <td>392</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Francis Jhoana Pacho</div><div class="rep-id">1909267</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:84%"></div></div>41</div></td>
+            <td><span class="util-chip util-mid">71.11%</span></td>
+            <td>08:13:01</td>
+            <td>342</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Hugo Guillermo Alvarez</div><div class="rep-id">2070925</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:55%"></div></div>54</div></td>
+            <td><span class="util-chip util-high">90.51%</span></td>
+            <td>02:18:46</td>
+            <td>127</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Roger Alexander Perez</div><div class="rep-id">2256146</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:63%"></div></div>62</div></td>
+            <td><span class="util-chip util-mid">70.24%</span></td>
+            <td>00:21:07</td>
+            <td>22</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== PICKING ===== -->
+  <div class="proceso">
+    <div class="proceso-header">
+      <div class="name"><span class="badge">Picking</span> Picking</div>
+      <div class="proceso-kpis">
+        <div class="kpi"><span class="k-label">Representantes</span><span class="k-val">22</span></div>
+        <div class="kpi"><span class="k-label">Unidades</span><span class="k-val">6,236</span></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Representante</th>
+            <th>Prod. neta</th>
+            <th>Utilización</th>
+            <th>T. en proceso</th>
+            <th>Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rep-name">Jesus Alberto Lavalle</div><div class="rep-id">2185828</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>135</div></td>
+            <td><span class="util-chip util-high">94.79%</span></td>
+            <td>02:24:17</td>
+            <td>326</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Nataly Fernanda Tilan</div><div class="rep-id">1785091</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:85%"></div></div>86 (⚠ 2 omitidos con 0)</div></td>
+            <td><span class="util-chip util-high">85.55%</span></td>
+            <td>02:43:59</td>
+            <td>237</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Numas Pompilio Rabelo</div><div class="rep-id">2319246</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:84%"></div></div>113</div></td>
+            <td><span class="util-chip util-high">87.89%</span></td>
+            <td>02:43:36</td>
+            <td>309</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Ana Abigail Puc</div><div class="rep-id">2224398</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:76%"></div></div>103</div></td>
+            <td><span class="util-chip util-high">87.87%</span></td>
+            <td>02:37:00</td>
+            <td>270</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Dariana Ballestero</div><div class="rep-id">1899225</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:74%"></div></div>100</div></td>
+            <td><span class="util-chip util-high">82.98%</span></td>
+            <td>06:50:19</td>
+            <td>689</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Keila Carina Ojeda</div><div class="rep-id">2255960</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:67%"></div></div>91</div></td>
+            <td><span class="util-chip util-high">82.95%</span></td>
+            <td>08:26:27</td>
+            <td>776</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Fatima Rebeca Balan</div><div class="rep-id">2125982</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:67%"></div></div>90</div></td>
+            <td><span class="util-chip util-high">85.44%</span></td>
+            <td>08:09:55</td>
+            <td>735</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Jesus Alfredo Borges</div><div class="rep-id">2309743</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:63%"></div></div>85</div></td>
+            <td><span class="util-chip util-high">83.59%</span></td>
+            <td>05:15:45</td>
+            <td>451</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Maria Belem Camargo</div><div class="rep-id">2256007</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:63%"></div></div>85</div></td>
+            <td><span class="util-chip util-mid">78.30%</span></td>
+            <td>01:59:13</td>
+            <td>169</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Cristian Ivan Cen</div><div class="rep-id">1855131</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:56%"></div></div>76</div></td>
+            <td><span class="util-chip util-mid">74.15%</span></td>
+            <td>08:33:37</td>
+            <td>655</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Sonia Andley Kantun</div><div class="rep-id">2126023</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:56%"></div></div>75</div></td>
+            <td><span class="util-chip util-high">81.96%</span></td>
+            <td>04:39:42</td>
+            <td>354</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Adriana Jacqueline Pool</div><div class="rep-id">2309763</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:59%"></div></div>79</div></td>
+            <td><span class="util-chip util-high">85.96%</span></td>
+            <td>03:02:19</td>
+            <td>242</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Enrique Eduardo Saenz</div><div class="rep-id">2482840</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:50%"></div></div>67</div></td>
+            <td><span class="util-chip util-high">86.52%</span></td>
+            <td>05:20:19</td>
+            <td>362</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Braulio Esteban Fernandez</div><div class="rep-id">2220411</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:59%"></div></div>80</div></td>
+            <td><span class="util-chip util-high">82.34%</span></td>
+            <td>08:05:37</td>
+            <td>649</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Joandry Guadalupe Dorantes</div><div class="rep-id">2176913</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:60%"></div></div>81</div></td>
+            <td><span class="util-chip util-high">80.11%</span></td>
+            <td>05:17:58</td>
+            <td>432</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Hugo Guillermo Alvarez</div><div class="rep-id">2070925</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:39%"></div></div>53</div></td>
+            <td><span class="util-chip util-mid">75.42%</span></td>
+            <td>02:33:46</td>
+            <td>136</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Hugo Guillermo Alvarez</div><div class="rep-id">2256146</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:36%"></div></div>48</div></td>
+            <td><span class="util-chip util-high">83.26%</span></td>
+            <td>02:12:18</td>
+            <td>107</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Maria Belinda Del Rosario Pech</div><div class="rep-id">1858122</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:37%"></div></div>50</div></td>
+            <td><span class="util-chip util-mid">75.69%</span></td>
+            <td>00:46:21</td>
+            <td>39</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Pablo Antonio Madera</div><div class="rep-id">2493606</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:61%"></div></div>82</div></td>
+            <td><span class="util-chip util-high">83.84%</span></td>
+            <td>00:24:51</td>
+            <td>34</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Karelly Vanessa Puc</div><div class="rep-id">2224394</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:23%"></div></div>31</div></td>
+            <td><span class="util-chip util-mid">76.98%</span></td>
+            <td>08:11:07</td>
+            <td>256</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Tania Guadalupe Pereira</div><div class="rep-id">1898767</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:0%"></div></div><span style="color:var(--red)">0</span></div></td>
+            <td><span class="util-chip util-low">0%</span></td>
+            <td>00:04:28</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Dora Corina Gonzalez</div><div class="rep-id">2057637</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:0%"></div></div><span style="color:var(--red)">0</span></div></td>
+            <td><span class="util-chip util-low">0%</span></td>
+            <td>00:20:49</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== BATCH ===== -->
+  <div class="proceso">
+    <div class="proceso-header">
+      <div class="name"><span class="badge">Batch</span> Batch Sorter</div>
+      <div class="proceso-kpis">
+        <div class="kpi"><span class="k-label">Representantes</span><span class="k-val">7</span></div>
+        <div class="kpi"><span class="k-label">Unidades</span><span class="k-val">485</span></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Representante</th>
+            <th>Prod. neta</th>
+            <th>Utilización</th>
+            <th>T. en proceso</th>
+            <th>Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rep-name">Yaneli Saudizaret Quen</div><div class="rep-id">493088</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>132</div></td>
+            <td><span class="util-chip util-high">84.50%</span></td>
+            <td>02:24:30</td>
+            <td>318</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Dariana Ballestero</div><div class="rep-id">1899225</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:48%"></div></div>63</div></td>
+            <td><span class="util-chip util-low">51.03%</span></td>
+            <td>00:52:21</td>
+            <td>55</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Adriana Jacqueline Pool</div><div class="rep-id">2309763</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:58%"></div></div>77</div></td>
+            <td><span class="util-chip util-mid">72.81%</span></td>
+            <td>01:06:12</td>
+            <td>85</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Maria Belem Camargo</div><div class="rep-id">2256007</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:36%"></div></div>47</div></td>
+            <td><span class="util-chip util-low">56.31%</span></td>
+            <td>00:18:53</td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Roger Alexander Perez</div><div class="rep-id">2256146</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:88%"></div></div>116</div></td>
+            <td><span class="util-chip util-mid">68.35%</span></td>
+            <td>00:04:38</td>
+            <td>9</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Ana Abigail Puc</div><div class="rep-id">2224398</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:9%"></div></div>12</div></td>
+            <td><span class="util-chip util-low">14.92%</span></td>
+            <td>00:09:50</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Braulio Esteban Fernandez</div><div class="rep-id">2220411</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:10%"></div></div>13</div></td>
+            <td><span class="util-chip util-low">21.82%</span></td>
+            <td>00:04:35</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== WALLIN ===== -->
+  <div class="proceso">
+    <div class="proceso-header">
+      <div class="name"><span class="badge">Wallin</span> Putwallin</div>
+      <div class="proceso-kpis">
+        <div class="kpi"><span class="k-label">Representantes</span><span class="k-val">5</span></div>
+        <div class="kpi"><span class="k-label">Unidades</span><span class="k-val">4,070</span></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Representante</th>
+            <th>Prod. neta</th>
+            <th>Utilización</th>
+            <th>T. en proceso</th>
+            <th>Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rep-name">Yaneli Saudizaret Quen</div><div class="rep-id">493088</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>360</div></td>
+            <td><span class="util-chip util-mid">73.30%</span></td>
+            <td>05:58:14</td>
+            <td>2,155</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Ana Abigail Puc</div><div class="rep-id">2224398</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>474</div></td>
+            <td><span class="util-chip util-high">97.61%</span></td>
+            <td>00:32:44</td>
+            <td>259</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Maria Belem Camargo</div><div class="rep-id">2256007</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:79%"></div></div>374</div></td>
+            <td><span class="util-chip util-high">97.66%</span></td>
+            <td>00:38:30</td>
+            <td>240</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Adriana Jacqueline Pool</div><div class="rep-id">2309763</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:52%"></div></div>247</div></td>
+            <td><span class="util-chip util-mid">72.78%</span></td>
+            <td>04:28:39</td>
+            <td>1,106</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Dariana Ballestero</div><div class="rep-id">1899225</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:96%"></div></div>457</div></td>
+            <td><span class="util-chip util-high">90.27%</span></td>
+            <td>00:40:37</td>
+            <td>310</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== HU ===== -->
+  <div class="proceso">
+    <div class="proceso-header">
+      <div class="name"><span class="badge">HU</span> Armado HU</div>
+      <div class="proceso-kpis">
+        <div class="kpi"><span class="k-label">Representantes</span><span class="k-val">7</span></div>
+        <div class="kpi"><span class="k-label">Unidades</span><span class="k-val">5,206</span></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Representante</th>
+            <th>Prod. neta</th>
+            <th>Utilización</th>
+            <th>T. en proceso</th>
+            <th>Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rep-name">Maria Belem Camargo</div><div class="rep-id">2256007</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>372</div></td>
+            <td><span class="util-chip util-high">80.50%</span></td>
+            <td>05:23:16</td>
+            <td>2,009</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Ana Abigail Puc</div><div class="rep-id">2224398</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:100%"></div></div>383</div></td>
+            <td><span class="util-chip util-high">84.07%</span></td>
+            <td>01:33:21</td>
+            <td>597</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Diego Lopez</div><div class="rep-id">2256419</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:93%"></div></div>346</div></td>
+            <td><span class="util-chip util-high">85.65%</span></td>
+            <td>00:58:52</td>
+            <td>340</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Jesus Alberto Lavalle</div><div class="rep-id">2185828</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:51%"></div></div>191</div></td>
+            <td><span class="util-chip util-high">87.30%</span></td>
+            <td>02:51:08</td>
+            <td>545</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Darley Jose Puc</div><div class="rep-id">2256374</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:46%"></div></div>172</div></td>
+            <td><span class="util-chip util-mid">70.64%</span></td>
+            <td>05:50:11</td>
+            <td>1,007</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Jesus Abel Trejo</div><div class="rep-id">2256500</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:17%"></div></div>62</div></td>
+            <td><span class="util-chip util-mid">73.13%</span></td>
+            <td>07:11:13</td>
+            <td>451</td>
+          </tr>
+          <tr>
+            <td><div class="rep-name">Karim Alejandro Clemente</div><div class="rep-id">2326224</div></td>
+            <td><div class="prod-cell"><div class="prod-bar-wrap"><div class="prod-bar" style="width:15%"></div></div>56</div></td>
+            <td><span class="util-chip util-low">60.47%</span></td>
+            <td>04:34:10</td>
+            <td>257</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>Generado automáticamente · MX1T1APLGS · Turno 1A 05:40–15:00</span>
+  <span>28 Jun 2026</span>
+</footer>
+
 </body>
 </html>
