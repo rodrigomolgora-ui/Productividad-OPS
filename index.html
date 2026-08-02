@@ -78,65 +78,29 @@ tfoot td{background:var(--bg3);font-size:11px;font-weight:500;color:var(--text2)
 </table></div>
 </div>
 <script>
-const FECHA="30 julio 2026 — Turno 1A  05:40 a 15:00";
-// Regla: una fila por (nombre, proceso). Si mismo nombre+proceso aparece varias veces, se toma el de mayor prod.
-// Si mismo nombre aparece en distintos procesos, se incluye una fila por cada proceso.
+const FECHA="02 agosto 2026 — Turno 1A  05:40 a 15:00";
 const D=[
 // PACK — archivo 0
-["Mariana Sherlyn Balam","Pack",418,98.31,"02:19:47",975],
-["Luis Enmanuel Solis","Pack",371,94.58,"02:18:26",857],
-["Laura Azucena Castillo","Pack",597,97.53,"02:21:00",1404], // mayor entre (0)321, (2)122, (3)101, (4)597
-["Tania Guadalupe Pereira","Pack",264,90.39,"07:18:11",1934],
-["Sarahy Elizabet Puc","Pack",199,90.88,"07:05:38",1417],
-["Fernando Hipolito Colomo","Pack",237,92.02,"07:58:47",1898],
-["Claudia Michelle Perez","Pack",155,80.05,"07:25:15",1154],
-["Rosa Zulemy Osorio","Pack",293,93.87,"02:41:20",789], // mayor entre (0)293, (2)82
-["Yaneli Saudizaret Quen","Pack",472,78.46,"00:49:26",389], // mayor entre (0)147, (2)52, (3)135, (4)472
-["Erandy Cristel Arroniz","Pack",378,89.88,"00:12:51",81], // aparece en pack en archivo (5) con mayor prod
-// P2S — archivo 1
-["Brian Alberto Canche","P2S",63,86.23,"06:07:36",391],
-["Omar Alonso Diaz","P2S",44,77.79,"07:33:05",338], // mayor entre (1)44, (2)36
-["Jovannha Lizette Rivera","P2S",33,72.6,"05:44:21",190], // mayor entre (1)33, (2)15
-["Yessica Sarai Mendez","P2S",41,81.1,"05:48:33",243],  // mayor entre (1)25, (2)41
-["Karelly Vanessa Puc","P2S",116,87.51,"01:05:32",127], // mayor entre (1)44, (2)116
-["Roger Alexander Perez","P2S",55,77.34,"06:17:58",347],
-["Jordy Fernando Contreras","P2S",87,79.14,"02:15:36",198], // mayor entre (1)50, (2)87
-// PICKING — archivo 2
-["Lily Angelica Linares","Picking",91,87.32,"07:01:56",643],
-["Karen Cecilia Ek","Picking",488,94.55,"05:21:27",2616], // mayor entre (0)488, (2)123
-["Norma Geronimo","Picking",290,85.66,"00:41:15",200],   // mayor entre (2)114, (5)290
-["Moises Enrique Lara","Picking",103,68.55,"01:12:08",124],
-["Alejandra Del Carmen Leal","Picking",90,84.27,"05:34:10",506],
-["Marissa Isabel Cisneros","Picking",84,84.25,"01:59:02",168],
-["Ana Abigail Puc","Picking",370,73.93,"00:59:39",368],  // mayor entre (2)95, (3)51, (4)370
-["Valeria Torres","Picking",122,89.82,"05:54:43",723],
-["Marcos Jesus Munoz","Picking",269,86.52,"02:02:03",549], // mayor entre (2)124, (5)269
-["Adriana Jacqueline Pool","Picking",331,80.61,"01:03:11",349], // mayor entre (2)91, (4)331
-["Yeymi Beatriz Chable","Picking",79,67.38,"06:17:14",497],
-["Lizandra Sulub","Picking",429,80.85,"00:58:50",421],   // mayor entre (2)107, (5)429
-["Carel Janet Estrella","Picking",494,95.03,"05:18:01",2620], // mayor entre (0)picking, (2)151
-["Maria Alejandra Chan","Picking",558,90.52,"00:57:07",532],  // mayor (2)106 picking, (5)558
-// HU — archivos 2 y 5
-["Cristian Ivan Cen","HU",207,72.42,"01:17:14",267],   // mayor entre (2)69, (5)207
-["Fatima Rebeca Balan","HU",342,88.09,"01:23:17",476],  // mayor entre (2)91, (5)342
-["Karim Alejandro Clemente","HU",144,56.76,"04:05:03",589], // mayor entre (2)83, (5)144
-["Maria Belem Camargo","HU",352,77.61,"07:43:53",2724],
-["Darley Jose Puc","HU",461,76.08,"02:33:34",1180],
-["Jesus Abel Trejo","HU",80,69.97,"07:32:39",608],
-["Braulio Esteban Fernandez","HU",134,70.02,"06:30:39",877],
-["Amairani Jeneli Miranda","HU",242,100,"00:01:29",6],
-["Andrea Angelica Zarate","HU",474,100,"02:57:27",1404],
-["Mauricio Alejandro Rodriguez","HU",78,82.93,"06:06:54",479],
-["Daniel Graciano Cetina","HU",47,74.54,"00:06:17",5],
-["Andres Antonio Chable","HU",129,79.03,"02:38:06",340],
-["Vanessa Anaeli Narvaez","HU",0,0,"00:14:46",0],
-["Darien Alexander Loeza","HU",48,100,"00:01:14",1],
-["Cristhian Gomez","HU",170,68.57,"01:48:39",309],
-["Melissa Ortiz","HU",142,78.75,"01:03:42",151],
+["Cristian Ivan Cen","Pack",213,94.62,"02:40:54",572],
+["Maria Belinda Del Rosario Pech","Pack",300,93.92,"06:58:39",2096],
+["Hannia Carime Caballero","Pack",220,94.67,"00:56:38",208],
+["Marissa Isabel Cisneros","Pack",103,63.99,"04:47:03",495],
+["Sarahy Elizabet Puc","Pack",188,89.95,"07:12:58",1362],
+["Roger Alexander Perez","Pack",444,91.56,"07:22:49",3279],
+["Yaneli Saudizaret Quen","Pack",334,87.01,"04:30:56",1510],
+// P2S — archivos 1 y 2 (idénticos, tomo una vez)
+["Omar Alonso Diaz","P2S",38,76.33,"05:39:27",219],
+["Didier Mateo Ek","P2S",58,84.91,"02:23:02",140],
+// PICKING — archivos 1/2 y 3/4
+["Dariana Ballestero","Picking",36,82.4,"01:22:47",50],
+["Francis Jhoana Pacho","Picking",36,74.52,"04:02:18",147],
+["Numas Pompilio Rabelo","Picking",40,58.42,"00:29:47",20],
+["Mayra Micaela Alvarado","Picking",19,57.89,"00:54:56",18],
+["Keila Carina Ojeda","Picking",326,80.61,"01:06:31",362],  // mayor entre (3)71, (4)326
+["Carlos Armando Baas","Picking",161,93.46,"00:08:55",24],
 // WALLIN — archivos 3 y 4
-["Luis Gamaliel Chuc","Wallin",527,95.52,"03:35:50",1898], // mayor entre (3)89, (4)527
-["Maria Josefina Pool","Wallin",433,88.41,"05:37:31",2437], // mayor entre (3)78, (4)433
-["Hannia Carime Caballero","Wallin",81,87.22,"05:41:15",463], // aparece en pack retiros archivo (2) - proceso real es Picking/soporte
+["Ana Abigail Puc","Wallin",372,80.55,"06:18:45",2353],     // mayor entre (3)76, (4)372
+["Adriana Jacqueline Pool","Wallin",304,77.2,"04:48:04",1464], // mayor entre (3)72, (4)304
 ];
 const PROC_COLORS={Pack:['#60a5fa','rgba(96,165,250,0.15)','rgba(96,165,250,0.3)'],P2S:['#a78bfa','rgba(167,139,250,0.15)','rgba(167,139,250,0.3)'],Picking:['#34d399','rgba(52,211,153,0.15)','rgba(52,211,153,0.3)'],Batch:['#fb923c','rgba(251,146,60,0.15)','rgba(251,146,60,0.3)'],Wallin:['#f472b6','rgba(244,114,182,0.15)','rgba(244,114,182,0.3)'],HU:['#facc15','rgba(250,204,21,0.15)','rgba(250,204,21,0.3)']};
 function gc(p){return PROC_COLORS[p]||['#8b909e','rgba(139,144,158,0.15)','rgba(139,144,158,0.3)'];}
