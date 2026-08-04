@@ -78,29 +78,75 @@ tfoot td{background:var(--bg3);font-size:11px;font-weight:500;color:var(--text2)
 </table></div>
 </div>
 <script>
-const FECHA="02 agosto 2026 — Turno 1A  05:40 a 15:00";
+const FECHA="04 agosto 2026 — Turno 1A  05:40 a 15:00";
 const D=[
-// PACK — archivo 0
-["Cristian Ivan Cen","Pack",213,94.62,"02:40:54",572],
-["Maria Belinda Del Rosario Pech","Pack",300,93.92,"06:58:39",2096],
-["Hannia Carime Caballero","Pack",220,94.67,"00:56:38",208],
-["Marissa Isabel Cisneros","Pack",103,63.99,"04:47:03",495],
-["Sarahy Elizabet Puc","Pack",188,89.95,"07:12:58",1362],
-["Roger Alexander Perez","Pack",444,91.56,"07:22:49",3279],
-["Yaneli Saudizaret Quen","Pack",334,87.01,"04:30:56",1510],
-// P2S — archivos 1 y 2 (idénticos, tomo una vez)
-["Omar Alonso Diaz","P2S",38,76.33,"05:39:27",219],
-["Didier Mateo Ek","P2S",58,84.91,"02:23:02",140],
-// PICKING — archivos 1/2 y 3/4
-["Dariana Ballestero","Picking",36,82.4,"01:22:47",50],
-["Francis Jhoana Pacho","Picking",36,74.52,"04:02:18",147],
-["Numas Pompilio Rabelo","Picking",40,58.42,"00:29:47",20],
-["Mayra Micaela Alvarado","Picking",19,57.89,"00:54:56",18],
-["Keila Carina Ojeda","Picking",326,80.61,"01:06:31",362],  // mayor entre (3)71, (4)326
-["Carlos Armando Baas","Picking",161,93.46,"00:08:55",24],
+// PACK — archivo 0 (proceso principal), completado con (2) para mismos nombres
+["Karen Cecilia Ek","Pack",445,94.08,"04:49:45",2153],
+["Luis Enmanuel Solis","Pack",322,97.69,"00:51:55",279],
+["Laura Azucena Castillo","Pack",420,91.4,"02:30:05",1053],
+["Cristian Ivan Cen","Pack",153,89.22,"00:36:02",92],    // mayor: (0)142, (2)153
+["Maria Belinda Del Rosario Pech","Pack",293,92.54,"04:53:44",1435],
+["Tania Guadalupe Pereira","Pack",256,86.9,"08:15:01",2113],
+["Sarahy Elizabet Puc","Pack",188,88.36,"07:53:22",1488],
+["Fernando Hipolito Colomo","Pack",235,94.38,"07:55:58",1868],
+["Fatima Rebeca Balan","Pack",415,85.96,"00:54:07",375],  // mayor: (0)143, (2)94, (5)415
+["Roger Alexander Perez","Pack",322,96.74,"01:13:01",393],
+["Valeria Torres","Pack",182,90.97,"06:22:58",1168],
+["Rosa Zulemu Osorio","Pack",244,89.2,"07:10:23",1757],
+["Melissa Ortiz","Pack",181,99.55,"00:18:32",56],
+["Pablo Antonio Madera","Pack",48,35.33,"00:02:30",2],
+// P2S — archivo 1
+["Brian Alberto Canche","P2S",58,83.28,"07:27:55",440],
+["Omar Alonso Diaz","P2S",42,68.85,"03:18:06",139],
+["Dariana Ballestero","P2S",51,83.92,"07:58:40",410],
+["Francis Jhoana Pacho","P2S",61,84.5,"07:18:06",452],
+["Jovannha Lizette Rivera","P2S",71,70.08,"03:13:26",229],  // mayor: (1)34, (2)71
+["Yessica Sarai Mendez","P2S",41,76.91,"05:40:26",233],     // mayor: (1)36, (2)41
+["Jordy Fernando Contreras","P2S",86,84.35,"03:33:18",308], // mayor: (1)47, (2)86
+["Daniel Graciano Cetina","P2S",64,77.75,"00:26:04",28],
+["Carlos Armando Baas","P2S",58,81.47,"02:37:57",153],
+// PICKING — archivo 2 (principal), con datos de (3),(4),(5)
+["Lily Angelica Linares","Picking",90,83.56,"08:13:47",748],
+["Jose Angel Couoh","Picking",90,89.61,"05:45:13",522],
+["Mariana Sherlyn Balam","Picking",409,76.79,"01:12:53",497],  // mayor: (0)409, (2)106
+["Maria Marlene Matos","Picking",87,84.49,"04:53:31",428],
+["Norma Geronimo","Picking",121,87.89,"08:04:05",981],
+["Moises Enrique Lara","Picking",109,85.3,"04:40:38",511],    // mayor: (1)57, (2)109
+["Alejandra Del Carmen Leal","Picking",105,91.55,"01:56:33",204],
+["Hannia Carime Caballero","Picking",299,83.25,"01:00:24",301], // mayor: (2)87, (5)299
+["Dora Corina Gonzalez","Picking",0,0,"00:00:48",0],
+["Jesus Alberto Lavalle","Picking",126,96.87,"00:34:37",73],
+["Ada Angelina Fernandez","Picking",134,89.73,"01:31:04",204],
+["Ana Abigail Puc","Picking",365,72.49,"00:46:24",283],        // mayor: (2)95, (3)94, (4)365
+["Keila Carina Ojeda","Picking",89,79.79,"08:25:43",756],
+["Didier Mateo Ek","Picking",168,98.92,"00:52:18",147],        // mayor: (1)48, (2)168
+["Adriana Jacqueline Pool","Picking",343,76.44,"02:15:02",772], // mayor: (2)92, (3)79, (4)343
+["Karim Alejandro Clemente","Picking",69,64.04,"06:48:47",474], // mayor: (1)26, (2)69, (5)53
+["Carel Janet Estrella","Picking",490,94.65,"05:08:49",2523],   // mayor: (0)490, (2)152
+["Vanessa Anaeli Narvaez","Picking",78,86.07,"07:11:59",568],
+["Maria Alejandra Chan","Picking",116,90.15,"06:59:48",813],
+["Yeymi Beatriz Chable","Picking",491,90.48,"00:25:23",208],    // mayor: (2)99, (3)48, (4)491
+["Darley Jose Puc","Picking",495,82.85,"02:16:03",1123],
+// BATCH — archivo 3/4 (Yaneli en batch sorter)
+["Yaneli Saudizaret Quen","Batch",473,75.86,"04:36:07",2177],  // mayor: (0)265, (2)77, (3)114, (4)473
 // WALLIN — archivos 3 y 4
-["Ana Abigail Puc","Wallin",372,80.55,"06:18:45",2353],     // mayor entre (3)76, (4)372
-["Adriana Jacqueline Pool","Wallin",304,77.2,"04:48:04",1464], // mayor entre (3)72, (4)304
+["Karelly Vanessa Puc","Wallin",410,85.42,"05:35:50",2300],    // mayor: (3)90, (4)410
+["Maria Josefina Pool","Wallin",419,86.23,"06:01:18",2525],    // mayor: (3)62, (4)419
+// HU — archivo 5
+["Cristhian Gomez","HU",140,66.33,"02:41:10",378],
+["Dariana Ballestero","HU",48,100,"00:01:14",1],
+["Braulio Esteban Fernandez","HU",99,69.57,"05:54:27",585],
+["Maria Belem Camargo","HU",365,77.06,"07:35:42",2778],
+["Jesus Abel Trejo","HU",72,61.44,"07:52:45",573],
+["Marcos Jesus Munoz","HU",81,80.26,"03:42:48",303],
+["Amairani Jeneli Miranda","HU",43,48.46,"00:09:44",7],
+["Andrea Angelica Zarate","HU",379,100,"03:00:51",1145],
+["Darien Alexander Loeza","HU",110,75.38,"00:02:10",4],
+["Mauricio Alejandro Rodriguez","HU",70,77.77,"03:09:58",224],
+["Daniel Graciano Cetina","HU",62,45.66,"00:02:53",3],
+["Andres Antonio Chable","HU",120,82.18,"04:35:02",552],
+["Lizandra Sulub","HU",499,89.55,"05:07:14",2560],
+["Diego Lopez","HU",306,64.37,"02:22:37",728],
 ];
 const PROC_COLORS={Pack:['#60a5fa','rgba(96,165,250,0.15)','rgba(96,165,250,0.3)'],P2S:['#a78bfa','rgba(167,139,250,0.15)','rgba(167,139,250,0.3)'],Picking:['#34d399','rgba(52,211,153,0.15)','rgba(52,211,153,0.3)'],Batch:['#fb923c','rgba(251,146,60,0.15)','rgba(251,146,60,0.3)'],Wallin:['#f472b6','rgba(244,114,182,0.15)','rgba(244,114,182,0.3)'],HU:['#facc15','rgba(250,204,21,0.15)','rgba(250,204,21,0.3)']};
 function gc(p){return PROC_COLORS[p]||['#8b909e','rgba(139,144,158,0.15)','rgba(139,144,158,0.3)'];}
