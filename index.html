@@ -80,14 +80,14 @@ tfoot td{background:var(--bg3);font-size:11px;font-weight:500;color:var(--text2)
 <script>
 const FECHA="09 agosto 2026 — Turno 1A  05:40 a 15:00";
 const D=[
-// PACK — archivo 0 (cada representante aquí = una fila Pack)
+// ── PACK — archivo .csv (0) ──────────────────────────────
 ["Maria Belinda Del Rosario Pech","Pack",292,93.33,"08:34:35",2511],
 ["Sarahy Elizabet Puc","Pack",178,91.2,"08:03:58",1439],
 ["Fatima Rebeca Balan","Pack",307,88.8,"01:51:34",571],
 ["Roger Alexander Perez","Pack",509,95.09,"05:12:01",2647],
 ["Numas Pompilio Rabelo","Pack",97,64.07,"03:05:40",302],
 ["Yaneli Saudizaret Quen","Pack",272,91.15,"03:37:18",988],
-// P2S — archivo 1 (cada representante aquí = una fila P2S)
+// ── P2S — archivo (1) ───────────────────────────────────
 ["Cristian Ivan Cen","P2S",76,84.24,"01:03:59",82],
 ["Dariana Ballestero","P2S",49,79.01,"03:34:20",176],
 ["Hugo Guillermo Alvarez","P2S",27,79.27,"00:45:06",21],
@@ -97,7 +97,7 @@ const D=[
 ["Numas Pompilio Rabelo","P2S",63,83.77,"00:31:13",33],
 ["Karim Alejandro Clemente","P2S",51,86.39,"00:33:56",29],
 ["Carlos Armando Baas","P2S",44,79.75,"07:26:22",331],
-// PICKING — archivo 2 (cada representante aquí = una fila Picking)
+// ── PICKING — archivo (2) ───────────────────────────────
 ["Nataly Fernanda Tilan","Picking",0,0,"00:11:58",0],
 ["Cristian Ivan Cen","Picking",102,79.53,"06:58:43",712],
 ["Dariana Ballestero","Picking",39,78.8,"03:39:23",146],
@@ -119,17 +119,17 @@ const D=[
 ["Enrique Eduardo Saenz","Picking",87,89.61,"05:22:15",470],
 ["Valeria Sulu","Picking",61,80.81,"08:15:10",505],
 ["Daniel Graciano Cetina","Picking",121,90.9,"02:38:57",323],
-// BATCH — archivo 3 (Putwallin/Batch sorter)
+// ── BATCH — archivo (3) ─────────────────────────────────
 ["Braulio Esteban Fernandez","Batch",35,50.43,"00:29:01",17],
 ["Ana Abigail Puc","Batch",97,70.39,"01:41:57",165],
 ["Adriana Jacqueline Pool","Batch",38,46.02,"01:09:47",45],
 ["Carlos Armando Baas","Batch",18,50,"00:03:18",1],
-// WALLIN — archivo 4
+// ── WALLIN — archivo (4) ────────────────────────────────
 ["Braulio Esteban Fernandez","Wallin",288,71.05,"01:43:14",496],
 ["Ana Abigail Puc","Wallin",412,84.3,"03:09:41",1303],
 ["Adriana Jacqueline Pool","Wallin",345,86.07,"04:01:36",1391],
 ["Yaneli Saudizaret Quen","Wallin",163,100,"00:00:22",1],
-// HU — archivo 5
+// ── HU — archivo (5) ────────────────────────────────────
 ["Dariana Ballestero","HU",23,47.64,"00:07:46",3],
 ["Jesus Alberto Lavalle","HU",80,74.27,"04:07:30",332],
 ["Braulio Esteban Fernandez","HU",101,66.75,"01:59:23",201],
@@ -176,7 +176,7 @@ function ren(){
 }
 function fil(btn){document.querySelectorAll('.fb').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});af=btn.dataset.f;if(af==='all')btn.classList.add('active');else{const[c,bg,br]=gc(af);btn.style.background=bg;btn.style.color=c;btn.style.borderColor=br;}apl();}
 function apl(){sv=document.getElementById('srch').value.toLowerCase().trim();ren();}
-function srt(key){sa=sk===key?!sa:true;sk=key;AS.forEach(id=>{const e=document.getElementById(id);if(e){e.textContent='↕';e.closest('th').classList.remove('sorted');}});const idx=KS.indexOf(key);if(idx>=0){const e=document.getElementById(AS[idx]);if(e){e.textContent=sa?'↑':'↓';e.closest('th').classList.add('sorted');}}data.sort((a,b)=>let va=a[key],vb=b[key];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});ren();}
+function srt(key){sa=sk===key?!sa:true;sk=key;AS.forEach(id=>{const e=document.getElementById(id);if(e){e.textContent='↕';e.closest('th').classList.remove('sorted');}});const idx=KS.indexOf(key);if(idx>=0){const e=document.getElementById(AS[idx]);if(e){e.textContent=sa?'↑':'↓';e.closest('th').classList.add('sorted');}}data.sort((a,b)=>{let va=a[key],vb=b[key];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});ren();}
 init();
 </script>
 </body>
