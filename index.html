@@ -64,12 +64,13 @@ tfoot td{background:var(--bg3);font-size:11px;color:var(--text2);border-top:1px 
 .podio-proc-header{display:flex;align-items:center;gap:8px;margin-bottom:18px;}
 .podio-proc-dot{width:10px;height:10px;border-radius:50%;}
 .podio-proc-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.podio-proc-sub{font-size:10px;color:var(--text3);margin-left:4px;font-weight:400;text-transform:none;letter-spacing:0;}
 .podium{display:flex;align-items:flex-end;justify-content:center;gap:8px;height:130px;margin-bottom:12px;}
 .podium-place{display:flex;flex-direction:column;align-items:center;flex:1;max-width:90px;}
 .podium-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-bottom:4px;flex-shrink:0;}
 .podium-name{font-size:9px;font-weight:600;text-align:center;line-height:1.2;color:var(--text2);max-width:80px;word-break:break-word;margin-bottom:4px;min-height:22px;display:flex;align-items:flex-end;justify-content:center;}
 .podium-val{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;margin-bottom:4px;}
-.podium-block{width:100%;border-radius:6px 6px 0 0;display:flex;align-items:center;justify-content:center;}
+.podium-block{width:100%;border-radius:6px 6px 0 0;}
 .place-1 .podium-block{height:75px;}
 .place-2 .podium-block{height:55px;}
 .place-3 .podium-block{height:40px;}
@@ -84,10 +85,9 @@ tfoot td{background:var(--bg3);font-size:11px;color:var(--text2);border-top:1px 
 .place-3 .podium-block{background:linear-gradient(180deg,rgba(205,124,58,0.2),rgba(205,124,58,0.06));}
 .podium-base{height:1px;background:var(--border2);margin:0 -16px;}
 .no-data-podio{text-align:center;color:var(--text3);font-size:12px;padding:2rem 0;}
-/* WEEK BAR — solo 3 tarjetas ahora */
 .week-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2rem;}
 .wb{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;}
-.wb::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.5;}
+.wb::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:.6;}
 .wb.dias::before{background:linear-gradient(90deg,#3b82f6,transparent);}
 .wb.pack::before{background:linear-gradient(90deg,#60a5fa,transparent);}
 .wb.picking::before{background:linear-gradient(90deg,#34d399,transparent);}
@@ -106,8 +106,21 @@ tfoot td{background:var(--bg3);font-size:11px;color:var(--text2);border-top:1px 
 </div>
 <script>
 const PC={Pack:['#60a5fa','rgba(96,165,250,0.15)','rgba(96,165,250,0.3)'],P2S:['#a78bfa','rgba(167,139,250,0.15)','rgba(167,139,250,0.3)'],Picking:['#34d399','rgba(52,211,153,0.15)','rgba(52,211,153,0.3)'],Batch:['#fb923c','rgba(251,146,60,0.15)','rgba(251,146,60,0.3)'],Wallin:['#f472b6','rgba(244,114,182,0.15)','rgba(244,114,182,0.3)'],HU:['#facc15','rgba(250,204,21,0.15)','rgba(250,204,21,0.3)']};
+// Colores extra solo para medallero
+const PC_MEDAL={
+  'Pack Mono':['#93c5fd','rgba(147,197,253,0.15)','rgba(147,197,253,0.3)'],
+  'Pack PTW': ['#1d4ed8','rgba(29,78,216,0.2)','rgba(29,78,216,0.35)'],
+  P2S:['#a78bfa','rgba(167,139,250,0.15)','rgba(167,139,250,0.3)'],
+  Picking:['#34d399','rgba(52,211,153,0.15)','rgba(52,211,153,0.3)'],
+  Batch:['#fb923c','rgba(251,146,60,0.15)','rgba(251,146,60,0.3)'],
+  Wallin:['#f472b6','rgba(244,114,182,0.15)','rgba(244,114,182,0.3)'],
+  HU:['#facc15','rgba(250,204,21,0.15)','rgba(250,204,21,0.3)']
+};
 function gc(p){return PC[p]||['#8b909e','rgba(139,144,158,0.15)','rgba(139,144,158,0.3)'];}
+function gcm(p){return PC_MEDAL[p]||gc(p);}
 function uc(u){return u>=85?'#34d399':u>=70?'#fb923c':'#f87171';}
+// Clasifica Pack en medallero: Mono < 300, PTW >= 300
+function packSubtipo(prod){return prod>=300?'Pack PTW':'Pack Mono';}
 const SEMANA=[
 {label:"Lun 3",fecha:"03 ago",data:[
 ["Maria Belinda Del Rosario Pech","Pack",273,91.54,"08:34:17",2347],
@@ -430,12 +443,16 @@ function setSearch(i,v){dayStates[i].sv=v.toLowerCase().trim();document.getEleme
 function sortDay(i,k){const st=dayStates[i];st.sa=st.sk===k?!st.sa:false;st.sk=k;document.getElementById('panel-'+i).innerHTML=renderDay(i);}
 
 function renderMedallero(){
+  // Expandir datos: Pack se divide en Pack Mono / Pack PTW según prod
   const all=[];
-  SEMANA.forEach(dia=>dia.data.forEach(r=>all.push({nombre:r[0],proceso:r[1],prod:r[2],util:r[3],unidades:r[5]})));
+  SEMANA.forEach(dia=>dia.data.forEach(r=>{
+    const proc=r[1]==='Pack'?packSubtipo(r[2]):r[1];
+    all.push({nombre:r[0],proceso:proc,prod:r[2],util:r[3],unidades:r[5]});
+  }));
   if(!all.length)return '<div class="empty-day"><div class="icon">🏆</div><div>Sin datos aún</div></div>';
 
   const dias=SEMANA.filter(d=>d.data.length>0).length;
-  const pzsPack=all.filter(r=>r.proceso==='Pack').reduce((a,r)=>a+r.unidades,0);
+  const pzsPack=all.filter(r=>r.proceso==='Pack Mono'||r.proceso==='Pack PTW').reduce((a,r)=>a+r.unidades,0);
   const pzsPicking=all.filter(r=>r.proceso==='Picking').reduce((a,r)=>a+r.unidades,0);
 
   function topProdProm(proc){
@@ -470,17 +487,24 @@ function renderMedallero(){
       </div>`).join('')}</div><div class="podium-base"></div>`;
   }
 
-  function procCard(proc,top,fmt){
-    const[c]=gc(proc);
+  function procCard(proc,top,fmt,sub=''){
+    const[c,bg,br]=gcm(proc);
     return `<div class="podio-card">
-      <div class="podio-proc-header"><div class="podio-proc-dot" style="background:${c}"></div><span class="podio-proc-name" style="color:${c}">${proc}</span></div>
+      <div class="podio-proc-header">
+        <div class="podio-proc-dot" style="background:${c}"></div>
+        <span class="podio-proc-name" style="color:${c}">${proc}</span>
+        ${sub?`<span class="podio-proc-sub">${sub}</span>`:''}
+      </div>
       ${podiumHTML(top,fmt)}
     </div>`;
   }
 
-  const procesos=Object.keys(PC);
-  const prodCards=procesos.map(p=>procCard(p,topProdProm(p),v=>v.toFixed(0))).join('');
-  const unidCards=procesos.map(p=>procCard(p,topUnidades(p),v=>v.toLocaleString('es-MX'))).join('');
+  // Orden de procesos en medallero: Pack Mono, Pack PTW, luego el resto
+  const procesosMedal=['Pack Mono','Pack PTW','P2S','Picking','Batch','Wallin','HU'];
+  const subLabels={'Pack Mono':'prod < 300','Pack PTW':'prod ≥ 300'};
+
+  const prodCards=procesosMedal.map(p=>procCard(p,topProdProm(p),v=>v.toFixed(0),subLabels[p]||'')).join('');
+  const unidCards=procesosMedal.map(p=>procCard(p,topUnidades(p),v=>v.toLocaleString('es-MX'),subLabels[p]||'')).join('');
 
   return `
   <div class="week-bar">
