@@ -174,27 +174,29 @@ const SEMANA=[
 ];
 const tabsEl=document.getElementById('tabs');
 const panelsEl=document.getElementById('panels');
+// Estado por día: filtro activo, búsqueda, sort
 let dayStates=SEMANA.map(()=>({af:'all',sv:'',sk:'prod',sa:false}));
+
 SEMANA.forEach((dia,i)=>{
   const t=document.createElement('button');
   t.className='tab'+(i===0?' active':'')+(dia.data.length===0?' empty':'');
   t.textContent=dia.label;
   if(dia.data.length>0)t.onclick=()=>switchTab(i);
   tabsEl.appendChild(t);
+
   const p=document.createElement('div');
   p.className='panel'+(i===0?' active':'');
   p.id='panel-'+i;
-  p.innerHTML=renderDay(i);
   panelsEl.appendChild(p);
+  if(dia.data.length>0) buildDayPanel(i);
+  else p.innerHTML='<div class="empty-day"><div class="icon">📭</div><div>Sin actividad · '+dia.fecha+'</div></div>';
 });
+
 const mt=document.createElement('button');
-mt.className='tab medal active';
+mt.className='tab medal';
 mt.textContent='🏆 Medallero';
 mt.onclick=()=>switchTab('medal');
 tabsEl.appendChild(mt);
-// Lun 10 activo por defecto
-document.querySelector('.tab').classList.add('active');
-document.querySelector('.tab.medal').classList.remove('active');
 const mp=document.createElement('div');
 mp.className='panel';
 mp.id='panel-medal';
@@ -206,10 +208,11 @@ function switchTab(idx){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById(idx==='medal'?'panel-medal':'panel-'+idx).classList.add('active');
 }
-function renderDay(i){
+
+// ── CLAVE: buildDayPanel crea la estructura estática UNA SOLA VEZ ──
+// Solo el tbody se actualiza al filtrar/buscar/ordenar
+function buildDayPanel(i){
   const dia=SEMANA[i];
-  if(!dia.data.length)return `<div class="empty-day"><div class="icon">📭</div><div>Sin actividad · ${dia.fecha}</div></div>`;
-  const st=dayStates[i];
   const rows=dia.data.map(r=>({nombre:r[0],proceso:r[1],prod:r[2],util:r[3],tiempo:r[4],unidades:r[5]}));
   const prods=rows.filter(r=>r.prod>0).map(r=>r.prod);
   const utils=rows.filter(r=>r.util>0).map(r=>r.util);
@@ -217,51 +220,131 @@ function renderDay(i){
   const avgP=prods.length?(prods.reduce((a,b)=>a+b,0)/prods.length).toFixed(0):'-';
   const avgU=utils.length?(utils.reduce((a,b)=>a+b,0)/utils.length).toFixed(1)+'%':'-';
   const procs=['all',...Object.keys(PC)];
-  const filterBtns=procs.map(p=>`<button class="fb${st.af===p?' active':''}" onclick="setFilter(${i},'${p}')">${p==='all'?'Todos':p}</button>`).join('');
-  return `<div class="stats">
+
+  const p=document.getElementById('panel-'+i);
+  p.innerHTML=`
+  <div class="stats">
     <div class="stat"><div class="stat-label">Registros</div><div class="stat-val">${rows.length}</div></div>
     <div class="stat"><div class="stat-label">Prod. neta prom.</div><div class="stat-val">${avgP}</div></div>
     <div class="stat"><div class="stat-label">Util. prom.</div><div class="stat-val">${avgU}</div></div>
     <div class="stat"><div class="stat-label">Total unidades</div><div class="stat-val">${totalU.toLocaleString('es-MX')}</div></div>
   </div>
   <div class="controls">
-    <div class="filters">${filterBtns}</div>
-    <div class="search-wrap"><input type="search" placeholder="Buscar…" value="${st.sv}" oninput="setSearch(${i},this.value)"></div>
+    <div class="filters" id="filters-${i}"></div>
+    <div class="search-wrap"><input type="search" id="search-${i}" placeholder="Buscar representante…" autocomplete="off"></div>
   </div>
   <div class="table-wrap"><table>
     <thead><tr>
-      <th onclick="sortDay(${i},'nombre')">Representante <span class="sa">↕</span></th>
-      <th onclick="sortDay(${i},'proceso')">Proceso <span class="sa">↕</span></th>
-      <th class="right" onclick="sortDay(${i},'prod')">Prod. neta <span class="sa">↕</span></th>
-      <th onclick="sortDay(${i},'util')">Utilización <span class="sa">↕</span></th>
-      <th onclick="sortDay(${i},'tiempo')">T. proceso <span class="sa">↕</span></th>
-      <th class="right" onclick="sortDay(${i},'unidades')">Unidades <span class="sa">↕</span></th>
+      <th onclick="sortDay(${i},'nombre')">Representante <span class="sa" id="sa-${i}-nombre">↕</span></th>
+      <th onclick="sortDay(${i},'proceso')">Proceso <span class="sa" id="sa-${i}-proceso">↕</span></th>
+      <th class="right" onclick="sortDay(${i},'prod')">Prod. neta <span class="sa" id="sa-${i}-prod">↕</span></th>
+      <th onclick="sortDay(${i},'util')">Utilización <span class="sa" id="sa-${i}-util">↕</span></th>
+      <th onclick="sortDay(${i},'tiempo')">T. proceso <span class="sa" id="sa-${i}-tiempo">↕</span></th>
+      <th class="right" onclick="sortDay(${i},'unidades')">Unidades <span class="sa" id="sa-${i}-unidades">↕</span></th>
     </tr></thead>
-    <tbody>${renderRows(i)}</tbody>
-    <tfoot><tr><td colspan="2">Promedio / Total visible</td><td style="text-align:right" id="fp-${i}"></td><td id="fu-${i}"></td><td></td><td style="text-align:right" id="fuu-${i}"></td></tr></tfoot>
+    <tbody id="tbody-${i}"></tbody>
+    <tfoot><tr>
+      <td colspan="2">Promedio / Total visible</td>
+      <td style="text-align:right" id="fp-${i}"></td>
+      <td id="fu-${i}"></td>
+      <td></td>
+      <td style="text-align:right" id="fuu-${i}"></td>
+    </tr></tfoot>
   </table></div>`;
+
+  // Botones de filtro
+  const flt=document.getElementById('filters-'+i);
+  procs.forEach(pr=>{
+    const b=document.createElement('button');
+    b.className='fb'+(pr==='all'?' active':'');
+    b.textContent=pr==='all'?'Todos':pr;
+    if(pr!=='all'){const[c,,br]=gc(pr);b.style.color=c;b.style.borderColor=br;}
+    b.onclick=()=>setFilter(i,pr);
+    flt.appendChild(b);
+  });
+
+  // Búsqueda — event listener directo, NO oninput en HTML para evitar re-render
+  const inp=document.getElementById('search-'+i);
+  inp.addEventListener('input',()=>{
+    dayStates[i].sv=inp.value.toLowerCase().trim();
+    refreshRows(i); // solo actualiza tbody, NO recrea el input
+  });
+
+  refreshRows(i);
 }
-function renderRows(i){
+
+function setFilter(i,f){
+  dayStates[i].af=f;
+  // Actualizar clases de botones sin re-renderizar el panel
+  const flt=document.getElementById('filters-'+i);
+  flt.querySelectorAll('.fb').forEach(b=>{
+    const isAll=b.textContent==='Todos';
+    const match=(isAll&&f==='all')||b.textContent===f;
+    b.classList.toggle('active',match);
+    if(!isAll){
+      const[c,bg,br]=gc(b.textContent);
+      b.style.background=match?bg:'';
+      b.style.color=c;
+      b.style.borderColor=br;
+    }
+  });
+  refreshRows(i);
+}
+
+function sortDay(i,k){
+  const st=dayStates[i];
+  st.sa=st.sk===k?!st.sa:false;
+  st.sk=k;
+  // Actualizar indicadores de sort
+  ['nombre','proceso','prod','util','tiempo','unidades'].forEach(col=>{
+    const el=document.getElementById('sa-'+i+'-'+col);
+    if(el) el.textContent=col===k?(st.sa?'↑':'↓'):'↕';
+  });
+  refreshRows(i);
+}
+
+// ── refreshRows: actualiza SOLO el tbody y el footer ──
+// El input NO se toca, conserva el foco y el texto
+function refreshRows(i){
   const st=dayStates[i];
   let rows=SEMANA[i].data.map(r=>({nombre:r[0],proceso:r[1],prod:r[2],util:r[3],tiempo:r[4],unidades:r[5]}));
   rows=rows.filter(r=>(st.af==='all'||r.proceso===st.af)&&(!st.sv||r.nombre.toLowerCase().includes(st.sv)));
-  rows.sort((a,b)=>{let va=a[st.sk],vb=b[st.sk];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return st.sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});
-  const html=rows.map(r=>{
-    const[c,bg,br]=gc(r.proceso);const u=uc(r.util);const up=Math.min(r.util,100);
-    return `<tr><td><span class="rep-name">${r.nombre}</span></td><td><span class="proc-badge" style="color:${c};background:${bg};border:1px solid ${br}">${r.proceso}</span></td><td class="right"><span class="mono">${r.prod}</span></td><td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${up}%;background:${u}"></div></div><span class="util-v" style="color:${u}">${r.util>0?r.util.toFixed(1)+'%':'—'}</span></div></td><td><span class="mono">${r.tiempo}</span></td><td class="right"><span class="mono">${r.unidades.toLocaleString('es-MX')}</span></td></tr>`;
-  }).join('');
-  setTimeout(()=>{
-    const vp=rows.filter(r=>r.prod>0).map(r=>r.prod);
-    const vu=rows.filter(r=>r.util>0).map(r=>r.util);
-    const fp=document.getElementById('fp-'+i);if(fp)fp.textContent=vp.length?(vp.reduce((a,b)=>a+b,0)/vp.length).toFixed(0):'-';
-    const fu=document.getElementById('fu-'+i);if(fu)fu.textContent=vu.length?(vu.reduce((a,b)=>a+b,0)/vu.length).toFixed(1)+'%':'-';
-    const fuu=document.getElementById('fuu-'+i);if(fuu)fuu.textContent=rows.reduce((a,r)=>a+r.unidades,0).toLocaleString('es-MX');
-  },0);
-  return html||'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text3)">Sin resultados</td></tr>';
+  rows.sort((a,b)=>{
+    let va=a[st.sk],vb=b[st.sk];
+    if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}
+    return st.sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);
+  });
+
+  const tbody=document.getElementById('tbody-'+i);
+  if(!tbody) return;
+
+  if(!rows.length){
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text3)">Sin resultados</td></tr>';
+  } else {
+    tbody.innerHTML=rows.map(r=>{
+      const[c,bg,br]=gc(r.proceso);
+      const u=uc(r.util);
+      const up=Math.min(r.util,100);
+      return `<tr>
+        <td><span class="rep-name">${r.nombre}</span></td>
+        <td><span class="proc-badge" style="color:${c};background:${bg};border:1px solid ${br}">${r.proceso}</span></td>
+        <td class="right"><span class="mono">${r.prod}</span></td>
+        <td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${up}%;background:${u}"></div></div><span class="util-v" style="color:${u}">${r.util>0?r.util.toFixed(1)+'%':'—'}</span></div></td>
+        <td><span class="mono">${r.tiempo}</span></td>
+        <td class="right"><span class="mono">${r.unidades.toLocaleString('es-MX')}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Footer
+  const vp=rows.filter(r=>r.prod>0).map(r=>r.prod);
+  const vu=rows.filter(r=>r.util>0).map(r=>r.util);
+  const fp=document.getElementById('fp-'+i);if(fp)fp.textContent=vp.length?(vp.reduce((a,b)=>a+b,0)/vp.length).toFixed(0):'-';
+  const fu=document.getElementById('fu-'+i);if(fu)fu.textContent=vu.length?(vu.reduce((a,b)=>a+b,0)/vu.length).toFixed(1)+'%':'-';
+  const fuu=document.getElementById('fuu-'+i);if(fuu)fuu.textContent=rows.reduce((a,r)=>a+r.unidades,0).toLocaleString('es-MX');
 }
-function setFilter(i,f){dayStates[i].af=f;document.getElementById('panel-'+i).innerHTML=renderDay(i);}
-function setSearch(i,v){dayStates[i].sv=v.toLowerCase().trim();document.getElementById('panel-'+i).innerHTML=renderDay(i);}
-function sortDay(i,k){const st=dayStates[i];st.sa=st.sk===k?!st.sa:false;st.sk=k;document.getElementById('panel-'+i).innerHTML=renderDay(i);}
+
+// ── MEDALLERO ──────────────────────────────────────────
 function renderMedallero(){
   const all=[];
   SEMANA.forEach(dia=>dia.data.forEach(r=>{
@@ -269,9 +352,11 @@ function renderMedallero(){
     all.push({nombre:r[0],proceso:proc,prod:r[2],util:r[3],unidades:r[5]});
   }));
   if(!all.length)return '<div class="empty-day"><div class="icon">🏆</div><div>Sin datos aún</div></div>';
+
   const dias=SEMANA.filter(d=>d.data.length>0).length;
   const pzsPack=all.filter(r=>r.proceso==='Pack Mono'||r.proceso==='Pack PTW').reduce((a,r)=>a+r.unidades,0);
   const pzsPicking=all.filter(r=>r.proceso==='Picking').reduce((a,r)=>a+r.unidades,0);
+
   function topProdProm(proc){
     const map={};
     all.filter(r=>r.proceso===proc&&r.prod>0).forEach(r=>{
@@ -304,6 +389,7 @@ function renderMedallero(){
   const subLabels={'Pack Mono':'prod < 300','Pack PTW':'prod ≥ 300'};
   const prodCards=procesosMedal.map(p=>procCard(p,topProdProm(p),v=>v.toFixed(0),subLabels[p]||'')).join('');
   const unidCards=procesosMedal.map(p=>procCard(p,topUnidades(p),v=>v.toLocaleString('es-MX'),subLabels[p]||'')).join('');
+
   return `<div class="week-bar">
     <div class="wb dias"><div class="wb-label">Días con registros</div><div class="wb-val">${dias}</div><div class="wb-sub">de 7 en la semana</div></div>
     <div class="wb pack"><div class="wb-label">Pzas acumuladas en Pack</div><div class="wb-val">${pzsPack.toLocaleString('es-MX')}</div><div class="wb-sub">semana al momento</div></div>
@@ -317,4 +403,3 @@ function renderMedallero(){
 </script>
 </body>
 </html>
-
