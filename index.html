@@ -98,7 +98,7 @@ tfoot td{background:var(--bg3);font-size:11px;color:var(--text2);border-top:1px 
 <body>
 <div class="container">
 <div class="header">
-  <div><h1>Productividad OPS</h1><div class="week">Semana 10–16 agosto 2026 · MX1T1APLGS · Turno 1A</div></div>
+  <div><h1>Productividad OPS</h1><div class="week">Semana 17–23 agosto 2026 · MX1T1APLGS · Turno 1A</div></div>
 </div>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
@@ -110,296 +110,72 @@ function gc(p){return PC[p]||['#8b909e','rgba(139,144,158,0.15)','rgba(139,144,1
 function gcm(p){return PC_MEDAL[p]||gc(p);}
 function uc(u){return u>=85?'#34d399':u>=70?'#fb923c':'#f87171';}
 function packSubtipo(prod){return prod>=300?'Pack PTW':'Pack Mono';}
+
 const SEMANA=[
-{label:"Lun 10",fecha:"10 ago",data:[
-["Maria Belinda Del Rosario Pech","Pack",292,92.5,"08:23:33",2458],
-["Tania Guadalupe Pereira","Pack",262,94.72,"08:14:39",2160],
-["Sarahy Elizabet Puc","Pack",201,92.87,"08:12:09",1652],
-["Fatima Rebeca Balan","Pack",267,84.94,"02:47:20",746],
-["Roger Alexander Perez","Pack",404,92.14,"07:05:12",2866],
-["Numas Pompilio Rabelo","Pack",138,80.16,"01:50:49",256],
-["Omar Alonso Diaz","P2S",33,70.78,"05:52:13",198],
-["Francis Jhoana Pacho","P2S",44,76.39,"06:56:41",306],
-["Hugo Guillermo Alvarez","P2S",58,91.32,"02:20:53",138],
-["Braulio Esteban Fernandez","P2S",38,71.52,"00:48:20",31],
-["Numas Pompilio Rabelo","P2S",55,70.71,"00:19:38",18],
-["Mayra Micaela Alvarado","P2S",23,64.42,"00:45:01",18],
-["Carlos Armando Baas","P2S",34,72.39,"02:11:31",75],
-["Nataly Fernanda Tilan","Picking",0,0,"00:30:00",0],
-["Omar Alonso Diaz","Picking",33,76.74,"02:26:38",82],
-["Dariana Ballestero","Picking",101,86.84,"07:43:47",782],
-["Francis Jhoana Pacho","Picking",28,41.4,"00:55:31",26],
-["Hannia Carime Caballero","Picking",85,87.65,"08:33:08",731],
-["Dora Corina Gonzalez","Picking",0,0,"00:00:05",0],
-["Hugo Guillermo Alvarez","Picking",63,91.59,"02:44:07",174],
-["Marissa Isabel Cisneros","Picking",99,87.55,"08:12:49",816],
-["Fatima Rebeca Balan","Picking",108,90.34,"05:40:40",614],
-["Braulio Esteban Fernandez","Picking",84,81.29,"03:49:31",325],
-["Karelly Vanessa Puc","Picking",102,81.86,"07:51:36",804],
-["Keila Carina Ojeda","Picking",75,73.59,"08:33:50",646],
-["Roger Alexander Perez","Picking",121,80.81,"00:54:54",111],
-["Jesus Abel Trejo","Picking",99,84.94,"02:38:13",262],
-["Abigail De Los Angeles Campos","Picking",88,89.09,"08:04:19",716],
-["Numas Pompilio Rabelo","Picking",121,88.96,"04:49:11",586],
-["Enrique Eduardo Saenz","Picking",82,88.01,"06:55:12",568],
-["Valeria Sulu","Picking",71,74.79,"08:33:55",610],
-["Mayra Micaela Alvarado","Picking",70,77.03,"06:49:33",484],
-["Daniel Graciano Cetina","Picking",72,86.48,"00:23:03",28],
-["Carlos Armando Baas","Picking",42,86.05,"05:51:57",250],
-["Cristian Ivan Cen","HU",84,73.51,"08:33:04",722],
-["Braulio Esteban Fernandez","Batch",109,73.98,"01:00:55",111],
-["Roger Alexander Perez","Batch",27,74.44,"00:02:13",1],
-["Adriana Jacqueline Pool","Batch",68,68.36,"02:16:12",156],
-["Yaneli Saudizaret Quen","Batch",119,78.21,"00:58:13",116],
-["Braulio Esteban Fernandez","Wallin",275,65.23,"00:57:46",265],
-["Roger Alexander Perez","Wallin",486,83.57,"00:03:27",28],
-["Adriana Jacqueline Pool","Wallin",335,84.36,"06:03:43",2031],
-["Yaneli Saudizaret Quen","Wallin",439,77.06,"04:18:07",1890],
-["Omar Alonso Diaz","HU",10,11.65,"00:11:18",2],
-["Jesus Alberto Lavalle","HU",446,90.4,"04:35:36",2052],
-["Braulio Esteban Fernandez","HU",219,75.18,"01:33:52",343],
-["Didier Mateo Ek","HU",135,74.14,"02:05:32",284],
-["Maria Belem Camargo","HU",317,75.15,"08:06:19",2572],
-["Diego Lopez","HU",280,73.87,"04:19:22",1213],
-["Jesus Abel Trejo","HU",64,62.63,"05:39:28",367],
-["Karim Alejandro Clemente","HU",68,65.79,"03:30:43",241],
-["Amairani Jeneli Miranda","HU",13,11.78,"00:22:04",5],
+{label:"Lun 17",fecha:"17 ago",data:[
+["Maria Belinda Del Rosario Pech","Pack",308,95.68,"08:04:51",2493],
+["Hannia Carime Caballero","Pack",93,57.48,"03:15:16",303],
+["Marissa Isabel Cisneros","Pack",200,93.37,"01:02:06",207],
+["Fatima Rebeca Balan","Pack",248,90.74,"04:50:01",1091],
+["Roger Alexander Perez","Pack",510,91.88,"04:55:17",2512],
+["Darley Jose Puc","Pack",216,90.66,"07:47:28",1689],
+["Yaneli Saudizaret Quen","Pack",355,88.99,"05:28:26",1944],
+["Omar Alonso Diaz","P2S",37,73.08,"08:06:38",305],
+["Moises Enrique Lara","P2S",18,31.37,"00:42:56",13],
+["Hugo Guillermo Alvarez","P2S",57,90.95,"03:27:13",199],
+["Didier Mateo Ek","P2S",35,64.79,"07:16:46",255],
+["Roger Alexander Perez","P2S",61,82.74,"02:13:38",136],
+["Mayra Micaela Alvarado","P2S",51,91.17,"03:38:41",187],
+["Daniel Graciano Cetina","P2S",62,84.18,"01:53:01",118],
+["Lily Angelica Linares","Picking",101,85.92,"08:14:16",833],
+["Cristian Ivan Cen","Picking",96,78.6,"08:21:21",805],
+["Dariana Ballestero","Picking",32,86.24,"07:07:15",234],
+["Moises Enrique Lara","Picking",78,71.64,"05:38:33",444],
+["Hannia Carime Caballero","Picking",100,85.78,"04:57:48",498],
+["Hugo Guillermo Alvarez","Picking",84,90.94,"01:06:04",93],
+["Marissa Isabel Cisneros","Picking",100,80.6,"06:41:22",670],
+["Fatima Rebeca Balan","Picking",116,86.24,"03:13:41",377],
+["Sonia Andley Kantun","Picking",95,87.24,"03:35:01",344],
+["Joandry Guadalupe Dorantes","Picking",151,95.45,"02:49:02",428],
+["Jesus Alberto Lavalle","Picking",115,93.75,"02:42:45",313],
+["Karelly Vanessa Puc","Picking",75,62.82,"00:23:08",29],
+["Keila Carina Ojeda","Picking",0,0,"00:03:32",0],
+["Didier Mateo Ek","Picking",118,85.26,"00:23:45",47],
+["Jesus Abel Trejo","Picking",88,84.29,"07:07:37",632],
+["Marcos Jesus Munoz","Picking",109,85.99,"06:25:50",707],
+["Abigail De Los Angeles Campos","Picking",65,81.23,"05:20:39",348],
+["Adriana Jacqueline Pool","Picking",344,86.18,"03:49:23",1318],
+["Numas Pompilio Rabelo","Picking",98,73.12,"07:38:08",751],
+["Karim Alejandro Clemente","Picking",87,83.31,"02:34:16",225],
+["Valeria Sulu","Picking",68,83.64,"08:19:34",572],
+["Mayra Micaela Alvarado","Picking",70,72.85,"04:13:19",299],
+["Braulio Esteban Fernandez","Batch",83,70.99,"02:02:02",169],
+["Keila Carina Ojeda","Batch",54,63.81,"02:43:24",149],
+["Adriana Jacqueline Pool","Batch",53,55.73,"01:28:21",79],
+["Braulio Esteban Fernandez","Wallin",397,90.11,"03:23:30",1347],
+["Keila Carina Ojeda","Wallin",413,93.09,"05:16:02",2180],
+["Adriana Jacqueline Pool","Wallin",344,86.18,"03:49:23",1318],
+["Cristhian Gomez","HU",97,72.01,"05:19:12",519],
+["Rodrigo Molgora","HU",50,43.4,"00:07:04",6],
+["Dariana Ballestero","HU",4,4.29,"00:13:35",1],
+["Jesus Alberto Lavalle","HU",294,92.92,"02:10:34",641],
+["Maria Belem Camargo","HU",385,80.69,"06:17:08",2421],
+["Diego Lopez","HU",444,82.54,"02:07:25",943],
+["Jesus Abel Trejo","HU",57,49.66,"00:29:24",28],
+["Marcos Jesus Munoz","HU",93,74.82,"01:00:42",95],
+["Karim Alejandro Clemente","HU",112,55.74,"03:14:30",364],
+["Darien Alexander Loeza","HU",82,76.26,"04:54:00",405],
 ]},
-{label:"Mar 11",fecha:"11 ago",data:[
-["Mariana Sherlyn Balam","Pack",416,94.24,"04:38:43",1935],
-["Luis Enmanuel Solis","Pack",386,89.54,"03:16:51",1267],
-["Brian Alberto Canche","Pack",425,88.9,"05:14:26",2229],
-["Laura Azucena Castillo","Pack",311,96.12,"06:43:36",2096],
-["Carel Janet Estrella","Pack",416,84.26,"06:35:39",2745],
-["Maria Belinda Del Rosario Pech","Pack",226,85.79,"07:37:38",1731],
-["Tania Guadalupe Pereira","Pack",258,90.71,"07:55:08",2045],
-["Jovannha Lizette Rivera","Pack",187,80.36,"00:25:58",81],
-["Sarahy Elizabet Puc","Pack",190,89.07,"07:56:37",1511],
-["Fernando Hipolito Colomo","Pack",220,92.79,"07:48:24",1721],
-["Erandy Cristel Arroniz","Pack",288,89.11,"00:12:42",61],
-["Roger Alexander Perez","Pack",452,91.26,"00:57:57",437],
-["Yeymi Beatriz Chable","Pack",0,0,"00:03:17",0],
-["Yaneli Saudizaret Quen","Pack",138,73.07,"00:20:44",48],
-["Brian Alberto Canche","P2S",54,75.92,"02:26:48",134],
-["Omar Alonso Diaz","P2S",38,70.37,"05:32:14",213],
-["Dariana Ballestero","P2S",43,81.23,"04:36:23",201],
-["Francis Jhoana Pacho","P2S",40,73.04,"04:25:18",181],
-["Jovannha Lizette Rivera","P2S",22,64.77,"01:16:04",29],
-["Hugo Guillermo Alvarez","P2S",52,90.83,"03:47:27",198],
-["Yessica Sarai Mendez","P2S",26,64.64,"00:09:03",4],
-["Didier Mateo Ek","P2S",39,60.44,"02:34:22",101],
-["Roger Alexander Perez","P2S",54,67.87,"02:11:45",120],
-["Jordy Fernando Contreras","P2S",52,84.4,"00:50:44",44],
-["Yeymi Beatriz Chable","P2S",14,50,"00:04:10",1],
-["Carlos Armando Baas","P2S",59,82.92,"00:24:24",24],
-["Andres Antonio Chable","P2S",49,90.29,"07:05:29",354],
-["Cristhian Gomez","Picking",10,54.23,"00:05:43",1],
-["Lily Angelica Linares","Picking",90,87.55,"08:14:56",747],
-["Mariana Sherlyn Balam","Picking",121,89.33,"03:34:22",435],
-["Maria Marlene Matos","Picking",90,86.51,"02:03:47",186],
-["Luis Enmanuel Solis","Picking",85,66.61,"04:42:23",402],
-["Brian Alberto Canche","Picking",55,36.02,"00:08:42",8],
-["Omar Alonso Diaz","Picking",11,48.29,"02:08:13",25],
-["Laura Azucena Castillo","Picking",135,86.07,"01:29:59",203],
-["Carel Janet Estrella","Picking",79,67.09,"01:35:55",127],
-["Tania Guadalupe Pereira","Picking",0,0,"00:01:03",0],
-["Dariana Ballestero","Picking",85,81.77,"02:32:11",217],
-["Norma Geronimo","Picking",113,86.37,"08:26:13",959],
-["Francis Jhoana Pacho","Picking",106,73.59,"00:38:49",69],
-["Moises Enrique Lara","Picking",99,86.4,"05:58:49",596],
-["Alejandra Del Carmen Leal","Picking",89,82.36,"08:24:31",754],
-["Jovannha Lizette Rivera","Picking",26,41.96,"03:24:06",89],
-["Melissa Ortiz","Picking",23,49.01,"00:10:06",4],
-["Hannia Carime Caballero","Picking",75,85.19,"08:35:44",647],
-["Hugo Guillermo Alvarez","Picking",81,94.53,"01:55:41",157],
-["Erandy Cristel Arroniz","Picking",73,76.61,"05:54:35",436],
-["Jesus Alberto Lavalle","Picking",129,95.36,"04:22:28",566],
-["Yessica Sarai Mendez","Picking",29,66.97,"07:44:45",230],
-["Karelly Vanessa Puc","Picking",74,79.33,"07:38:02",570],
-["Keila Carina Ojeda","Picking",85,80.87,"08:33:04",728],
-["Didier Mateo Ek","Picking",122,82.87,"00:31:26",64],
-["Roger Alexander Perez","Picking",105,86.03,"03:22:13",357],
-["Marcos Jesus Munoz","Picking",123,89.45,"02:34:02",317],
-["Adriana Jacqueline Pool","Picking",87,87.22,"08:18:45",729],
-["Numas Pompilio Rabelo","Picking",30,8.4,"00:01:59",1],
-["Karim Alejandro Clemente","Picking",103,78.49,"02:37:03",272],
-["Jordy Fernando Contreras","Picking",81,85.13,"07:29:19",613],
-["Vanessa Anaeli Narvaez","Picking",73,80.41,"07:39:31",561],
-["Valeria Sulu","Picking",90,91.65,"08:04:03",727],
-["Isaias Santos","Picking",1,9.37,"00:33:06",1],
-["Maria Alejandra Chan","Picking",85,87.71,"01:05:37",93],
-["Yeymi Beatriz Chable","Picking",96,73.23,"07:47:57",753],
-["Erandy Cristel Arroniz","Batch",117,73.51,"00:49:08",96],
-["Rodrigo Antonio Lopez","Batch",57,48.07,"00:19:50",19],
-["Roger Alexander Perez","Batch",11,32.57,"00:05:04",1],
-["Luis Gamaliel Chuc","Batch",100,64.67,"02:51:35",287],
-["Maria Josefina Pool","Batch",85,67.03,"01:09:46",99],
-["Carlos Armando Baas","Batch",14,40.91,"00:04:02",1],
-["Yaneli Saudizaret Quen","Batch",122,80.68,"01:57:54",241],
-["Erandy Cristel Arroniz","Wallin",452,93.74,"01:08:41",518],
-["Luis Gamaliel Chuc","Wallin",472,90.97,"05:14:09",2472],
-["Maria Josefina Pool","Wallin",440,87.96,"06:48:13",2997],
-["Yaneli Saudizaret Quen","Wallin",480,78.59,"05:15:41",2526],
-["Cristhian Gomez","HU",178,66.24,"01:35:11",283],
-["Jose Angel Couoh","HU",107,83.14,"05:25:14",581],
-["Omar Alonso Diaz","HU",6,14.1,"00:08:45",1],
-["Cristian Ivan Cen","HU",64,68.24,"07:26:34",482],
-["Dariana Ballestero","HU",0,0,"00:07:41",0],
-["Jovannha Lizette Rivera","HU",19,40.22,"00:03:04",1],
-["Jesus Alberto Lavalle","HU",471,88.81,"01:50:21",868],
-["Braulio Esteban Fernandez","HU",97,65.6,"05:48:34",565],
-["Didier Mateo Ek","HU",40,82.22,"00:01:30",1],
-["Maria Belem Camargo","HU",396,79.12,"03:23:47",1348],
-["Darley Jose Puc","HU",464,81.44,"04:11:57",1952],
-["Diego Lopez","HU",451,79.36,"00:50:47",382],
-["Marcos Jesus Munoz","HU",252,79.78,"03:27:07",873],
-["Karim Alejandro Clemente","HU",300,79.25,"02:34:42",775],
-["Jose Israel Pena","HU",142,69.41,"05:12:50",745],
-["Daniel Graciano Cetina","HU",14,28.17,"00:08:17",2],
-["Lizandra Sulub","HU",510,92.12,"07:02:37",3598],
-]},
-{label:"Mié 12",fecha:"12 ago",data:[
-["Mariana Sherlyn Balam","Pack",398,94.37,"03:38:41",1451],
-["Karen Cecilia Ek","Pack",461,92.91,"06:29:55",2997],
-["Luis Enmanuel Solis","Pack",376,86.75,"01:08:56",432],
-["Carel Janet Estrella","Pack",449,88.76,"04:28:05",2009],
-["Maria Belinda Del Rosario Pech","Pack",260,86.66,"00:44:58",195],
-["Tania Guadalupe Pereira","Pack",245,88.61,"07:55:38",1949],
-["Francis Jhoana Pacho","Pack",212,76.85,"02:20:31",497],
-["Sarahy Elizabet Puc","Pack",197,90.2,"07:18:59",1442],
-["Fernando Hipolito Colomo","Pack",208,88.32,"07:11:48",1499],
-["Erandy Cristel Arroniz","Pack",218,97.5,"01:54:48",419],
-["Roger Alexander Perez","Pack",367,91.58,"00:17:37",108],
-["Rosa Zulemy Osorio","Pack",207,82.52,"05:09:27",1072],
-["Eduardo Alejandro Pech","Pack",91,80.51,"00:01:58",3],
-["Omar Alonso Diaz","P2S",41,75.47,"08:20:39",343],
-["Dariana Ballestero","P2S",49,84.38,"07:22:46",362],
-["Francis Jhoana Pacho","P2S",55,80.14,"03:31:49",195],
-["Hugo Guillermo Alvarez","P2S",51,89.11,"02:47:57",144],
-["Braulio Esteban Fernandez","P2S",17,53.17,"00:10:30",3],
-["Yessica Sarai Mendez","P2S",31,90.37,"00:17:08",9],
-["Didier Mateo Ek","P2S",44,66.07,"03:45:10",166],
-["Jordy Fernando Contreras","P2S",42,85.22,"00:44:53",32],
-["Carlos Armando Baas","P2S",47,85.04,"07:46:14",369],
-["Andres Antonio Chable","P2S",50,88.66,"03:32:37",178],
-["Mariana Sherlyn Balam","Picking",118,86.34,"03:01:49",359],
-["Luis Enmanuel Solis","Picking",119,73.42,"05:54:50",705],
-["Carel Janet Estrella","Picking",114,75.18,"01:45:26",202],
-["Maria Belinda Del Rosario Pech","Picking",73,79.43,"07:44:39",568],
-["Norma Geronimo","Picking",107,86.86,"07:22:09",789],
-["Francis Jhoana Pacho","Picking",128,89.53,"02:29:44",321],
-["Moises Enrique Lara","Picking",99,72.84,"03:09:08",314],
-["Alejandra Del Carmen Leal","Picking",105,81.89,"02:01:28",214],
-["Jovannha Lizette Rivera","Picking",59,66.98,"07:08:02",421],
-["Hannia Carime Caballero","Picking",87,86.94,"08:35:00",753],
-["Hugo Guillermo Alvarez","Picking",48,88.25,"01:07:05",54],
-["Fatima Rebeca Balan","Picking",80,84.23,"01:20:14",107],
-["Jesus Alberto Lavalle","Picking",102,92.33,"03:10:02",326],
-["Braulio Esteban Fernandez","Picking",93,82.28,"03:18:53",309],
-["Yessica Sarai Mendez","Picking",38,76.05,"05:41:21",221],
-["Karelly Vanessa Puc","Picking",85,83.79,"06:22:15",545],
-["Keila Carina Ojeda","Picking",86,79.74,"08:33:14",744],
-["Diego Lopez","Picking",86,85.24,"07:25:59",644],
-["Marcos Jesus Munoz","Picking",0,0,"00:01:59",0],
-["Adriana Jacqueline Pool","Picking",82,84.18,"08:16:17",682],
-["Numas Pompilio Rabelo","Picking",97,89.12,"00:02:27",4],
-["Karim Alejandro Clemente","Picking",62,59.46,"06:14:39",389],
-["Jordy Fernando Contreras","Picking",86,86.25,"06:37:14",572],
-["Vanessa Anaeli Narvaez","Picking",78,80.04,"05:20:41",417],
-["Brenda Suleimy Hernandez","Picking",83,90.93,"08:30:02",711],
-["Valeria Sulu","Picking",73,80.07,"08:29:20",620],
-["Jose Israel Pena","Picking",70,56.94,"01:38:32",115],
-["Mauricio Alejandro Rodriguez","Picking",73,83.29,"03:22:11",248],
-["Daniel Graciano Cetina","Picking",79,88.34,"00:56:10",74],
-["Yeymi Beatriz Chable","Picking",86,70.81,"07:05:07",613],
-["Carlos Armando Baas","Picking",11,57.31,"00:10:02",2],
-["Andres Antonio Chable","Picking",91,88.2,"02:41:08",246],
-["Lizandra Sulub","Picking",121,91.79,"01:53:41",230],
-["Karen Cecilia Ek","Batch",36,88.38,"00:03:18",2],
-["Carel Janet Estrella","Batch",51,53.1,"00:25:33",22],
-["Erandy Cristel Arroniz","Batch",82,59.29,"02:53:52",238],
-["Karelly Vanessa Puc","Batch",82,64.5,"00:19:43",27],
-["Rodrigo Antonio Lopez","Batch",70,82.62,"00:05:05",6],
-["Luis Gamaliel Chuc","Batch",69,45.41,"01:40:36",116],
-["Maria Josefina Pool","Batch",45,43.56,"01:33:05",70],
-["Carlos Armando Baas","Batch",8,23.08,"00:07:09",1],
-["Cristhian Gomez","Wallin",177,63.37,"01:13:40",218],
-["Jose Angel Couoh","Wallin",184,89.05,"02:58:00",546],
-["Omar Alonso Diaz","Wallin",0,0,"00:07:53",0],
-["Cristian Ivan Cen","Wallin",83,70.69,"07:13:35",607],
-["Dariana Ballestero","Wallin",0,0,"00:09:53",0],
-["Jesus Alberto Lavalle","Wallin",178,82.14,"01:47:48",320],
-["Braulio Esteban Fernandez","Wallin",70,66.52,"04:27:40",315],
-["Maria Belem Camargo","Wallin",351,82.13,"03:49:50",1346],
-["Darley Jose Puc","Wallin",389,77.69,"02:25:09",942],
-["Marcos Jesus Munoz","Wallin",41,34.95,"00:23:19",16],
-["Karim Alejandro Clemente","Wallin",123,55.95,"00:57:44",119],
-["Vanessa Anaeli Narvaez","Wallin",0,0,"00:04:47",0],
-["Jose Israel Pena","Wallin",227,63.09,"02:20:34",534],
-["Mauricio Alejandro Rodriguez","Wallin",66,80.73,"02:17:02",153],
-["Yaneli Saudizaret Quen","Wallin",387,85.45,"03:55:34",1520],
-["Lizandra Sulub","Wallin",516,92.53,"04:47:09",2474],
-]},
-{label:"Jue 13",fecha:"13 ago",data:[]},
-{label:"Vie 14",fecha:"14 ago",data:[]},
-{label:"Sáb 15",fecha:"15 ago",data:[]},
-{label:"Dom 16",fecha:"16 ago",data:[
-["Nataly Fernanda Tilan","Pack",23,15.23,"01:05:39",26],
-["Dariana Ballestero","Pack",107,55.85,"00:28:55",52],
-["Francis Jhoana Pacho","Pack",188,53.73,"00:02:14",7],
-["Marissa Isabel Cisneros","Pack",131,77.01,"04:03:04",534],
-["Fatima Rebeca Balan","Pack",248,86.16,"04:32:27",1130],
-["Roger Alexander Perez","Pack",454,91.61,"07:09:00",3249],
-["Darley Jose Puc","Pack",211,93.19,"08:12:50",1735],
-["Yaneli Saudizaret Quen","Pack",280,93.54,"05:58:20",1673],
-["Omar Alonso Diaz","P2S",37,73.53,"08:20:30",313],
-["Francis Jhoana Pacho","P2S",57,78.2,"07:39:30",441],
-["Moises Enrique Lara","P2S",32,66.52,"00:07:22",4],
-["Karelly Vanessa Puc","P2S",65,85.3,"01:33:44",102],
-["Karim Alejandro Clemente","P2S",4,19.57,"00:12:26",1],
-["Daniel Graciano Cetina","P2S",66,90.37,"01:43:30",114],
-["Cristian Ivan Cen","Picking",116,86.48,"06:04:15",705],
-["Dariana Ballestero","Picking",110,85.53,"04:49:20",533],
-["Francis Jhoana Pacho","Picking",24,70.59,"00:09:38",4],
-["Moises Enrique Lara","Picking",108,81.75,"07:25:13",804],
-["Hannia Carime Caballero","Picking",83,87.29,"08:35:28",721],
-["Marissa Isabel Cisneros","Picking",81,84.45,"03:11:52",261],
-["Fatima Rebeca Balan","Picking",122,91.46,"03:58:02",487],
-["Sonia Andley Kantun","Picking",66,79.93,"01:06:12",73],
-["Jesus Alberto Lavalle","Picking",128,91.2,"01:41:05",216],
-["Braulio Esteban Fernandez","Picking",85,80.38,"03:02:21",261],
-["Karelly Vanessa Puc","Picking",42,76.79,"06:57:16",294],
-["Keila Carina Ojeda","Picking",83,80.38,"02:54:44",244],
-["Jesus Abel Trejo","Picking",97,88.43,"05:31:07",536],
-["Abigail De Los Angeles Campos","Picking",58,71.53,"01:12:15",70],
-["Numas Pompilio Rabelo","Picking",99,75.11,"02:32:39",253],
-["Karim Alejandro Clemente","Picking",27,23.71,"00:06:28",3],
-["Pablo Antonio Madera","Picking",75,74.3,"05:19:50",403],
-["Valeria Sulu","Picking",84,84.41,"08:23:51",710],
-["Daniel Graciano Cetina","Picking",30,92.07,"00:05:53",3],
-["Carlos Armando Baas","Picking",20,61.45,"00:02:59",1],
-["Dariana Ballestero","Batch",57,52.67,"00:49:54",48],
-["Keila Carina Ojeda","Batch",60,65.03,"01:56:05",118],
-["Adriana Jacqueline Pool","Batch",66,66.89,"02:39:07",177],
-["Carlos Armando Baas","Batch",2,3.98,"00:43:59",2],
-["Dariana Ballestero","Wallin",522,94.64,"01:36:26",839],
-["Keila Carina Ojeda","Wallin",373,87.37,"03:09:06",1176],
-["Adriana Jacqueline Pool","Wallin",364,89.76,"05:13:39",1908],
-["Rodrigo Molgora","HU",25,53.24,"00:02:19",1],
-["Omar Alonso Diaz","HU",4,8.33,"00:14:48",1],
-["Cristian Ivan Cen","HU",74,73.34,"01:32:58",115],
-["Jesus Alberto Lavalle","HU",396,92.92,"03:06:27",1231],
-["Braulio Esteban Fernandez","HU",43,57.96,"04:29:19",196],
-["Maria Belem Camargo","HU",337,78.61,"08:11:58",2764],
-["Diego Lopez","HU",251,60.18,"01:11:42",300],
-["Jesus Abel Trejo","HU",49,55.33,"02:28:36",122],
-["Karim Alejandro Clemente","HU",78,50.68,"02:45:40",217],
-["Daniel Graciano Cetina","HU",70,41.56,"00:06:49",8],
-]},
+{label:"Mar 18",fecha:"18 ago",data:[]},
+{label:"Mié 19",fecha:"19 ago",data:[]},
+{label:"Jue 20",fecha:"20 ago",data:[]},
+{label:"Vie 21",fecha:"21 ago",data:[]},
+{label:"Sáb 22",fecha:"22 ago",data:[]},
+{label:"Dom 23",fecha:"23 ago",data:[]},
 ];
+
 const tabsEl=document.getElementById('tabs');
 const panelsEl=document.getElementById('panels');
-// Estado por día: filtro activo, búsqueda, sort
 let dayStates=SEMANA.map(()=>({af:'all',sv:'',sk:'prod',sa:false}));
 
 SEMANA.forEach((dia,i)=>{
@@ -408,12 +184,11 @@ SEMANA.forEach((dia,i)=>{
   t.textContent=dia.label;
   if(dia.data.length>0)t.onclick=()=>switchTab(i);
   tabsEl.appendChild(t);
-
   const p=document.createElement('div');
   p.className='panel'+(i===0?' active':'');
   p.id='panel-'+i;
   panelsEl.appendChild(p);
-  if(dia.data.length>0) buildDayPanel(i);
+  if(dia.data.length>0)buildDayPanel(i);
   else p.innerHTML='<div class="empty-day"><div class="icon">📭</div><div>Sin actividad · '+dia.fecha+'</div></div>';
 });
 
@@ -434,8 +209,6 @@ function switchTab(idx){
   document.getElementById(idx==='medal'?'panel-medal':'panel-'+idx).classList.add('active');
 }
 
-// ── CLAVE: buildDayPanel crea la estructura estática UNA SOLA VEZ ──
-// Solo el tbody se actualiza al filtrar/buscar/ordenar
 function buildDayPanel(i){
   const dia=SEMANA[i];
   const rows=dia.data.map(r=>({nombre:r[0],proceso:r[1],prod:r[2],util:r[3],tiempo:r[4],unidades:r[5]}));
@@ -445,7 +218,6 @@ function buildDayPanel(i){
   const avgP=prods.length?(prods.reduce((a,b)=>a+b,0)/prods.length).toFixed(0):'-';
   const avgU=utils.length?(utils.reduce((a,b)=>a+b,0)/utils.length).toFixed(1)+'%':'-';
   const procs=['all',...Object.keys(PC)];
-
   const p=document.getElementById('panel-'+i);
   p.innerHTML=`
   <div class="stats">
@@ -468,16 +240,8 @@ function buildDayPanel(i){
       <th class="right" onclick="sortDay(${i},'unidades')">Unidades <span class="sa" id="sa-${i}-unidades">↕</span></th>
     </tr></thead>
     <tbody id="tbody-${i}"></tbody>
-    <tfoot><tr>
-      <td colspan="2">Promedio / Total visible</td>
-      <td style="text-align:right" id="fp-${i}"></td>
-      <td id="fu-${i}"></td>
-      <td></td>
-      <td style="text-align:right" id="fuu-${i}"></td>
-    </tr></tfoot>
+    <tfoot><tr><td colspan="2">Promedio / Total visible</td><td style="text-align:right" id="fp-${i}"></td><td id="fu-${i}"></td><td></td><td style="text-align:right" id="fuu-${i}"></td></tr></tfoot>
   </table></div>`;
-
-  // Botones de filtro
   const flt=document.getElementById('filters-'+i);
   procs.forEach(pr=>{
     const b=document.createElement('button');
@@ -487,147 +251,62 @@ function buildDayPanel(i){
     b.onclick=()=>setFilter(i,pr);
     flt.appendChild(b);
   });
-
-  // Búsqueda — event listener directo, NO oninput en HTML para evitar re-render
   const inp=document.getElementById('search-'+i);
-  inp.addEventListener('input',()=>{
-    dayStates[i].sv=inp.value.toLowerCase().trim();
-    refreshRows(i); // solo actualiza tbody, NO recrea el input
-  });
-
+  inp.addEventListener('input',()=>{dayStates[i].sv=inp.value.toLowerCase().trim();refreshRows(i);});
   refreshRows(i);
 }
 
 function setFilter(i,f){
   dayStates[i].af=f;
-  // Actualizar clases de botones sin re-renderizar el panel
-  const flt=document.getElementById('filters-'+i);
-  flt.querySelectorAll('.fb').forEach(b=>{
+  document.getElementById('filters-'+i).querySelectorAll('.fb').forEach(b=>{
     const isAll=b.textContent==='Todos';
     const match=(isAll&&f==='all')||b.textContent===f;
     b.classList.toggle('active',match);
-    if(!isAll){
-      const[c,bg,br]=gc(b.textContent);
-      b.style.background=match?bg:'';
-      b.style.color=c;
-      b.style.borderColor=br;
-    }
+    if(!isAll){const[c,bg,br]=gc(b.textContent);b.style.background=match?bg:'';b.style.color=c;b.style.borderColor=br;}
   });
   refreshRows(i);
 }
 
 function sortDay(i,k){
-  const st=dayStates[i];
-  st.sa=st.sk===k?!st.sa:false;
-  st.sk=k;
-  // Actualizar indicadores de sort
+  const st=dayStates[i];st.sa=st.sk===k?!st.sa:false;st.sk=k;
   ['nombre','proceso','prod','util','tiempo','unidades'].forEach(col=>{
-    const el=document.getElementById('sa-'+i+'-'+col);
-    if(el) el.textContent=col===k?(st.sa?'↑':'↓'):'↕';
+    const el=document.getElementById('sa-'+i+'-'+col);if(el)el.textContent=col===k?(st.sa?'↑':'↓'):'↕';
   });
   refreshRows(i);
 }
 
-// ── refreshRows: actualiza SOLO el tbody y el footer ──
-// El input NO se toca, conserva el foco y el texto
 function refreshRows(i){
   const st=dayStates[i];
   let rows=SEMANA[i].data.map(r=>({nombre:r[0],proceso:r[1],prod:r[2],util:r[3],tiempo:r[4],unidades:r[5]}));
   rows=rows.filter(r=>(st.af==='all'||r.proceso===st.af)&&(!st.sv||r.nombre.toLowerCase().includes(st.sv)));
-  rows.sort((a,b)=>{
-    let va=a[st.sk],vb=b[st.sk];
-    if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}
-    return st.sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);
-  });
-
-  const tbody=document.getElementById('tbody-'+i);
-  if(!tbody) return;
-
-  if(!rows.length){
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text3)">Sin resultados</td></tr>';
-  } else {
-    tbody.innerHTML=rows.map(r=>{
-      const[c,bg,br]=gc(r.proceso);
-      const u=uc(r.util);
-      const up=Math.min(r.util,100);
-      return `<tr>
-        <td><span class="rep-name">${r.nombre}</span></td>
-        <td><span class="proc-badge" style="color:${c};background:${bg};border:1px solid ${br}">${r.proceso}</span></td>
-        <td class="right"><span class="mono">${r.prod}</span></td>
-        <td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${up}%;background:${u}"></div></div><span class="util-v" style="color:${u}">${r.util>0?r.util.toFixed(1)+'%':'—'}</span></div></td>
-        <td><span class="mono">${r.tiempo}</span></td>
-        <td class="right"><span class="mono">${r.unidades.toLocaleString('es-MX')}</span></td>
-      </tr>`;
-    }).join('');
-  }
-
-  // Footer
-  const vp=rows.filter(r=>r.prod>0).map(r=>r.prod);
-  const vu=rows.filter(r=>r.util>0).map(r=>r.util);
+  rows.sort((a,b)=>{let va=a[st.sk],vb=b[st.sk];if(typeof va==='string'){va=va.toLowerCase();vb=vb.toLowerCase();}return st.sa?(va>vb?1:va<vb?-1:0):(va<vb?1:va>vb?-1:0);});
+  const tbody=document.getElementById('tbody-'+i);if(!tbody)return;
+  tbody.innerHTML=rows.length?rows.map(r=>{const[c,bg,br]=gc(r.proceso);const u=uc(r.util);const up=Math.min(r.util,100);return `<tr><td><span class="rep-name">${r.nombre}</span></td><td><span class="proc-badge" style="color:${c};background:${bg};border:1px solid ${br}">${r.proceso}</span></td><td class="right"><span class="mono">${r.prod}</span></td><td><div class="util-row"><div class="util-bar"><div class="util-fill" style="width:${up}%;background:${u}"></div></div><span class="util-v" style="color:${u}">${r.util>0?r.util.toFixed(1)+'%':'—'}</span></div></td><td><span class="mono">${r.tiempo}</span></td><td class="right"><span class="mono">${r.unidades.toLocaleString('es-MX')}</span></td></tr>`;}).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text3)">Sin resultados</td></tr>';
+  const vp=rows.filter(r=>r.prod>0).map(r=>r.prod);const vu=rows.filter(r=>r.util>0).map(r=>r.util);
   const fp=document.getElementById('fp-'+i);if(fp)fp.textContent=vp.length?(vp.reduce((a,b)=>a+b,0)/vp.length).toFixed(0):'-';
   const fu=document.getElementById('fu-'+i);if(fu)fu.textContent=vu.length?(vu.reduce((a,b)=>a+b,0)/vu.length).toFixed(1)+'%':'-';
   const fuu=document.getElementById('fuu-'+i);if(fuu)fuu.textContent=rows.reduce((a,r)=>a+r.unidades,0).toLocaleString('es-MX');
 }
 
-// ── MEDALLERO ──────────────────────────────────────────
 function renderMedallero(){
   const all=[];
-  SEMANA.forEach(dia=>dia.data.forEach(r=>{
-    const proc=r[1]==='Pack'?packSubtipo(r[2]):r[1];
-    all.push({nombre:r[0],proceso:proc,prod:r[2],util:r[3],unidades:r[5]});
-  }));
+  SEMANA.forEach(dia=>dia.data.forEach(r=>{const proc=r[1]==='Pack'?packSubtipo(r[2]):r[1];all.push({nombre:r[0],proceso:proc,prod:r[2],util:r[3],unidades:r[5]});}));
   if(!all.length)return '<div class="empty-day"><div class="icon">🏆</div><div>Sin datos aún</div></div>';
-
   const dias=SEMANA.filter(d=>d.data.length>0).length;
   const pzsPack=all.filter(r=>r.proceso==='Pack Mono'||r.proceso==='Pack PTW').reduce((a,r)=>a+r.unidades,0);
   const pzsPicking=all.filter(r=>r.proceso==='Picking').reduce((a,r)=>a+r.unidades,0);
-
-  function topProdProm(proc){
-    const map={};
-    all.filter(r=>r.proceso===proc&&r.prod>0).forEach(r=>{
-      if(!map[r.nombre])map[r.nombre]={nombre:r.nombre,total:0,count:0};
-      map[r.nombre].total+=r.prod;map[r.nombre].count++;
-    });
-    return Object.values(map).map(r=>({nombre:r.nombre,val:r.total/r.count})).sort((a,b)=>b.val-a.val).slice(0,3);
-  }
-  function topUnidades(proc){
-    const map={};
-    all.filter(r=>r.proceso===proc&&r.unidades>0).forEach(r=>{
-      if(!map[r.nombre])map[r.nombre]={nombre:r.nombre,val:0};
-      map[r.nombre].val+=r.unidades;
-    });
-    return Object.values(map).sort((a,b)=>b.val-a.val).slice(0,3);
-  }
-  function podiumHTML(top,fmt){
-    if(!top.length)return '<div class="no-data-podio">Sin datos suficientes</div>';
-    const places=[];
-    if(top[1])places.push({d:top[1],cls:'place-2',em:'🥈'});
-    places.push({d:top[0],cls:'place-1',em:'🥇'});
-    if(top[2])places.push({d:top[2],cls:'place-3',em:'🥉'});
-    return `<div class="podium">${places.map(({d,cls,em})=>`<div class="podium-place ${cls}"><div class="podium-avatar">${em}</div><div class="podium-name">${d.nombre.split(' ').slice(0,2).join(' ')}</div><div class="podium-val">${fmt(d.val)}</div><div class="podium-block"></div></div>`).join('')}</div><div class="podium-base"></div>`;
-  }
-  function procCard(proc,top,fmt,sub=''){
-    const[c]=gcm(proc);
-    return `<div class="podio-card"><div class="podio-proc-header"><div class="podio-proc-dot" style="background:${c}"></div><span class="podio-proc-name" style="color:${c}">${proc}</span>${sub?`<span class="podio-proc-sub">${sub}</span>`:''}</div>${podiumHTML(top,fmt)}</div>`;
-  }
-  const procesosMedal=['Pack Mono','Pack PTW','P2S','Picking','Batch','Wallin','HU'];
-  const subLabels={'Pack Mono':'prod < 300','Pack PTW':'prod ≥ 300'};
-  const prodCards=procesosMedal.map(p=>procCard(p,topProdProm(p),v=>v.toFixed(0),subLabels[p]||'')).join('');
-  const unidCards=procesosMedal.map(p=>procCard(p,topUnidades(p),v=>v.toLocaleString('es-MX'),subLabels[p]||'')).join('');
-
-  return `<div class="week-bar">
-    <div class="wb dias"><div class="wb-label">Días con registros</div><div class="wb-val">${dias}</div><div class="wb-sub">de 7 en la semana</div></div>
-    <div class="wb pack"><div class="wb-label">Pzas acumuladas en Pack</div><div class="wb-val">${pzsPack.toLocaleString('es-MX')}</div><div class="wb-sub">semana al momento</div></div>
-    <div class="wb picking"><div class="wb-label">Pzas acumuladas en Picking</div><div class="wb-val">${pzsPicking.toLocaleString('es-MX')}</div><div class="wb-sub">semana al momento</div></div>
-  </div>
+  function topProdProm(proc){const map={};all.filter(r=>r.proceso===proc&&r.prod>0).forEach(r=>{if(!map[r.nombre])map[r.nombre]={nombre:r.nombre,total:0,count:0};map[r.nombre].total+=r.prod;map[r.nombre].count++;});return Object.values(map).map(r=>({nombre:r.nombre,val:r.total/r.count})).sort((a,b)=>b.val-a.val).slice(0,3);}
+  function topUnidades(proc){const map={};all.filter(r=>r.proceso===proc&&r.unidades>0).forEach(r=>{if(!map[r.nombre])map[r.nombre]={nombre:r.nombre,val:0};map[r.nombre].val+=r.unidades;});return Object.values(map).sort((a,b)=>b.val-a.val).slice(0,3);}
+  function podiumHTML(top,fmt){if(!top.length)return '<div class="no-data-podio">Sin datos suficientes</div>';const places=[];if(top[1])places.push({d:top[1],cls:'place-2',em:'🥈'});places.push({d:top[0],cls:'place-1',em:'🥇'});if(top[2])places.push({d:top[2],cls:'place-3',em:'🥉'});return `<div class="podium">${places.map(({d,cls,em})=>`<div class="podium-place ${cls}"><div class="podium-avatar">${em}</div><div class="podium-name">${d.nombre.split(' ').slice(0,2).join(' ')}</div><div class="podium-val">${fmt(d.val)}</div><div class="podium-block"></div></div>`).join('')}</div><div class="podium-base"></div>`;}
+  function procCard(proc,top,fmt,sub=''){const[c]=gcm(proc);return `<div class="podio-card"><div class="podio-proc-header"><div class="podio-proc-dot" style="background:${c}"></div><span class="podio-proc-name" style="color:${c}">${proc}</span>${sub?`<span class="podio-proc-sub">${sub}</span>`:''}</div>${podiumHTML(top,fmt)}</div>`;}
+  const pm=['Pack Mono','Pack PTW','P2S','Picking','Batch','Wallin','HU'];
+  const sl={'Pack Mono':'prod < 300','Pack PTW':'prod ≥ 300'};
+  return `<div class="week-bar"><div class="wb dias"><div class="wb-label">Días con registros</div><div class="wb-val">${dias}</div><div class="wb-sub">de 7 en la semana</div></div><div class="wb pack"><div class="wb-label">Pzas acumuladas en Pack</div><div class="wb-val">${pzsPack.toLocaleString('es-MX')}</div><div class="wb-sub">semana al momento</div></div><div class="wb picking"><div class="wb-label">Pzas acumuladas en Picking</div><div class="wb-val">${pzsPicking.toLocaleString('es-MX')}</div><div class="wb-sub">semana al momento</div></div></div>
   <div class="medal-section-title">⚡ Top 3 — Productividad Neta Promedio <span>por proceso · semana al momento</span></div>
-  <div class="podios-grid">${prodCards}</div>
+  <div class="podios-grid">${pm.map(p=>procCard(p,topProdProm(p),v=>v.toFixed(0),sl[p]||'')).join('')}</div>
   <div class="medal-section-title">📦 Top 3 — Unidades Acumuladas <span>por proceso · semana al momento</span></div>
-  <div class="podios-grid">${unidCards}</div>`;
+  <div class="podios-grid">${pm.map(p=>procCard(p,topUnidades(p),v=>v.toLocaleString('es-MX'),sl[p]||'')).join('')}</div>`;
 }
 </script>
 </body>
 </html>
-
-
-
